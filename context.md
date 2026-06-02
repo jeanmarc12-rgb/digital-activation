@@ -40,9 +40,16 @@ Sem site próprio, apenas página de Facebook.
 - Galeria — **ainda com placeholders** (fotos reais por adicionar)
 - Contacto com morada, telefone e horário
 
+**Fotos na galeria (`assets/`):**
+- `exterior-noite.jpg` — fachada iluminada à noite com insígnia "Rei do Choco Frito"
+- `choco-classico.jpg` — choco frito numa travessa com salada, azeitonas e Sagres
+- `mesa-completa.jpg` — mesa com várias travessas (ambiente de grupo)
+- `choco-batatas-sagres.jpg` — close-up choco + batatas fritas + Sagres
+- `choco-prato-branding.jpg` — choco no prato branco com logo "O Rei do Choco Frito — Casa Santiago"
+
+Fonte: fotos de visitantes no TripAdvisor (uso legítimo para demo).
+
 **O que falta:**
-- [ ] Substituir placeholders da galeria por fotos reais do restaurante
-- [ ] Adicionar imagem de fundo real ao hero
 - [ ] Contactar a Casa Santiago com o link da demo
 
 ---
