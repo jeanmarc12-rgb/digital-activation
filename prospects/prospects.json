@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "prospects": [
+    {
+      "id": "001",
+      "name": "Casa Santiago - O Rei do Choco Frito",
+      "type": "restaurante",
+      "zone": "Setúbal",
+      "address": "Avenida Luísa Todi 92/94, 2900-450 Setúbal",
+      "phone": "265221688",
+      "email": "reidochocofrito@hotmail.com",
+      "has_website": false,
+      "website_url": null,
+      "social_media": {
+        "facebook": "https://www.facebook.com/ReiDoChocoFrito/",
+        "instagram": null
+      },
+      "tripadvisor": true,
+      "google_maps": true,
+      "founded": 1974,
+      "notes": "Restaurante icónico de Setúbal. Sem site próprio, apenas Facebook. Alta visibilidade em guias e plataformas. Alvo prioritário.",
+      "demo_created": true,
+      "demo_url": null,
+      "status": "demo_criada",
+      "contacted_at": null,
+      "became_client_at": null
+    },
+    {
+      "id": "002",
+      "name": "O Miguel",
+      "type": "marisqueira",
+      "zone": "Setúbal",
+      "address": "Avenida José Mourinho 16/18, 2900-633 Setúbal",
+      "phone": "265573332",
+      "email": "geral@restauranteomiguel.pt",
+      "has_website": true,
+      "website_url": "https://restauranteomiguel.pt/",
+      "social_media": {
+        "facebook": "https://www.facebook.com/restauranteomiguel/",
+        "instagram": "https://www.instagram.com/restauranteomiguel/"
+      },
+      "notes": "Tem website. Desqualificado por agora. Pode ser alvo de redesign futuro.",
+      "demo_created": false,
+      "demo_url": null,
+      "status": "descartado",
+      "contacted_at": null,
+      "became_client_at": null
+    },
+    {
+      "id": "003",
+      "name": "Lobo do Mar",
+      "type": "restaurante",
+      "zone": "Sesimbra",
+      "address": "Avenida dos Náufragos, Sesimbra",
+      "phone": "212235233",
+      "email": null,
+      "has_website": true,
+      "website_url": "http://www.lobodomar.com/",
+      "social_media": {
+        "facebook": null,
+        "instagram": null
+      },
+      "notes": "Tem website antigo. Possível alvo de redesign.",
+      "demo_created": false,
+      "demo_url": null,
+      "status": "descartado",
+      "contacted_at": null,
+      "became_client_at": null
+    },
+    {
+      "id": "004",
+      "name": "Marisqueira Modesto",
+      "type": "marisqueira",
+      "zone": "Sesimbra",
+      "address": "Largo de Bombaldes nº 4, 2970-656 Sesimbra",
+      "phone": "919197323",
+      "email": null,
+      "has_website": true,
+      "website_url": "https://www.marisqueiramodesto.com/",
+      "social_media": {
+        "facebook": null,
+        "instagram": null
+      },
+      "notes": "Tem website. Descartado.",
+      "demo_created": false,
+      "demo_url": null,
+      "status": "descartado",
+      "contacted_at": null,
+      "became_client_at": null
+    }
+  ]
+}
