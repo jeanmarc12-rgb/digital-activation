@@ -1,0 +1,44 @@
+{
+  "business": {
+    "name": "Tradições by Sem Horas",
+    "category": "Padaria / Pastelaria Artesanal",
+    "location": "Setúbal",
+    "auditor": "",
+    "date": "2026-06-03"
+  },
+  "pillars": {
+    "web": {
+      "score": 0,
+      "criteria": { "website": 0, "mobile": 0, "content": 0, "https": 0 },
+      "notes": "Sem website próprio. Presença em Instagram (@tradicoes_semhoras, 3.795 seg) e Facebook. Beneficia da halo da marca Sem Horas que tem website próprio (sem-horas.pt)."
+    },
+    "loc": {
+      "score": 14,
+      "criteria": { "gbp": 6, "photos": 4, "platforms": 3, "rank": 1 },
+      "notes": "Google 5★ perfeito (negócio novo, poucas reviews mas excelente média). Fotos ricas no Instagram (194 posts). Presente em NiT venue page, Eatbu, Padaria Miratejo, Sapo. Negócio recente, ainda a construir ranking."
+    },
+    "rep": {
+      "score": 11,
+      "criteria": { "volume": 2, "avgscore": 5, "recent": 3, "responses": 1 },
+      "notes": "Google 5★ perfeito mas volume de reviews baixo (negócio recente). Reviews destacam 'máxima frescura', equipa simpática e qualidade artesanal. Sem Horas (restaurante parent) tem forte reputação local no TripAdvisor."
+    },
+    "soc": {
+      "score": 14,
+      "criteria": { "presence": 6, "frequency": 5, "quality": 3 },
+      "notes": "Instagram @tradicoes_semhoras: 3.795 seguidores, 194 posts — melhor presença social entre os prospects de food. Facebook activo. Conteúdo artesanal visualmente apelativo. Sem Horas parent tem 14.157 likes no Facebook."
+    },
+    "seo": {
+      "score": 12,
+      "criteria": { "visibility": 4, "mentions": 4, "nap": 3, "foodplat": 1 },
+      "notes": "Artigo de abertura no NiT, menção no Sapo, indexado no Eatbu e Padaria Miratejo. NAP consistente: Praça do Brasil 12 / 265 415 487. Beneficia da autoridade de domínio da marca Sem Horas."
+    },
+    "conv": {
+      "score": 5,
+      "criteria": { "reservations": 0, "menu": 2, "contact": 2, "ctas": 1 },
+      "notes": "Sem reservas (padaria/pastelaria de balcão). Produtos visíveis no Instagram. Contacto via telefone e Facebook. Menu do dia €8 visível na comunicação. Sem website centralizador nem CTAs próprios."
+    }
+  },
+  "total": 56,
+  "pct": 47,
+  "grade": "D"
+}

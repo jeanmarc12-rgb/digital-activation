@@ -1,0 +1,44 @@
+{
+  "business": {
+    "name": "Barber Studio — Raquel Nunes",
+    "category": "Barbearia / Estética Unissexo",
+    "location": "Setúbal",
+    "auditor": "",
+    "date": "2026-06-03"
+  },
+  "pillars": {
+    "web": {
+      "score": 0,
+      "criteria": { "website": 0, "mobile": 0, "content": 0, "https": 0 },
+      "notes": "Sem website próprio. Presença em Instagram (@barber_studio_raquel), Facebook (Raquel Nunes Estética Unissexo), Fresha e Agendoor."
+    },
+    "loc": {
+      "score": 12,
+      "criteria": { "gbp": 4, "photos": 3, "platforms": 3, "rank": 2 },
+      "notes": "GBP provavelmente activo (indexado via Fresha e Agendoor). Fotos de qualidade no Instagram mas GBP não confirmado como completo/verificado. Presente em Fresha, Agendoor e Yelp. Mencionado no NiT/New in Setúbal em 2 artigos."
+    },
+    "rep": {
+      "score": 10,
+      "criteria": { "volume": 2, "avgscore": 5, "recent": 2, "responses": 1 },
+      "notes": "Rating 4.9 no Agendoor — excelente mas base de reviews pequena. Sem volume confirmado no Google. Reputação local muito forte evidenciada pelos 2 artigos do NiT. Negócio activo desde 2022."
+    },
+    "soc": {
+      "score": 12,
+      "criteria": { "presence": 5, "frequency": 4, "quality": 3 },
+      "notes": "Instagram @barber_studio_raquel activo com portfólio de cortes e barba. Facebook de estética unissexo. Conteúdo visual de qualidade profissional (fotografia de sessão no espaço). Frequência regular."
+    },
+    "seo": {
+      "score": 9,
+      "criteria": { "visibility": 3, "mentions": 4, "nap": 2, "foodplat": 0 },
+      "notes": "Dois artigos NiT/New in Setúbal (forte visibilidade editorial local). Indexado no Fresha e Agendoor. NAP parcialmente consistente. Sem plataformas de gastronomia (não aplicável). Visibilidade orgânica limitada sem website."
+    },
+    "conv": {
+      "score": 11,
+      "criteria": { "reservations": 6, "menu": 2, "contact": 2, "ctas": 1 },
+      "notes": "Ponto forte: Fresha e Agendoor com marcações online activas — melhor conversion tool de todos os prospects. Preços visíveis (corte €12, corte+barba €15). Telefone disponível. Sem website centralizador nem CTAs próprios."
+    }
+  },
+  "total": 54,
+  "pct": 45,
+  "grade": "D"
+}

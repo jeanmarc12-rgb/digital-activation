@@ -1,0 +1,44 @@
+{
+  "business": {
+    "name": "Marias & Manéis",
+    "category": "Atelier de Roupa Infantil (0–12 anos)",
+    "location": "Vila Nogueira de Azeitão",
+    "auditor": "",
+    "date": "2026-06-03"
+  },
+  "pillars": {
+    "web": {
+      "score": 0,
+      "criteria": { "website": 0, "mobile": 0, "content": 0, "https": 0 },
+      "notes": "Sem website próprio. Todo o negócio corre via Facebook (28.222 likes) e contacto por telefone/email (marias.maneis@hotmail.com). Encomendas confirmadas por telefone."
+    },
+    "loc": {
+      "score": 10,
+      "criteria": { "gbp": 4, "photos": 3, "platforms": 2, "rank": 1 },
+      "notes": "GBP provavelmente presente mas básico (atelier de nicho, não restaurante). Fotos de produtos no Facebook de alta qualidade. Presente em LxMarket e referenciada n'O Mirante. Sem TripAdvisor (não aplicável). Difícil de encontrar por pesquisa local genérica."
+    },
+    "rep": {
+      "score": 8,
+      "criteria": { "volume": 2, "avgscore": 3, "recent": 2, "responses": 1 },
+      "notes": "28.222 likes Facebook = reputação de marca excepcional para um atelier local. Sem rating formal no Google confirmado. Artigo n'O Mirante (imprensa regional). Confiança construída pela longevidade e volume de seguidores."
+    },
+    "soc": {
+      "score": 17,
+      "criteria": { "presence": 8, "frequency": 5, "quality": 4 },
+      "notes": "Facebook 28.222 likes — DESTAQUE: melhor presença social de todos os prospects por larga margem. Todo o negócio funciona via Facebook (encomendas, catálogo, comunicação). Fotos de produtos profissionais (portfólio Zankyou). Presente no LxMarket como expositora."
+    },
+    "seo": {
+      "score": 7,
+      "criteria": { "visibility": 2, "mentions": 2, "nap": 2, "foodplat": 1 },
+      "notes": "Artigo d'O Mirante (2016). LxMarket. Facebook aparece em pesquisas por nome. NAP parcialmente consistente. Sem menções em media digital de relevo recente. Visibilidade orgânica muito limitada fora do Facebook."
+    },
+    "conv": {
+      "score": 6,
+      "criteria": { "reservations": 0, "menu": 3, "contact": 2, "ctas": 1 },
+      "notes": "Sem e-commerce próprio — encomendas via telefone (964 723 101) ou Facebook DM. Catálogo de produtos visível no Facebook. Email: marias.maneis@hotmail.com (não profissional). Sem website = sem checkout, sem filtros, sem carrinho. Maior gap de todos os prospects."
+    }
+  },
+  "total": 48,
+  "pct": 40,
+  "grade": "D"
+}

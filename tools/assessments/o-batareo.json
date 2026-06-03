@@ -1,0 +1,44 @@
+{
+  "business": {
+    "name": "O Batareo",
+    "category": "Restaurante (Peixe / Marisco Grelhado)",
+    "location": "Setúbal",
+    "auditor": "",
+    "date": "2026-06-03"
+  },
+  "pillars": {
+    "web": {
+      "score": 0,
+      "criteria": { "website": 0, "mobile": 0, "content": 0, "https": 0 },
+      "notes": "Sem website próprio. Presença apenas no Facebook (2.2K seguidores) e Instagram (@obatareo_restaurante, 1.333 seguidores)."
+    },
+    "loc": {
+      "score": 15,
+      "criteria": { "gbp": 5, "photos": 4, "platforms": 4, "rank": 2 },
+      "notes": "Google 4.4★ activo. 158 fotos no RestaurantGuru. Presente em TripAdvisor (#49/536), RestaurantGuru (4.3★, 708 reviews), LifeCooler, Wanderlog, AllAboutPortugal, TripTap. GBP não confirmado como verificado."
+    },
+    "rep": {
+      "score": 13,
+      "criteria": { "volume": 5, "avgscore": 4, "recent": 3, "responses": 1 },
+      "notes": "~900 reviews totais: 131 TripAdvisor + 708 RestaurantGuru + 54 Facebook (90% recomendam). Google 4.4★, RestaurantGuru 4.3★. Volume sólido mas sem respostas confirmadas a reviews."
+    },
+    "soc": {
+      "score": 10,
+      "criteria": { "presence": 4, "frequency": 4, "quality": 2 },
+      "notes": "Facebook 2.2K seguidores + Instagram @obatareo_restaurante com 1.333 seguidores. Presença activa em ambas as plataformas. Conteúdo de qualidade razoável — fotos de pratos."
+    },
+    "seo": {
+      "score": 15,
+      "criteria": { "visibility": 6, "mentions": 5, "nap": 3, "foodplat": 1 },
+      "notes": "Referenciado em Público (Fugas + Life&Style), NiT, LifeCooler, Wanderlog, AllAboutPortugal. NAP consistente: Rua das Fontaínhas 64 / 265 234 548. Destaque editorial como 'restaurante de peixe que existe na imaginação' (Público)."
+    },
+    "conv": {
+      "score": 5,
+      "criteria": { "reservations": 0, "menu": 2, "contact": 2, "ctas": 1 },
+      "notes": "Sem reservas online. Ementa parcialmente visível nas plataformas. Contacto disponível no GBP e Facebook mas sem website centralizador nem CTAs próprios."
+    }
+  },
+  "total": 58,
+  "pct": 48,
+  "grade": "D"
+}
