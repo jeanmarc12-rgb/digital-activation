@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Marias & Manéis — Atelier de roupa para bebé e criança em Azeitão. Peças personalizadas para batizados, cerimónias e quotidiano. Dos 0 aos 12 anos." />
+  <title>Marias & Manéis — Atelier Infantil | Azeitão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#inicio" class="nav-logo">Marias & Manéis</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#loja">Loja</a></li>
+        <li><a href="#sobre">Atelier</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <button class="cart-btn" id="cartBtn" aria-label="Carrinho">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Carrinho</h3>
+      <button class="cart-close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty">O seu carrinho está vazio.</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        Total: <strong id="cartTotal">€0</strong>
+      </div>
+      <a href="tel:964723101" class="btn btn-primary btn-full">Confirmar Encomenda</a>
+      <p class="cart-nota">A encomenda é confirmada por telefone. Peças feitas à medida em 7–14 dias.</p>
+    </div>
+  </aside>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-img">
+      <img src="assets/hero.jpg" alt="Marias & Manéis — Atelier de roupa infantil em Azeitão" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Azeitão · Feito à medida</span>
+      <h1 class="hero-title">Peças únicas<br/>para momentos<br/><em>inesquecíveis</em></h1>
+      <p class="hero-sub">Roupa artesanal para bebés e crianças dos 0 aos 12 anos. Batizados, cerimónias, quotidiano — cada peça é feita com carinho.</p>
+      <div class="hero-actions">
+        <a href="#loja" class="btn btn-primary">Ver Coleção</a>
+        <a href="#sobre" class="btn btn-ghost">O Nosso Atelier</a>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>↓</span></div>
+  </section>
+
+  <!-- LOJA -->
+  <section class="section loja" id="loja">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Coleção</span>
+        <h2>A Nossa Loja</h2>
+        <p>Escolha a peça, selecione o tamanho e encomende. Fazemos à sua medida.</p>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filtros">
+        <button class="filtro-btn active" data-cat="todos">Todos</button>
+        <button class="filtro-btn" data-cat="cerimonia">Cerimónia</button>
+        <button class="filtro-btn" data-cat="bebe">Bebé</button>
+        <button class="filtro-btn" data-cat="menina">Menina</button>
+        <button class="filtro-btn" data-cat="menino">Menino</button>
+        <button class="filtro-btn" data-cat="acessorios">Acessórios</button>
+      </div>
+
+      <!-- Grid de Produtos -->
+      <div class="produtos-grid" id="produtosGrid">
+
+        <div class="produto-card" data-cat="cerimonia menina">
+          <div class="produto-img">
+            <img src="assets/produtos/p1.jpg" alt="Vestido Cerimónia Menina" loading="lazy" />
+            <span class="produto-tag">Cerimónia</span>
+          </div>
+          <div class="produto-info">
+            <h3>Vestido Cerimónia</h3>
+            <p class="produto-desc">Tecido acetinado com detalhes em renda. Perfeito para batizados e casamentos.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">3M</button><button class="tam">6M</button><button class="tam">12M</button><button class="tam">2A</button><button class="tam">4A</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€65</span>
+              <button class="btn-cart" data-nome="Vestido Cerimónia" data-preco="65">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="cerimonia bebe">
+          <div class="produto-img">
+            <img src="assets/produtos/p2.jpg" alt="Conjunto Batizado Bebé" loading="lazy" />
+            <span class="produto-tag">Batizado</span>
+          </div>
+          <div class="produto-info">
+            <h3>Conjunto Batizado Bebé</h3>
+            <p class="produto-desc">Conjunto completo para batizado: vestido e manta em algodão suave.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">RN</button><button class="tam">1M</button><button class="tam">3M</button><button class="tam">6M</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€48</span>
+              <button class="btn-cart" data-nome="Conjunto Batizado Bebé" data-preco="48">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="cerimonia menino">
+          <div class="produto-img">
+            <img src="assets/produtos/p3.jpg" alt="Fato Cerimónia Menino" loading="lazy" />
+            <span class="produto-tag">Cerimónia</span>
+          </div>
+          <div class="produto-info">
+            <h3>Fato Cerimónia Menino</h3>
+            <p class="produto-desc">Fato completo com camisa e gravata. Elegante para qualquer ocasião especial.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">2A</button><button class="tam">4A</button><button class="tam">6A</button><button class="tam">8A</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€72</span>
+              <button class="btn-cart" data-nome="Fato Cerimónia Menino" data-preco="72">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="menina cerimonia">
+          <div class="produto-img">
+            <img src="assets/produtos/p4.jpg" alt="Vestido Renda" loading="lazy" />
+            <span class="produto-tag">Novo</span>
+          </div>
+          <div class="produto-info">
+            <h3>Vestido em Renda</h3>
+            <p class="produto-desc">Renda portuguesa, forro em algodão. Disponível em marfim e branco.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">1A</button><button class="tam">2A</button><button class="tam">3A</button><button class="tam">4A</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€58</span>
+              <button class="btn-cart" data-nome="Vestido em Renda" data-preco="58">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="bebe cerimonia">
+          <div class="produto-img">
+            <img src="assets/produtos/p5.jpg" alt="Casaco Batizado" loading="lazy" />
+          </div>
+          <div class="produto-info">
+            <h3>Casaco de Batizado</h3>
+            <p class="produto-desc">Casaco em lã merino, bordado à mão. Ideal para batizados em épocas mais frescas.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">RN</button><button class="tam">3M</button><button class="tam">6M</button><button class="tam">9M</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€42</span>
+              <button class="btn-cart" data-nome="Casaco de Batizado" data-preco="42">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="menina">
+          <div class="produto-img">
+            <img src="assets/produtos/p6.jpg" alt="Conjunto Festivo Menina" loading="lazy" />
+          </div>
+          <div class="produto-info">
+            <h3>Conjunto Festivo</h3>
+            <p class="produto-desc">Blusa bordada com saia plissada. Elegante e confortável para festas e reuniões.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">4A</button><button class="tam">6A</button><button class="tam">8A</button><button class="tam">10A</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€55</span>
+              <button class="btn-cart" data-nome="Conjunto Festivo" data-preco="55">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="menina cerimonia">
+          <div class="produto-img">
+            <img src="assets/produtos/p7.jpg" alt="Vestido Tutu" loading="lazy" />
+            <span class="produto-tag">Popular</span>
+          </div>
+          <div class="produto-info">
+            <h3>Vestido Tutu</h3>
+            <p class="produto-desc">Saia em tule multicamadas com corpete bordado. Perfeito para primeiros aniversários.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">1A</button><button class="tam">2A</button><button class="tam">3A</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€68</span>
+              <button class="btn-cart" data-nome="Vestido Tutu" data-preco="68">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="bebe">
+          <div class="produto-img">
+            <img src="assets/produtos/p8.jpg" alt="Saída de Maternidade" loading="lazy" />
+            <span class="produto-tag">Especial</span>
+          </div>
+          <div class="produto-info">
+            <h3>Saída de Maternidade</h3>
+            <p class="produto-desc">Conjunto premium para os primeiros dias do bebé. Personalização de nome incluída.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">RN</button><button class="tam">1M</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€85</span>
+              <button class="btn-cart" data-nome="Saída de Maternidade" data-preco="85">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="menina menino">
+          <div class="produto-img">
+            <img src="assets/produtos/p9.jpg" alt="Conjunto Primavera" loading="lazy" />
+          </div>
+          <div class="produto-info">
+            <h3>Conjunto Primavera</h3>
+            <p class="produto-desc">Algodão leve, cores alegres. Perfeito para o dia-a-dia durante as estações mais quentes.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">2A</button><button class="tam">4A</button><button class="tam">6A</button><button class="tam">8A</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€45</span>
+              <button class="btn-cart" data-nome="Conjunto Primavera" data-preco="45">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="acessorios">
+          <div class="produto-img">
+            <img src="assets/produtos/p10.jpg" alt="Laço e Acessórios" loading="lazy" />
+          </div>
+          <div class="produto-info">
+            <h3>Laço & Tiara</h3>
+            <p class="produto-desc">Laços e tiaras feitos à mão para complementar qualquer look. Várias cores disponíveis.</p>
+            <div class="produto-tamanhos">
+              <span>Cor:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">Rosa</button><button class="tam">Branco</button><button class="tam">Azul</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€18</span>
+              <button class="btn-cart" data-nome="Laço & Tiara" data-preco="18">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="menina cerimonia">
+          <div class="produto-img">
+            <img src="assets/produtos/p11.jpg" alt="Conjunto Floral" loading="lazy" />
+          </div>
+          <div class="produto-info">
+            <h3>Conjunto Floral</h3>
+            <p class="produto-desc">Vestido com estampado floral e casaco coordenado. Elegante e confortável.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">3A</button><button class="tam">4A</button><button class="tam">5A</button><button class="tam">6A</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€52</span>
+              <button class="btn-cart" data-nome="Conjunto Floral" data-preco="52">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-card" data-cat="cerimonia menina">
+          <div class="produto-img">
+            <img src="assets/produtos/p12.jpg" alt="Vestido de Ocasião" loading="lazy" />
+            <span class="produto-tag">Premium</span>
+          </div>
+          <div class="produto-info">
+            <h3>Vestido de Ocasião</h3>
+            <p class="produto-desc">Peça de alta costura infantil. Bordado artesanal, tecidos premium importados.</p>
+            <div class="produto-tamanhos">
+              <span>Tamanho:</span>
+              <div class="tamanhos-btns">
+                <button class="tam active">2A</button><button class="tam">4A</button><button class="tam">6A</button><button class="tam">8A</button>
+              </div>
+            </div>
+            <div class="produto-footer">
+              <span class="produto-preco">€95</span>
+              <button class="btn-cart" data-nome="Vestido de Ocasião" data-preco="95">+ Carrinho</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section sobre" id="sobre">
+    <div class="container">
+      <div class="sobre-grid">
+        <div class="sobre-img">
+          <div class="sobre-img-inner">
+            <img src="assets/sobre.jpg" alt="Atelier Marias & Manéis — costura artesanal" class="sobre-foto" loading="lazy" />
+            <div class="sobre-badge-float">
+              <strong>0–12</strong>
+              <span>anos de criança</span>
+            </div>
+          </div>
+        </div>
+        <div class="sobre-text">
+          <span class="label">O Nosso Atelier</span>
+          <h2>Quando a paixão<br/>se junta ao talento</h2>
+          <p>Em Azeitão, o atelier Marias & Manéis nasceu de uma paixão pela costura e pelo detalhe. Cada peça é pensada e executada à mão, adaptada à criança e à ocasião.</p>
+          <p>Das saídas de maternidade aos fatos de cerimónia, do quotidiano às festas especiais — garantimos que cada criança se sente especial. Aceitamos personalizações de cor, tecido e bordado.</p>
+          <div class="sobre-features">
+            <div class="feature">
+              <span class="feature-icon">✂️</span>
+              <div>
+                <strong>Feito à Medida</strong>
+                <p>Cada peça adaptada à criança específica</p>
+              </div>
+            </div>
+            <div class="feature">
+              <span class="feature-icon">🧵</span>
+              <div>
+                <strong>Bordado Artesanal</strong>
+                <p>Nome, data ou motivo personalizado</p>
+              </div>
+            </div>
+            <div class="feature">
+              <span class="feature-icon">📦</span>
+              <div>
+                <strong>Envio para todo o país</strong>
+                <p>Entrega em 7–14 dias após confirmação</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section contacto" id="contacto">
+    <div class="container">
+      <div class="contacto-grid">
+        <div class="contacto-info">
+          <span class="label">Fale Connosco</span>
+          <h2>Contacto & Localização</h2>
+          <div class="info-block">
+            <div class="info-icon">📍</div>
+            <div>
+              <strong>Atelier</strong>
+              <p>Rua José Augusto Coelho, 88<br/>2925-538 Vila Nogueira de Azeitão</p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">📞</div>
+            <div>
+              <strong>Telefone / WhatsApp</strong>
+              <p><a href="tel:964723101">964 723 101</a></p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">✉️</div>
+            <div>
+              <strong>Email</strong>
+              <p><a href="mailto:marias.maneis@hotmail.com">marias.maneis@hotmail.com</a></p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">🕐</div>
+            <div>
+              <strong>Horário</strong>
+              <p>Segunda a Sexta — 9h00 – 18h00<br/><em>Sábado de manhã com marcação</em></p>
+            </div>
+          </div>
+          <a href="tel:964723101" class="btn btn-primary btn-full">Ligar Agora</a>
+        </div>
+        <div class="contacto-mapa">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3120.5!2d-8.9800!3d38.4950!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1!2sRua+Jos%C3%A9+Augusto+Coelho+88+Azeitao!5e0!3m2!1spt!2spt!4v1"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localização Marias & Manéis">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <strong class="footer-logo">Marias & Manéis</strong>
+          <p>Atelier Infantil · Azeitão · Feito com amor</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.facebook.com/people/Marias-Maneis/100067436245849/" target="_blank" rel="noopener">Facebook</a>
+          <a href="mailto:marias.maneis@hotmail.com">Email</a>
+          <a href="tel:964723101">964 723 101</a>
+        </div>
+      </div>
+      <p class="footer-copy">© 2026 Marias & Manéis. Todos os direitos reservados. Peças feitas à medida — preços a título indicativo.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

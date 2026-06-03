@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Barber Studio Setúbal — Cortes de cabelo e barba com precisão. Espaço vintage, ambiente exclusivo, resultado garantido. Marque já." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Barber Studio — Setúbal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#inicio" class="nav-logo">Barber Studio</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="tel:265419947" class="nav-cta">Marcar</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-img">
+      <img src="assets/interior-1.jpg" alt="Interior Barber Studio Setúbal" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Setúbal · Av. dos Ciprestes</span>
+      <h1 class="hero-title">Arte<br/>na Navalha</h1>
+      <p class="hero-sub">Cortes clássicos, barba perfeita, ambiente vintage. Um espaço feito para quem leva o visual a sério.</p>
+      <div class="hero-actions">
+        <a href="tel:265419947" class="btn btn-primary">Marcar Agora</a>
+        <a href="#servicos" class="btn btn-ghost">Ver Serviços</a>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>↓</span></div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section sobre" id="sobre">
+    <div class="container">
+      <div class="sobre-grid">
+        <div class="sobre-img">
+          <div class="sobre-img-inner">
+            <img src="assets/cadeira.jpg" alt="Cadeira vintage Barber Studio" class="sobre-foto" loading="lazy" />
+            <div class="sobre-badge-float">
+              <strong>2022</strong>
+              <span>Abertura</span>
+            </div>
+          </div>
+        </div>
+        <div class="sobre-text">
+          <span class="label">A Nossa História</span>
+          <h2>Precisão com<br/>identidade própria</h2>
+          <p>O Barber Studio nasceu em 2022 quando Raquel Nunes tomou conta do espaço — reformulou-o do zero com decoração vintage em preto e vermelho e trouxe uma nova energia à barbearia de Setúbal.</p>
+          <p>Raquel aprendeu a arte da barbearia com os melhores e faz questão de provar, a cada cliente, que qualidade não tem género. O resultado fala por si.</p>
+          <div class="sobre-stats">
+            <div class="stat">
+              <strong>€12</strong>
+              <span>Corte</span>
+            </div>
+            <div class="stat">
+              <strong>€15</strong>
+              <span>Corte + Barba</span>
+            </div>
+            <div class="stat">
+              <strong>Seg–Sáb</strong>
+              <span>10h–19h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section servicos" id="servicos">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">O Que Fazemos</span>
+        <h2>Serviços</h2>
+        <p>Trabalho de qualidade, preços justos. Sem complicações.</p>
+      </div>
+      <div class="servicos-grid">
+
+        <div class="servico-card featured">
+          <div class="servico-icon">✂️</div>
+          <h3>Corte de Cabelo</h3>
+          <p>Corte clássico ou moderno, adaptado ao seu estilo e tipo de cabelo.</p>
+          <div class="servico-preco">€12</div>
+        </div>
+
+        <div class="servico-card featured">
+          <div class="servico-icon">🪒</div>
+          <h3>Corte + Barba</h3>
+          <p>O pack completo — cabelo e barba tratados na mesma sessão.</p>
+          <div class="servico-preco">€15</div>
+        </div>
+
+        <div class="servico-card">
+          <div class="servico-icon">🧔</div>
+          <h3>Barba</h3>
+          <p>Aparar, modelar e definir a barba com navalha e precisão.</p>
+          <div class="servico-preco">Consultar</div>
+        </div>
+
+        <div class="servico-card">
+          <div class="servico-icon">💈</div>
+          <h3>Navalha Quente</h3>
+          <p>Ritual de barbeiro clássico com toalha quente e navalha.</p>
+          <div class="servico-preco">Consultar</div>
+        </div>
+
+        <div class="servico-card">
+          <div class="servico-icon">🧴</div>
+          <h3>Produtos</h3>
+          <p>Produtos de qualidade para cabelo e barba disponíveis na loja.</p>
+          <div class="servico-preco">Loja</div>
+        </div>
+
+        <div class="servico-card">
+          <div class="servico-icon">📅</div>
+          <h3>Marcação</h3>
+          <p>Pode marcar por telefone ou aparecer diretamente no espaço.</p>
+          <div class="servico-preco">265 419 947</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="section galeria" id="galeria">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">O Espaço e o Trabalho</span>
+        <h2>Galeria</h2>
+      </div>
+      <div class="galeria-grid">
+        <div class="galeria-item g-large">
+          <img src="assets/corte-1.jpg" alt="Corte de cabelo Barber Studio" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/barba.jpg" alt="Tratamento de barba" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/corte-2.jpg" alt="Corte clássico" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/interior-2.jpg" alt="Interior vintage Barber Studio" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/detalhe.jpg" alt="Detalhe do espaço" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section contacto" id="contacto">
+    <div class="container">
+      <div class="contacto-grid">
+        <div class="contacto-info">
+          <span class="label">Venha Visitar-nos</span>
+          <h2>Contacto & Localização</h2>
+          <div class="info-block">
+            <div class="info-icon">📍</div>
+            <div>
+              <strong>Morada</strong>
+              <p>Av. dos Ciprestes 23C<br/>2910-319 Setúbal</p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">📞</div>
+            <div>
+              <strong>Telefone</strong>
+              <p><a href="tel:265419947">265 419 947</a></p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">🕐</div>
+            <div>
+              <strong>Horário</strong>
+              <p>Segunda a Sábado<br/>10h00 – 13h00 · 14h00 – 19h00<br/><em>Encerra ao Domingo</em></p>
+            </div>
+          </div>
+          <a href="tel:265419947" class="btn btn-primary btn-full">Ligar e Marcar</a>
+        </div>
+        <div class="contacto-mapa">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3117.0!2d-8.886!3d38.530!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1!2sAv.+dos+Ciprestes+23C+Setubal!5e0!3m2!1spt!2spt!4v1"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localização Barber Studio">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <strong class="footer-logo">Barber Studio</strong>
+          <p>Av. dos Ciprestes 23C · Setúbal · Desde 2022</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.instagram.com/barber_studio_raquel/" target="_blank" rel="noopener">Instagram</a>
+          <a href="tel:265419947">265 419 947</a>
+        </div>
+      </div>
+      <p class="footer-copy">© 2026 Barber Studio. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tradições by Sem Horas — Padaria e Pastelaria Artesanal em Setúbal. Pão feito à mão, doçaria tradicional, tudo à antiga. Praça do Brasil, 12." />
+  <meta name="theme-color" content="#faf8f4" />
+  <title>Tradições — Padaria Artesanal | Setúbal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#inicio" class="nav-logo">Tradições</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#sobre">A Nossa História</a></li>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#contacto">Visitar-nos</a></li>
+        <li><a href="tel:265415487" class="nav-cta">Encomendar</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-img">
+      <img src="assets/hero.jpg" alt="Interior da Tradições — padaria artesanal em Setúbal" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Setúbal · Praça do Brasil</span>
+      <h1 class="hero-title">Feito à mão,<br/><em>à antiga</em></h1>
+      <p class="hero-sub">Pão fresco todas as manhãs, doçaria tradicional, receitas que não se perdem. É o que fazemos todos os dias, na Praça do Brasil.</p>
+      <div class="hero-actions">
+        <a href="#produtos" class="btn btn-primary">Ver Produtos</a>
+        <a href="#contacto" class="btn btn-ghost">Como Chegar</a>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>↓</span></div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section sobre" id="sobre">
+    <div class="container">
+      <div class="sobre-grid">
+        <div class="sobre-img">
+          <div class="sobre-img-inner">
+            <img src="assets/sobre.jpg" alt="Pão feito à mão na Tradições" class="sobre-foto" loading="lazy" />
+            <div class="sobre-badge-float">
+              <strong>Artesanal</strong>
+              <span>desde o início</span>
+            </div>
+          </div>
+        </div>
+        <div class="sobre-text">
+          <span class="label">A Nossa História</span>
+          <h2>A arte de fazer<br/>como antigamente</h2>
+          <p>Susana Jones e Paulo Gouveia abriram a Tradições com uma missão simples: não deixar morrer as receitas verdadeiras. Tudo é feito à mão, sem atalhos, com os ingredientes e os métodos de sempre.</p>
+          <p>O pão sai quente todas as manhãs e também abastece o restaurante Sem Horas. A doçaria segue as estações — bolo-rei no Natal, sonhos, azevias, tarte de requeijão. O que fazem, fazem bem.</p>
+          <div class="sobre-stats">
+            <div class="stat">
+              <strong>Diário</strong>
+              <span>Pão fresco</span>
+            </div>
+            <div class="stat">
+              <strong>100%</strong>
+              <span>Fabrico próprio</span>
+            </div>
+            <div class="stat">
+              <strong>Seg–Sáb</strong>
+              <span>7h30 – 19h30</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUTOS -->
+  <section class="section produtos" id="produtos">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">O Que Fazemos</span>
+        <h2>Produtos</h2>
+        <p>Tudo de fabrico próprio. Sem conservantes, sem atalhos.</p>
+      </div>
+      <div class="produtos-grid">
+
+        <div class="produto-card">
+          <div class="produto-emoji">🍞</div>
+          <h3>Pão Artesanal</h3>
+          <p>Pão de sementes, broa de milho, pão de centeio e massa mãe. Saem quentes todas as manhãs.</p>
+          <ul class="produto-lista">
+            <li>Pão de Sementes</li>
+            <li>Broa de Milho</li>
+            <li>Pão de Massa Mãe</li>
+            <li>Pão de Centeio</li>
+          </ul>
+        </div>
+
+        <div class="produto-card destaque">
+          <div class="produto-emoji">🥐</div>
+          <h3>Pastelaria Fina</h3>
+          <p>Doçaria tradicional portuguesa, feita com receitas de família e ingredientes de qualidade.</p>
+          <ul class="produto-lista">
+            <li>Pastel de Nata</li>
+            <li>Brioche</li>
+            <li>Tarte de Requeijão</li>
+            <li>Azevias · Sonhos</li>
+          </ul>
+        </div>
+
+        <div class="produto-card">
+          <div class="produto-emoji">🍽️</div>
+          <h3>Menu do Dia</h3>
+          <p>Almoço caseiro com prato do dia e sopa. Take-away disponível, ideal para levar para o trabalho.</p>
+          <ul class="produto-lista">
+            <li>Sopa do Dia — €2</li>
+            <li>Prato do Dia — €8</li>
+            <li>Take-away disponível</li>
+            <li>Varia diariamente</li>
+          </ul>
+        </div>
+
+        <div class="produto-card">
+          <div class="produto-emoji">🎄</div>
+          <h3>Sazonais</h3>
+          <p>As receitas que marcam o calendário — feitas na época certa, com o cuidado de sempre.</p>
+          <ul class="produto-lista">
+            <li>Bolo-Rei · Bolo-Rainha</li>
+            <li>Tronco de Natal</li>
+            <li>Filhós · Sonhos</li>
+            <li>Encomendas especiais</li>
+          </ul>
+        </div>
+
+      </div>
+      <p class="produtos-nota">* Produtos sazonais disponíveis na época. Encomendas especiais com antecedência — ligue para 265 415 487.</p>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="section galeria" id="galeria">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">O Espaço e os Produtos</span>
+        <h2>Galeria</h2>
+      </div>
+      <div class="galeria-grid">
+        <div class="galeria-item g-large">
+          <img src="assets/pasteis-nata.jpg" alt="Pastéis de nata artesanais" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/pao-artesanal.jpg" alt="Pão artesanal feito à mão" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/pasteis-fileiras.jpg" alt="Fileiras de pastéis frescos" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/t1.jpg" alt="Tradições — produtos artesanais" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/t2.jpg" alt="Tradições Setúbal" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section contacto" id="contacto">
+    <div class="container">
+      <div class="contacto-grid">
+        <div class="contacto-info">
+          <span class="label">Venha Visitar-nos</span>
+          <h2>Contacto & Localização</h2>
+          <div class="info-block">
+            <div class="info-icon">📍</div>
+            <div>
+              <strong>Morada</strong>
+              <p>Praça do Brasil, 12<br/>2900-285 Setúbal</p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">📞</div>
+            <div>
+              <strong>Telefone / Encomendas</strong>
+              <p><a href="tel:265415487">265 415 487</a></p>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">🕐</div>
+            <div>
+              <strong>Horário</strong>
+              <p>Segunda a Sábado<br/>7h30 – 19h30<br/><em>Encerra ao Domingo</em></p>
+            </div>
+          </div>
+          <a href="tel:265415487" class="btn btn-primary btn-full">Ligar para Encomendar</a>
+        </div>
+        <div class="contacto-mapa">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3116.9!2d-8.895!3d38.524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1!2sPra%C3%A7a+do+Brasil+12+Setubal!5e0!3m2!1spt!2spt!4v1"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Localização Tradições">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <strong class="footer-logo">Tradições</strong>
+          <p>Padaria & Pastelaria Artesanal · Setúbal</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://www.instagram.com/tradicoes_semhoras/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.facebook.com/p/Tradi%C3%A7%C3%B5es-61563759774709/" target="_blank" rel="noopener">Facebook</a>
+          <a href="tel:265415487">265 415 487</a>
+        </div>
+      </div>
+      <p class="footer-copy">© 2026 Tradições by Sem Horas. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
