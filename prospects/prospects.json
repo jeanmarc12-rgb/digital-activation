@@ -21,6 +21,15 @@
       "notes": "Restaurante icónico de Setúbal. Sem site próprio, apenas Facebook. Alta visibilidade em guias e plataformas. Alvo prioritário.",
       "demo_created": true,
       "demo_url": "https://casa-santiago-demo.vercel.app",
+      "assessment": {
+        "done": true,
+        "date": "2026-06-03",
+        "score": 68,
+        "grade": "C",
+        "pct": 57,
+        "file": "tools/assessments/casa-santiago.json",
+        "pillar_scores": { "web": 0, "loc": 20, "rep": 15, "soc": 7, "seo": 20, "conv": 6 }
+      },
       "status": "demo_criada",
       "contacted_at": null,
       "became_client_at": null

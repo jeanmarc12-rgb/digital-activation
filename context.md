@@ -109,15 +109,34 @@ digital_activation/
 
 ## Próximos passos (por ordem de prioridade)
 
-### A. Ferramentas do modelo de serviço (a construir)
-1. **Template do Assessment** — checklist/formulário para auditar qualquer negócio em 30 min, com cálculo automático do score por pilar
-2. **Digital Health Report** — página web ou PDF gerado automaticamente com o score, grade e recomendações
-3. **Proposal Template** — proposta de Activation Roadmap com os streams selecionados e pricing
+### A. Ferramentas do modelo de serviço ✅ CONCLUÍDO
+- `tools/assessment.html` — formulário com 6 pilares × 4 critérios, score automático, auto-save em localStorage, export JSON
+- `tools/report.html` — relatório visual com radar chart SVG, score por pilar, quick wins e movimentos estratégicos auto-gerados
+- `tools/proposal.html` — proposta interactiva com streams checkáveis, pricing automático e waiver do assessment fee
 
 ### B. Casa Santiago (primeiro cliente alvo)
 4. Resolver placeholder da secção "Sobre"
-5. Contactar a Casa Santiago com o link da demo
-6. Fazer o assessment da presença digital da Casa Santiago como primeiro caso real
+5. **Contactar a Casa Santiago com o link da demo** ← próximo passo imediato
+6. ✅ Assessment feito — Grade C (68/120, 57%) — ver `tools/assessments/casa-santiago.json`
+
+**Assessment Casa Santiago — resumo:**
+| Pilar | Score | Notas chave |
+|-------|-------|-------------|
+| 🌐 Web Presence | 0/20 | Sem website próprio — só Facebook |
+| 📍 Local Discovery | 20/20 | GBP completo, +5k reviews, TripAdvisor #19/392 |
+| ⭐ Reputation | 15/20 | 4.4★, +5k Google reviews, 954 TripAdvisor |
+| 📱 Social Media | 7/20 | Apenas Facebook básico, sem Instagram próprio |
+| 🔍 SEO & Content | 20/20 | Top 3 Maps, NiT, Timeout, Deco Proteste, etc. |
+| 📞 Conversion | 6/20 | Não aceita reservas, sem CTAs, sem website |
+
+**Oportunidade:** Os pilares perfeitos (Local Discovery + SEO) mostram uma reputação forte que o site vai capitalizar imediatamente. Stream 1 + Stream 3 são as prioridades óbvias.
+
+### Workflow de automação de assessments
+Para cada nova lead:
+1. Claude pesquisa a presença digital (WebSearch)
+2. Gera `tools/assessments/<slug>.json`
+3. Gera URL base64 para carregar directo no `assessment.html`
+4. Actualiza `prospects.json` com os dados do assessment
 
 ### C. Pipeline
 7. Prospetar mais negócios em Setúbal/Sesimbra sem site

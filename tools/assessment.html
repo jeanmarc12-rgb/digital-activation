@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Health Assessment — Digital Activation</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#1a1a2e;--accent:#e94560;--bg:#f4f5f7;--white:#fff;
+      --gray:#6b7280;--border:#e5e7eb;--radius:10px;--shadow:0 2px 8px rgba(0,0,0,.08);
+      --c1:#4361ee;--c2:#7209b7;--c3:#f72585;--c4:#4cc9f0;--c5:#fb8500;--c6:#06d6a0;
+    }
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:#1f2937;min-height:100vh}
+    .header{background:var(--navy);color:white;padding:14px 24px;display:flex;align-items:center;gap:16px}
+    .brand{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+    .header h1{font-size:19px;font-weight:800}
+    .header-right{margin-left:auto;display:flex;gap:8px}
+    .container{max-width:860px;margin:0 auto;padding:20px 16px 130px}
+    .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:14px}
+    .card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--gray);margin-bottom:14px}
+    .grid2{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+    .grid2b{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+    @media(max-width:600px){.grid2,.grid2b{grid-template-columns:1fr}}
+    .field-label{display:block;font-size:11px;font-weight:700;color:var(--gray);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+    input[type=text],input[type=date],select,textarea{width:100%;border:1.5px solid var(--border);border-radius:6px;padding:8px 10px;font-size:14px;font-family:inherit;background:white;transition:border-color .15s}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+    .pillar{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}
+    .pillar-head{display:flex;align-items:center;gap:10px;padding:13px 20px;border-left:4px solid var(--pc,#ccc)}
+    .pillar-icon{font-size:20px}
+    .pillar-head h2{font-size:15px;font-weight:800;flex:1}
+    .pscore{font-size:26px;font-weight:900;color:var(--pc,var(--navy))}
+    .pscore span{font-size:13px;font-weight:500;color:var(--gray)}
+    .criteria{padding:4px 20px 4px}
+    .criterion{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+    .criterion:last-child{border-bottom:none}
+    .clabel{font-size:14px;font-weight:600;color:#374151;flex:1;padding-top:7px;line-height:1.3}
+    .cright{display:flex;align-items:center;gap:7px;min-width:310px}
+    @media(max-width:620px){.criterion{flex-direction:column;gap:5px}.cright{min-width:auto;width:100%}}
+    .cright select{flex:1;font-size:13px;padding:7px 8px}
+    .ptsbadge{font-size:12px;font-weight:700;min-width:48px;text-align:right;color:var(--gray);white-space:nowrap}
+    .ptsbadge.on{color:var(--navy)}
+    .notes-wrap{padding:8px 20px 14px;border-top:1px dashed var(--border)}
+    .notes-wrap textarea{height:48px;resize:vertical;font-size:13px;color:var(--gray)}
+    /* Score bar */
+    .score-bar{position:fixed;bottom:0;left:0;right:0;background:var(--navy);color:white;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.25)}
+    .mini-scores{display:flex;gap:12px;flex-wrap:wrap}
+    .ms{display:flex;align-items:center;gap:5px;font-size:12px}
+    .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .ms .v{font-weight:800}
+    .totblock{display:flex;align-items:center;gap:10px}
+    .totblock .lbl{font-size:11px;color:#9ca3af}
+    .totblock .big{font-size:30px;font-weight:900;line-height:1}
+    .grade{font-size:26px;font-weight:900;width:52px;height:52px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .gA{background:#d1fae5;color:#065f46}.gB{background:#dbeafe;color:#1e40af}.gC{background:#fef3c7;color:#92400e}.gD{background:#ffe4e6;color:#9f1239}.gF{background:#fee2e2;color:#7f1d1d}
+    .acts{display:flex;gap:8px}
+    .btn{padding:9px 16px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s,transform .1s;white-space:nowrap}
+    .btn:hover{opacity:.9;transform:translateY(-1px)}
+    .btn-p{background:var(--accent);color:white}
+    .btn-s{background:rgba(255,255,255,.12);color:white}
+    .btn-g{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-size:12px}
+  </style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="brand">Digital Activation</div>
+    <h1>Digital Health Assessment</h1>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-g" onclick="document.getElementById('json_import').click()" style="background:rgba(255,255,255,.1);color:white;padding:6px 12px;border-radius:6px;border:none;font-size:12px;font-weight:600;cursor:pointer">📂 Importar JSON</button>
+    <input type="file" id="json_import" accept=".json" style="display:none" onchange="importJSON(event)">
+    <button class="btn btn-g" onclick="resetForm()" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);padding:6px 12px;border-radius:6px;border:none;font-size:12px;font-weight:600;cursor:pointer">Novo Assessment</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Business Info -->
+  <div class="card">
+    <div class="card-title">Informação do Negócio</div>
+    <div class="grid2">
+      <div><label class="field-label">Nome do negócio</label><input type="text" id="biz_name" placeholder="Ex: Casa Santiago" oninput="autoSave()"></div>
+      <div><label class="field-label">Categoria</label><input type="text" id="biz_category" placeholder="Ex: Restaurante" oninput="autoSave()"></div>
+      <div><label class="field-label">Localização</label><input type="text" id="biz_location" placeholder="Ex: Setúbal" oninput="autoSave()"></div>
+    </div>
+    <div class="grid2b">
+      <div><label class="field-label">Auditor</label><input type="text" id="auditor" placeholder="Nome" oninput="autoSave()"></div>
+      <div><label class="field-label">Data</label><input type="date" id="audit_date" oninput="autoSave()"></div>
+    </div>
+  </div>
+
+  <!-- P1: Web Presence -->
+  <div class="pillar" style="--pc:var(--c1)">
+    <div class="pillar-head">
+      <span class="pillar-icon">🌐</span>
+      <h2>Web Presence</h2>
+      <div class="pscore"><span id="sc_web">0</span><span>/20</span></div>
+    </div>
+    <div class="criteria">
+      <div class="criterion">
+        <span class="clabel">Website próprio</span>
+        <div class="cright">
+          <select data-p="web" data-c="website" onchange="upd()">
+            <option value="0">Sem website (0 pts)</option>
+            <option value="4">Landing page básica (4 pts)</option>
+            <option value="8">Site completo e funcional (8 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_website">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Mobile & velocidade</span>
+        <div class="cright">
+          <select data-p="web" data-c="mobile" onchange="upd()">
+            <option value="0">Não optimizado (0 pts)</option>
+            <option value="3">Parcialmente optimizado (3 pts)</option>
+            <option value="5">Mobile-first, rápido (5 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_mobile">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Conteúdo (menu, fotos, horários)</span>
+        <div class="cright">
+          <select data-p="web" data-c="content" onchange="upd()">
+            <option value="0">Vazio ou desactualizado (0 pts)</option>
+            <option value="3">Parcialmente completo (3 pts)</option>
+            <option value="5">Completo e actual (5 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_content">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">HTTPS / segurança</span>
+        <div class="cright">
+          <select data-p="web" data-c="https" onchange="upd()">
+            <option value="0">Sem HTTPS (0 pts)</option>
+            <option value="2">Com HTTPS (2 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_https">0 pts</span>
+        </div>
+      </div>
+    </div>
+    <div class="notes-wrap"><textarea id="n_web" placeholder="Observações: URL, velocidade, conteúdo encontrado..." oninput="autoSave()"></textarea></div>
+  </div>
+
+  <!-- P2: Local Discovery -->
+  <div class="pillar" style="--pc:var(--c2)">
+    <div class="pillar-head">
+      <span class="pillar-icon">📍</span>
+      <h2>Local Discovery</h2>
+      <div class="pscore"><span id="sc_loc">0</span><span>/20</span></div>
+    </div>
+    <div class="criteria">
+      <div class="criterion">
+        <span class="clabel">Google Business Profile</span>
+        <div class="cright">
+          <select data-p="loc" data-c="gbp" onchange="upd()">
+            <option value="0">Não existe (0 pts)</option>
+            <option value="3">Existe mas incompleto (3 pts)</option>
+            <option value="7">Completo e verificado (7 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_gbp">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Fotos no Google Maps / GBP</span>
+        <div class="cright">
+          <select data-p="loc" data-c="photos" onchange="upd()">
+            <option value="0">Sem fotos (0 pts)</option>
+            <option value="2">Poucas, baixa qualidade (2 pts)</option>
+            <option value="5">10+ fotos de qualidade (5 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_photos">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Outras plataformas (Zomato, TripAdvisor, Apple Maps)</span>
+        <div class="cright">
+          <select data-p="loc" data-c="platforms" onchange="upd()">
+            <option value="0">Nenhuma (0 pts)</option>
+            <option value="2">1 plataforma (2 pts)</option>
+            <option value="5">2+ plataformas activas (5 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_platforms">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Ranking no Google Maps (termos chave locais)</span>
+        <div class="cright">
+          <select data-p="loc" data-c="rank" onchange="upd()">
+            <option value="0">Não aparece no top 10 (0 pts)</option>
+            <option value="1">Aparece mas fora do top 5 (1 pt)</option>
+            <option value="3">Top 3 nos termos chave (3 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_rank">0 pts</span>
+        </div>
+      </div>
+    </div>
+    <div class="notes-wrap"><textarea id="n_loc" placeholder="Observações: termos pesquisados, ranking encontrado, URL do GBP..." oninput="autoSave()"></textarea></div>
+  </div>
+
+  <!-- P3: Reputation -->
+  <div class="pillar" style="--pc:var(--c3)">
+    <div class="pillar-head">
+      <span class="pillar-icon">⭐</span>
+      <h2>Reputation</h2>
+      <div class="pscore"><span id="sc_rep">0</span><span>/20</span></div>
+    </div>
+    <div class="criteria">
+      <div class="criterion">
+        <span class="clabel">Volume total de reviews (Google + outros)</span>
+        <div class="cright">
+          <select data-p="rep" data-c="volume" onchange="upd()">
+            <option value="0">Menos de 10 reviews (0 pts)</option>
+            <option value="2">10–50 reviews (2 pts)</option>
+            <option value="4">50–100 reviews (4 pts)</option>
+            <option value="6">100+ reviews (6 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_volume">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Score médio</span>
+        <div class="cright">
+          <select data-p="rep" data-c="avgscore" onchange="upd()">
+            <option value="0">Abaixo de 3.5 ★ (0 pts)</option>
+            <option value="2">3.5 – 4.0 ★ (2 pts)</option>
+            <option value="4">4.0 – 4.4 ★ (4 pts)</option>
+            <option value="7">4.5 ★ ou mais (7 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_avgscore">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Reviews recentes (último mês)</span>
+        <div class="cright">
+          <select data-p="rep" data-c="recent" onchange="upd()">
+            <option value="0">Nenhuma no último mês (0 pts)</option>
+            <option value="2">1–2 no último mês (2 pts)</option>
+            <option value="4">3 ou mais no último mês (4 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_recent">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Respostas a reviews pelo negócio</span>
+        <div class="cright">
+          <select data-p="rep" data-c="responses" onchange="upd()">
+            <option value="0">Nunca responde (0 pts)</option>
+            <option value="1">Raramente responde (1 pt)</option>
+            <option value="3">Responde à maioria (3 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_responses">0 pts</span>
+        </div>
+      </div>
+    </div>
+    <div class="notes-wrap"><textarea id="n_rep" placeholder="Observações: número exacto de reviews, score actual, plataformas auditadas..." oninput="autoSave()"></textarea></div>
+  </div>
+
+  <!-- P4: Social Media -->
+  <div class="pillar" style="--pc:var(--c4)">
+    <div class="pillar-head">
+      <span class="pillar-icon">📱</span>
+      <h2>Social Media</h2>
+      <div class="pscore"><span id="sc_soc">0</span><span>/20</span></div>
+    </div>
+    <div class="criteria">
+      <div class="criterion">
+        <span class="clabel">Presença nas redes sociais</span>
+        <div class="cright">
+          <select data-p="soc" data-c="presence" onchange="upd()">
+            <option value="0">Sem presença social (0 pts)</option>
+            <option value="3">Apenas Facebook básico (3 pts)</option>
+            <option value="4">Instagram activo (4 pts)</option>
+            <option value="7">Instagram + Facebook activos (7 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_presence">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Frequência de publicação</span>
+        <div class="cright">
+          <select data-p="soc" data-c="frequency" onchange="upd()">
+            <option value="0">Inactiva — +1 mês sem posts (0 pts)</option>
+            <option value="2">Esporádica — 1 a 4x por mês (2 pts)</option>
+            <option value="5">Regular — 1 a 3x por semana (5 pts)</option>
+            <option value="7">Alta — quase diária (7 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_frequency">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Qualidade do conteúdo visual</span>
+        <div class="cright">
+          <select data-p="soc" data-c="quality" onchange="upd()">
+            <option value="0">Fraca — fotos de má qualidade, sem texto (0 pts)</option>
+            <option value="2">Média — aceitável (2 pts)</option>
+            <option value="4">Boa — fotos reais, copywriting cuidado (4 pts)</option>
+            <option value="6">Excelente — Reels, Stories, branding consistente (6 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_quality">0 pts</span>
+        </div>
+      </div>
+    </div>
+    <div class="notes-wrap"><textarea id="n_soc" placeholder="Observações: handles, seguidores, último post, engagement..." oninput="autoSave()"></textarea></div>
+  </div>
+
+  <!-- P5: SEO & Content -->
+  <div class="pillar" style="--pc:var(--c5)">
+    <div class="pillar-head">
+      <span class="pillar-icon">🔍</span>
+      <h2>SEO & Content</h2>
+      <div class="pscore"><span id="sc_seo">0</span><span>/20</span></div>
+    </div>
+    <div class="criteria">
+      <div class="criterion">
+        <span class="clabel">Visibilidade Google (pesquisa orgânica)</span>
+        <div class="cright">
+          <select data-p="seo" data-c="visibility" onchange="upd()">
+            <option value="0">Não aparece (0 pts)</option>
+            <option value="2">Página 2 ou depois (2 pts)</option>
+            <option value="4">Página 1 mas fora do top 3 (4 pts)</option>
+            <option value="8">Top 3 nos resultados orgânicos (8 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_visibility">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Menções externas (food blogs, imprensa, guias)</span>
+        <div class="cright">
+          <select data-p="seo" data-c="mentions" onchange="upd()">
+            <option value="0">Sem menções externas (0 pts)</option>
+            <option value="2">1–2 menções esporádicas (2 pts)</option>
+            <option value="4">3+ menções ou presença em guias/imprensa (4 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_mentions">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Consistência NAP (Nome, Morada, Telefone)</span>
+        <div class="cright">
+          <select data-p="seo" data-c="nap" onchange="upd()">
+            <option value="0">Inconsistente entre plataformas (0 pts)</option>
+            <option value="2">Parcialmente consistente (2 pts)</option>
+            <option value="4">Totalmente consistente (4 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_nap">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">TripAdvisor / Zomato / The Fork</span>
+        <div class="cright">
+          <select data-p="seo" data-c="foodplat" onchange="upd()">
+            <option value="0">Sem perfil activo (0 pts)</option>
+            <option value="1">Perfil básico sem actualização (1 pt)</option>
+            <option value="4">Perfil activo com fotos e reviews recentes (4 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_foodplat">0 pts</span>
+        </div>
+      </div>
+    </div>
+    <div class="notes-wrap"><textarea id="n_seo" placeholder="Observações: termos pesquisados, URLs encontradas, menções notáveis..." oninput="autoSave()"></textarea></div>
+  </div>
+
+  <!-- P6: Conversion -->
+  <div class="pillar" style="--pc:var(--c6)">
+    <div class="pillar-head">
+      <span class="pillar-icon">📞</span>
+      <h2>Conversion</h2>
+      <div class="pscore"><span id="sc_conv">0</span><span>/20</span></div>
+    </div>
+    <div class="criteria">
+      <div class="criterion">
+        <span class="clabel">Sistema de reservas online</span>
+        <div class="cright">
+          <select data-p="conv" data-c="reservations" onchange="upd()">
+            <option value="0">Sem qualquer sistema de reservas (0 pts)</option>
+            <option value="2">Apenas telefone visível (2 pts)</option>
+            <option value="4">Formulário ou link de reserva básico (4 pts)</option>
+            <option value="7">Sistema integrado (The Fork, OpenTable...) (7 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_reservations">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Menu online acessível</span>
+        <div class="cright">
+          <select data-p="conv" data-c="menu" onchange="upd()">
+            <option value="0">Sem menu online (0 pts)</option>
+            <option value="1">PDF desactualizado ou difícil de aceder (1 pt)</option>
+            <option value="4">Menu digital actual e de fácil acesso (4 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_menu">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">Facilidade de contacto (telefone, morada, Maps)</span>
+        <div class="cright">
+          <select data-p="conv" data-c="contact" onchange="upd()">
+            <option value="0">Difícil de encontrar (0 pts)</option>
+            <option value="2">Parcialmente acessível (2 pts)</option>
+            <option value="5">Tudo claro, clicável e visível (5 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_contact">0 pts</span>
+        </div>
+      </div>
+      <div class="criterion">
+        <span class="clabel">CTAs claros no site / redes sociais</span>
+        <div class="cright">
+          <select data-p="conv" data-c="ctas" onchange="upd()">
+            <option value="0">Sem CTAs — o utilizador não sabe o que fazer (0 pts)</option>
+            <option value="2">Alguns CTAs mas mal posicionados (2 pts)</option>
+            <option value="4">CTAs bem posicionados e eficazes (4 pts)</option>
+          </select>
+          <span class="ptsbadge" id="pb_ctas">0 pts</span>
+        </div>
+      </div>
+    </div>
+    <div class="notes-wrap"><textarea id="n_conv" placeholder="Observações: sistemas de reserva encontrados, CTAs, usabilidade..." oninput="autoSave()"></textarea></div>
+  </div>
+
+</div>
+
+<!-- Sticky Score Bar -->
+<div class="score-bar">
+  <div class="mini-scores">
+    <div class="ms"><span class="dot" style="background:var(--c1)"></span><span class="v" id="m_web">0</span>/20</div>
+    <div class="ms"><span class="dot" style="background:var(--c2)"></span><span class="v" id="m_loc">0</span>/20</div>
+    <div class="ms"><span class="dot" style="background:var(--c3)"></span><span class="v" id="m_rep">0</span>/20</div>
+    <div class="ms"><span class="dot" style="background:var(--c4)"></span><span class="v" id="m_soc">0</span>/20</div>
+    <div class="ms"><span class="dot" style="background:var(--c5)"></span><span class="v" id="m_seo">0</span>/20</div>
+    <div class="ms"><span class="dot" style="background:var(--c6)"></span><span class="v" id="m_conv">0</span>/20</div>
+  </div>
+  <div class="totblock">
+    <div>
+      <div class="lbl">Score total</div>
+      <div><span class="big" id="total">0</span><span style="color:#9ca3af;font-size:13px">/120</span></div>
+    </div>
+    <div class="grade gF" id="grade_chip">F</div>
+  </div>
+  <div class="acts">
+    <button class="btn btn-s" onclick="exportJSON()">💾 Exportar</button>
+    <button class="btn btn-p" onclick="goReport()">Ver Relatório →</button>
+  </div>
+</div>
+
+<script>
+const PILLARS = [
+  {key:'web', scoreId:'sc_web', miniId:'m_web'},
+  {key:'loc', scoreId:'sc_loc', miniId:'m_loc'},
+  {key:'rep', scoreId:'sc_rep', miniId:'m_rep'},
+  {key:'soc', scoreId:'sc_soc', miniId:'m_soc'},
+  {key:'seo', scoreId:'sc_seo', miniId:'m_seo'},
+  {key:'conv', scoreId:'sc_conv', miniId:'m_conv'},
+];
+
+document.getElementById('audit_date').value = new Date().toISOString().split('T')[0];
+
+function upd() {
+  let total = 0;
+  PILLARS.forEach(p => {
+    const sels = document.querySelectorAll(`select[data-p="${p.key}"]`);
+    let ps = 0;
+    sels.forEach(s => {
+      const v = +s.value || 0;
+      ps += v;
+      const badge = document.getElementById('pb_' + s.dataset.c);
+      if (badge) { badge.textContent = v === 1 ? '1 pt' : v + ' pts'; badge.className = 'ptsbadge' + (v > 0 ? ' on' : ''); }
+    });
+    ps = Math.min(ps, 20);
+    document.getElementById(p.scoreId).textContent = ps;
+    document.getElementById(p.miniId).textContent = ps;
+    total += ps;
+  });
+  document.getElementById('total').textContent = total;
+  const pct = total / 120 * 100;
+  let g = 'F', gc = 'gF';
+  if (pct >= 85) { g='A'; gc='gA'; } else if (pct >= 70) { g='B'; gc='gB'; } else if (pct >= 55) { g='C'; gc='gC'; } else if (pct >= 40) { g='D'; gc='gD'; }
+  const chip = document.getElementById('grade_chip');
+  chip.textContent = g; chip.className = 'grade ' + gc;
+  autoSave();
+}
+
+function gather() {
+  const pillars = {};
+  PILLARS.forEach(p => {
+    const sels = document.querySelectorAll(`select[data-p="${p.key}"]`);
+    const criteria = {};
+    let score = 0;
+    sels.forEach(s => { const v = +s.value||0; criteria[s.dataset.c] = v; score += v; });
+    score = Math.min(score, 20);
+    pillars[p.key] = { score, criteria, notes: (document.getElementById('n_' + p.key)||{}).value||'' };
+  });
+  const total = PILLARS.reduce((s,p)=>s+pillars[p.key].score, 0);
+  const pct = Math.round(total/120*100);
+  let grade = 'F';
+  if (pct >= 85) grade='A'; else if (pct >= 70) grade='B'; else if (pct >= 55) grade='C'; else if (pct >= 40) grade='D';
+  return {
+    business: {
+      name: document.getElementById('biz_name').value||'Sem nome',
+      category: document.getElementById('biz_category').value||'',
+      location: document.getElementById('biz_location').value||'',
+      auditor: document.getElementById('auditor').value||'',
+      date: document.getElementById('audit_date').value||new Date().toISOString().split('T')[0]
+    },
+    pillars, total, pct, grade
+  };
+}
+
+function autoSave() {
+  try { localStorage.setItem('da_assessment', JSON.stringify(gather())); } catch(e) {}
+}
+
+function exportJSON() {
+  const d = gather();
+  const blob = new Blob([JSON.stringify(d, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `assessment-${d.business.name.replace(/\s+/g,'-').toLowerCase()}-${d.business.date}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function goReport() { autoSave(); window.open('report.html', '_blank'); }
+
+function resetForm() {
+  if (!confirm('Limpar o assessment actual e começar de novo?')) return;
+  localStorage.removeItem('da_assessment');
+  location.reload();
+}
+
+function loadSaved() {
+  try {
+    const saved = localStorage.getItem('da_assessment');
+    if (!saved) return;
+    const d = JSON.parse(saved);
+    if (d.business) {
+      document.getElementById('biz_name').value = d.business.name||'';
+      document.getElementById('biz_category').value = d.business.category||'';
+      document.getElementById('biz_location').value = d.business.location||'';
+      document.getElementById('auditor').value = d.business.auditor||'';
+      document.getElementById('audit_date').value = d.business.date||'';
+    }
+    if (d.pillars) {
+      PILLARS.forEach(p => {
+        const pd = d.pillars[p.key];
+        if (!pd) return;
+        if (pd.criteria) Object.entries(pd.criteria).forEach(([c,v]) => {
+          const sel = document.querySelector(`select[data-p="${p.key}"][data-c="${c}"]`);
+          if (sel) sel.value = v;
+        });
+        if (pd.notes) { const el = document.getElementById('n_' + p.key); if (el) el.value = pd.notes; }
+      });
+    }
+    upd();
+  } catch(e) {}
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const d = JSON.parse(e.target.result);
+      localStorage.setItem('da_assessment', JSON.stringify(d));
+      loadSaved();
+      event.target.value = '';
+    } catch(err) { alert('Ficheiro JSON inválido.'); }
+  };
+  reader.readAsText(file);
+}
+
+// Load from URL hash (base64 JSON) — pré-preenchimento automático por lead
+(function() {
+  try {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const decoded = JSON.parse(decodeURIComponent(atob(hash)));
+      localStorage.setItem('da_assessment', JSON.stringify(decoded));
+      history.replaceState(null, '', window.location.pathname);
+    }
+  } catch(e) {}
+  loadSaved();
+})();
+</script>
+</body>
+</html>

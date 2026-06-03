@@ -1,0 +1,44 @@
+{
+  "business": {
+    "name": "Casa Santiago — O Rei do Choco Frito",
+    "category": "Restaurante (Choco / Peixe)",
+    "location": "Setúbal",
+    "auditor": "",
+    "date": "2026-06-03"
+  },
+  "pillars": {
+    "web": {
+      "score": 0,
+      "criteria": { "website": 0, "mobile": 0, "content": 0, "https": 0 },
+      "notes": "Sem website próprio. Apenas Facebook (facebook.com/ReiDoChocoFrito) e ementa digital em plataforma terceira (passafrente.com/reidochoco/)."
+    },
+    "loc": {
+      "score": 20,
+      "criteria": { "gbp": 7, "photos": 5, "platforms": 5, "rank": 3 },
+      "notes": "GBP completo e verificado com +5.000 reviews (4.4★). TripAdvisor: #19 de 392 em Setúbal (954 reviews). Foursquare: 32 dicas. Presente em Wanderlog, RestaurantGuru, Restaurantji."
+    },
+    "rep": {
+      "score": 15,
+      "criteria": { "volume": 6, "avgscore": 4, "recent": 4, "responses": 1 },
+      "notes": "+5.000 reviews Google (4.4★). 954 TripAdvisor. 1.637 Facebook (90% recomendam). Vencedor do voto popular NiT/New in Setúbal (26.8%, 768 votos). Reviews constantes e recentes."
+    },
+    "soc": {
+      "score": 7,
+      "criteria": { "presence": 3, "frequency": 2, "quality": 2 },
+      "notes": "Facebook: 15.804 likes (facebook.com/ReiDoChocoFrito). Sem conta Instagram própria confirmada. Posts esporádicos, qualidade básica."
+    },
+    "seo": {
+      "score": 20,
+      "criteria": { "visibility": 8, "mentions": 4, "nap": 4, "foodplat": 4 },
+      "notes": "Top 3 para 'choco frito Setúbal'. Referenciado em NiT, Timeout Lisboa, Deco Proteste, LifeCooler, Wanderlog, blogs de gastronomia. NAP consistente: Av. Luísa Todi 92 / 265221688. TripAdvisor activo (954 reviews)."
+    },
+    "conv": {
+      "score": 6,
+      "criteria": { "reservations": 0, "menu": 4, "contact": 2, "ctas": 0 },
+      "notes": "Não aceita reservas (política deliberada do restaurante). Ementa digital em passafrente.com/reidochoco/. Contacto visível nas plataformas mas sem website centralizador nem CTAs próprios."
+    }
+  },
+  "total": 68,
+  "pct": 57,
+  "grade": "C"
+}
