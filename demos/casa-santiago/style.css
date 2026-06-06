@@ -428,6 +428,59 @@ img { display: block; max-width: 100%; }
   text-align: center;
 }
 
+/* ── REVIEWS ──────────────────────────────────── */
+.reviews { background: var(--black); }
+.reviews-rating-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.rating-big { display: flex; align-items: center; gap: 12px; }
+.rating-stars { color: #f5a623; font-size: 1.4rem; letter-spacing: 2px; }
+.rating-number {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--white);
+}
+.reviews-rating-header > p { color: var(--muted); font-size: 0.9rem; }
+.reviews-rating-header a { color: var(--gold); }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.review-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.review-stars { color: #f5a623; font-size: 1.1rem; letter-spacing: 2px; }
+.review-text {
+  color: rgba(232,232,232,0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-style: italic;
+  flex: 1;
+}
+.review-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.review-name { font-weight: 600; color: var(--white); font-size: 0.9rem; }
+.review-platform { font-size: 0.78rem; color: var(--muted); }
+.contacto-ctas { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+
 /* ── MOBILE ───────────────────────────────────── */
 @media (max-width: 768px) {
   .section { padding: 60px 0; }
@@ -459,6 +512,9 @@ img { display: block; max-width: 100%; }
   .galeria-grid { grid-template-columns: 1fr 1fr; }
   .g-large { grid-column: span 2; min-height: 240px; }
   .g-large img { min-height: 240px; }
+
+  /* Reviews */
+  .reviews-grid { grid-template-columns: 1fr; }
 
   /* Contacto */
   .contacto-grid { grid-template-columns: 1fr; }

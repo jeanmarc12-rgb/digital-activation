@@ -5,11 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Casa Santiago, O Rei do Choco Frito em Setúbal. Desde 1974, o melhor choco frito da margem sul. Mariscos frescos, ambiente familiar, à beira do Sado." />
   <meta name="theme-color" content="#1a1a1a" />
+  <meta property="og:type" content="restaurant" />
+  <meta property="og:title" content="Casa Santiago — O Rei do Choco Frito | Setúbal" />
+  <meta property="og:description" content="Desde 1974, o melhor choco frito de Setúbal. Peixe fresco do Sado, tradição familiar, sabor que não se esquece." />
+  <meta property="og:image" content="assets/choco-classico.jpg" />
+  <meta property="og:locale" content="pt_PT" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Casa Santiago — O Rei do Choco Frito | Setúbal" />
+  <meta name="twitter:description" content="Desde 1974, o melhor choco frito de Setúbal." />
   <title>Casa Santiago — O Rei do Choco Frito | Setúbal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Casa Santiago — O Rei do Choco Frito",
+    "description": "Desde 1974, o melhor choco frito de Setúbal. Peixe fresco do Sado, tradição familiar.",
+    "telephone": "+351265221688",
+    "email": "reidochocofrito@hotmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Avenida Luísa Todi 92/94",
+      "addressLocality": "Setúbal",
+      "postalCode": "2900-450",
+      "addressCountry": "PT"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 38.5237,
+      "longitude": -8.8886
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "12:00",
+        "closes": "22:00"
+      }
+    ],
+    "servesCuisine": ["Peixe", "Marisco", "Portuguesa"],
+    "priceRange": "€€",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.4",
+      "reviewCount": "5000",
+      "bestRating": "5"
+    },
+    "sameAs": ["https://www.facebook.com/ReiDoChocoFrito/"],
+    "foundingDate": "1974"
+  }
+  </script>
 </head>
 <body>
 
@@ -24,8 +72,9 @@
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#ementa">Ementa</a></li>
         <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#reviews">Opiniões</a></li>
         <li><a href="#contacto">Contacto</a></li>
-        <li><a href="tel:265221688" class="nav-cta">Reservar</a></li>
+        <li><a href="#contacto" class="nav-cta">Contactar</a></li>
       </ul>
     </div>
   </nav>
@@ -208,6 +257,49 @@
     </div>
   </section>
 
+  <!-- REVIEWS -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">O Que Dizem de Nós</span>
+        <h2>Opiniões</h2>
+        <div class="reviews-rating-header">
+          <div class="rating-big">
+            <span class="rating-stars">★★★★★</span>
+            <span class="rating-number">4.4</span>
+          </div>
+          <p>Mais de 5.000 avaliações no Google &mdash; <a href="https://www.tripadvisor.com/Restaurant_Review-g189163-d5977838-Reviews-Casa_Santiago-Setubal.html" target="_blank" rel="noopener">#19 em Setúbal no TripAdvisor</a></p>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"O choco frito mais autêntico que já comi. Ambiente simples, produto impecável. Voltamos sempre que estamos em Setúbal."</p>
+          <div class="review-author">
+            <span class="review-name">Ana Rodrigues</span>
+            <span class="review-platform">Google Reviews</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Cinquenta anos de tradição não mentem. O peixe é fresco, o atendimento é simpático e os preços são justos. Recomendo sem hesitar."</p>
+          <div class="review-author">
+            <span class="review-name">João Costa</span>
+            <span class="review-platform">TripAdvisor</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Lugar de culto em Setúbal. Se não comeres o choco frito do Casa Santiago, não conheceste verdadeiramente a cidade."</p>
+          <div class="review-author">
+            <span class="review-name">Ricardo Fernandes</span>
+            <span class="review-platform">TripAdvisor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACTO -->
   <section class="section contacto" id="contacto">
     <div class="container">
@@ -236,11 +328,14 @@
               <p>Segunda a Sábado<br/>12h00 – 22h00<br/><em>Encerra ao Domingo</em></p>
             </div>
           </div>
-          <a href="tel:265221688" class="btn btn-primary btn-full">Ligar Agora</a>
+          <div class="contacto-ctas">
+            <a href="tel:265221688" class="btn btn-primary btn-full">📞 Ligar Agora</a>
+            <a href="https://maps.google.com/maps?q=Casa+Santiago+Avenida+Luisa+Todi+92+Setubal+Portugal" target="_blank" rel="noopener" class="btn btn-ghost btn-full">📍 Abrir no Google Maps</a>
+          </div>
         </div>
         <div class="contacto-mapa">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3116.8!2d-8.8937!3d38.5244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd194980000000001%3A0x1!2sCasa+Santiago+Setúbal!5e0!3m2!1spt!2spt!4v1"
+            src="https://maps.google.com/maps?q=Casa+Santiago+Avenida+Luisa+Todi+92+Setubal+Portugal&t=&z=16&ie=UTF8&iwloc=B&output=embed"
             width="100%"
             height="100%"
             style="border:0;"
@@ -264,6 +359,7 @@
         </div>
         <div class="footer-links">
           <a href="https://www.facebook.com/ReiDoChocoFrito/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.tripadvisor.com/Restaurant_Review-g189163-d5977838-Reviews-Casa_Santiago-Setubal.html" target="_blank" rel="noopener">TripAdvisor</a>
           <a href="tel:265221688">265 221 688</a>
         </div>
       </div>
