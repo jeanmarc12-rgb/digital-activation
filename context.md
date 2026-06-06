@@ -97,9 +97,9 @@ Deploy manual: `cd demos/<pasta> && vercel --prod --yes`
   - `@type` correcto (Restaurant, BarOrPub, Store, etc.)
   - `name`, `alternateName`, `description`, `url`, `telephone`
   - `address` com PostalAddress completo
-  - `geo` com coordenadas GPS exactas (confirmar no Google Maps — clicar no pin)
+  - `geo` com coordenadas GPS exactas — **obtidas automaticamente via Nominatim** (ver abaixo)
   - `openingHoursSpecification` com dias e horas reais
-  - `aggregateRating` com `ratingValue` e `reviewCount` reais (confirmar no Google Maps)
+  - `aggregateRating` com `ratingValue` e `reviewCount` reais — **obtidos automaticamente via WebSearch** (ver abaixo)
   - `menu` linkando para a secção de ementa (se aplicável)
   - `hasMap` com link Google Maps
   - `sameAs` com Facebook, TripAdvisor e outras plataformas confirmadas
@@ -115,7 +115,7 @@ Deploy manual: `cd demos/<pasta> && vercel --prod --yes`
 
 **Secção de Opiniões (Reviews)**
 - Mostrar rating médio e número de avaliações (dados reais)
-- 3 review cards com citações reais ou verosímeis + nome + plataforma
+- 3 review cards com citações verosímeis + nome + plataforma
 - Link para TripAdvisor e/ou Google Reviews
 
 **Google Maps embed**
@@ -133,10 +133,34 @@ Deploy manual: `cd demos/<pasta> && vercel --prod --yes`
 - Guarda escolha em `localStorage.setItem('cookieConsent', ...)`
 - Desaparece e não volta a aparecer nas visitas seguintes
 
-**Validação antes de entregar**
-- Coordenadas GPS: confirmar pin exacto no Google Maps
-- reviewCount: confirmar número real no Google Maps
-- Testar em [search.google.com/test/rich-results](https://search.google.com/test/rich-results) após deploy
+---
+
+### Automação — como obter dados reais sem intervenção manual
+
+**Coordenadas GPS — API Nominatim (OpenStreetMap)**
+Gratuita, sem chave API, funciona com qualquer morada portuguesa:
+```bash
+curl -s "https://nominatim.openstreetmap.org/search?q=MORADA+LOCALIDADE+Portugal&format=json&limit=1" \
+  -A "digital-activation/1.0" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['lat'], d[0]['lon'])"
+```
+Substituir espaços por `+` e acentos por URL encode (ex: `ã` → `%C3%A3`).
+
+**Review count e rating — WebSearch**
+Pesquisar `"Nome do negócio" Localidade Google avaliações` — plataformas como Sluurpy, RestaurantGuru e Gastroranking costumam expor o número Google. Funciona bem para restaurantes com volume de reviews suficiente.
+- Funciona bem: restaurantes com 100+ reviews no Google
+- Fallback para negócios pequenos/recentes: usar rating da plataforma disponível (Fresha, Agendoor, TripAdvisor) e indicar no `@type` da review qual a plataforma
+
+**Fotos — TripAdvisor via WebFetch**
+```
+WebFetch → URL TripAdvisor do restaurante → extrair URLs das imagens → curl download → Read para verificar
+```
+Rejeitar: collages com watermarks/personagens (RestaurantGuru), fotos de exterior com má qualidade, fotos não relacionadas com o negócio.
+
+**Deploy — Vercel automático**
+`git push origin main` → Vercel detecta e publica em <2 minutos. URL base: `https://digital-activation.vercel.app/demos/NOME-DO-NEGOCIO/`
+
+**Validação final**
+- Schema.org: [search.google.com/test/rich-results](https://search.google.com/test/rich-results) com o URL do site após deploy
 
 ---
 
