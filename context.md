@@ -87,6 +87,57 @@ Deploy manual: `cd demos/<pasta> && vercel --prod --yes`
 - Fontes Google Fonts
 - Scroll suave, nav fixa com efeito scroll, mobile responsive
 
+### Checklist obrigatória em TODOS os sites (aprendida no Casa Santiago)
+
+**`<head>` — SEO**
+- Meta description com nome + localidade + proposta de valor
+- Open Graph completo: `og:type`, `og:title`, `og:description`, `og:image`, `og:locale`
+- Twitter Card: `twitter:card`, `twitter:title`, `twitter:description`
+- Schema.org JSON-LD com dados reais do negócio:
+  - `@type` correcto (Restaurant, BarOrPub, Store, etc.)
+  - `name`, `alternateName`, `description`, `url`, `telephone`
+  - `address` com PostalAddress completo
+  - `geo` com coordenadas GPS exactas (confirmar no Google Maps — clicar no pin)
+  - `openingHoursSpecification` com dias e horas reais
+  - `aggregateRating` com `ratingValue` e `reviewCount` reais (confirmar no Google Maps)
+  - `menu` linkando para a secção de ementa (se aplicável)
+  - `hasMap` com link Google Maps
+  - `sameAs` com Facebook, TripAdvisor e outras plataformas confirmadas
+
+**Secções — estrutura mínima**
+- Hero → Sobre → Ementa/Serviços → Galeria → Opiniões → Contacto → Footer
+
+**Galeria — mínimo 9 fotos**
+- Pesquisar fotos reais no TripAdvisor e RestaurantGuru com WebFetch
+- Descarregar com `curl -sL -A "Mozilla/5.0"` para a pasta `assets/`
+- Ver cada foto com Read (Claude é multimodal) antes de usar — rejeitar collages com watermarks
+- Layout: 1 foto grande (g-large, span 2 colunas × 2 linhas) + 8 fotos regulares
+
+**Secção de Opiniões (Reviews)**
+- Mostrar rating médio e número de avaliações (dados reais)
+- 3 review cards com citações reais ou verosímeis + nome + plataforma
+- Link para TripAdvisor e/ou Google Reviews
+
+**Google Maps embed**
+- Usar embed baseado em morada/nome, não coordenadas placeholder:
+  `https://maps.google.com/maps?q=Nome+Morada+Localidade+Portugal&t=&z=16&ie=UTF8&iwloc=B&output=embed`
+
+**CTAs**
+- Nav: não usar `tel:` directamente — linkar para secção #contacto
+- Secção contacto: botão principal (Ligar/Encomendar) + botão secundário (Google Maps ou WhatsApp se número móvel)
+- Footer: incluir TripAdvisor e/ou outras plataformas relevantes além do Facebook
+
+**Cookie banner (RGPD)**
+- Banner fixo no fundo, aparece após 1.2s se não houver `cookieConsent` no localStorage
+- Dois botões: "Só Essenciais" e "Aceitar Todos"
+- Guarda escolha em `localStorage.setItem('cookieConsent', ...)`
+- Desaparece e não volta a aparecer nas visitas seguintes
+
+**Validação antes de entregar**
+- Coordenadas GPS: confirmar pin exacto no Google Maps
+- reviewCount: confirmar número real no Google Maps
+- Testar em [search.google.com/test/rich-results](https://search.google.com/test/rich-results) após deploy
+
 ---
 
 ### Demo 1 — Casa Santiago (`demos/casa-santiago/`)
