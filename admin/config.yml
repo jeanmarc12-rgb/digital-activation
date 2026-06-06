@@ -1,0 +1,187 @@
+# ─────────────────────────────────────────────────────────────
+# DIGITAL ACTIVATION — Decap CMS Config
+# Painel admin: https://digital-activation.vercel.app/admin/
+#
+# SETUP (uma vez por projecto):
+#   1. Ir a github.com/settings/developers > OAuth Apps > New OAuth App
+#   2. Application name: Digital Activation CMS
+#   3. Homepage URL: https://digital-activation.vercel.app
+#   4. Authorization callback URL: https://digital-activation.vercel.app/admin/
+#   5. Copiar o Client ID e colar em app_id abaixo
+# ─────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: jeanmarc12-rgb/digital-activation
+  branch: main
+  auth_type: implicit
+  app_id: COLAR_GITHUB_OAUTH_CLIENT_ID_AQUI
+
+media_folder: uploads
+public_folder: /uploads
+
+locale: pt
+
+# ─────────────────────────────────────────────────────────────
+# CASA SANTIAGO
+# ─────────────────────────────────────────────────────────────
+collections:
+
+  - name: casa_santiago_info
+    label: "🏠 Casa Santiago — Informações"
+    files:
+      - label: "Contacto & Horário"
+        name: info
+        file: "demos/casa-santiago/_data/content.json"
+        fields:
+          - { label: "Telefone (sem espaços)", name: phone, widget: string, hint: "Ex: 265221688" }
+          - { label: "Telefone (com espaços)", name: phone_display, widget: string, hint: "Ex: 265 221 688" }
+          - { label: "Email", name: email, widget: string, required: false }
+          - { label: "Morada — Rua", name: address_street, widget: string }
+          - { label: "Morada — Cidade", name: address_city, widget: string }
+          - { label: "Código Postal", name: address_postal, widget: string }
+          - { label: "Horário — Dias", name: hours_days, widget: string, hint: "Ex: Segunda a Sábado" }
+          - { label: "Horário — Abertura", name: hours_open, widget: string, hint: "Ex: 12h00" }
+          - { label: "Horário — Encerramento", name: hours_close, widget: string, hint: "Ex: 22h00" }
+          - { label: "Nota de encerramento", name: hours_closed_note, widget: string, hint: "Ex: Encerra ao Domingo" }
+          - { label: "Rating (ex: 4.4)", name: rating_value, widget: string }
+          - { label: "Nº de avaliações", name: rating_count, widget: string, hint: "Ex: 5.736" }
+
+  - name: casa_santiago_menu
+    label: "🍽️ Casa Santiago — Ementa"
+    files:
+      - label: "Ementa completa"
+        name: menu
+        file: "demos/casa-santiago/_data/menu.json"
+        fields:
+          - { label: "Nota de rodapé", name: note, widget: string }
+          - label: Categorias
+            name: categories
+            widget: list
+            label_singular: Categoria
+            fields:
+              - { label: Emoji, name: emoji, widget: string }
+              - { label: Título, name: title, widget: string }
+              - label: Pratos
+                name: items
+                widget: list
+                label_singular: Prato
+                fields:
+                  - { label: Nome, name: name, widget: string }
+                  - { label: Preço, name: price, widget: string, hint: "Ex: €12 ou Mercado" }
+                  - { label: Descrição, name: description, widget: string }
+
+# ─────────────────────────────────────────────────────────────
+# O BATAREO
+# ─────────────────────────────────────────────────────────────
+
+  - name: o_batareo_info
+    label: "🐟 O Batareo — Informações"
+    files:
+      - label: "Contacto & Horário"
+        name: info
+        file: "demos/o-batareo/_data/content.json"
+        fields:
+          - { label: "Telefone (sem espaços)", name: phone, widget: string }
+          - { label: "Telefone alternativo", name: phone_alt, widget: string, required: false }
+          - { label: "Morada — Rua", name: address_street, widget: string }
+          - { label: "Horário — Dias", name: hours_days, widget: string }
+          - { label: "Horário — Abertura", name: hours_open, widget: string }
+          - { label: "Horário — Encerramento", name: hours_close, widget: string }
+          - { label: "Nota de encerramento", name: hours_closed_note, widget: string }
+
+  - name: o_batareo_menu
+    label: "🐟 O Batareo — Ementa"
+    files:
+      - label: "Ementa completa"
+        name: menu
+        file: "demos/o-batareo/_data/menu.json"
+        fields:
+          - { label: "Nota de rodapé", name: note, widget: string }
+          - label: Categorias
+            name: categories
+            widget: list
+            label_singular: Categoria
+            fields:
+              - { label: Emoji, name: emoji, widget: string }
+              - { label: Título, name: title, widget: string }
+              - label: Pratos
+                name: items
+                widget: list
+                label_singular: Prato
+                fields:
+                  - { label: Nome, name: name, widget: string }
+                  - { label: Preço, name: price, widget: string }
+                  - { label: Descrição, name: description, widget: string }
+
+# ─────────────────────────────────────────────────────────────
+# BARBER STUDIO
+# ─────────────────────────────────────────────────────────────
+
+  - name: barber_studio_info
+    label: "✂️ Barber Studio — Informações"
+    files:
+      - label: "Contacto & Horário"
+        name: info
+        file: "demos/barber-studio/_data/content.json"
+        fields:
+          - { label: "Telefone (sem espaços)", name: phone, widget: string }
+          - { label: "Morada — Rua", name: address_street, widget: string }
+          - { label: "Horário — Dias", name: hours_days, widget: string }
+          - { label: "Horário — Manhã", name: hours_morning, widget: string, hint: "Ex: 10h00 – 13h00" }
+          - { label: "Horário — Tarde", name: hours_afternoon, widget: string, hint: "Ex: 14h00 – 19h00" }
+          - { label: "Nota de encerramento", name: hours_closed_note, widget: string }
+
+  - name: barber_studio_servicos
+    label: "✂️ Barber Studio — Serviços"
+    files:
+      - label: "Lista de Serviços"
+        name: servicos
+        file: "demos/barber-studio/_data/servicos.json"
+        fields:
+          - label: Serviços
+            name: items
+            widget: list
+            label_singular: Serviço
+            fields:
+              - { label: Emoji, name: emoji, widget: string }
+              - { label: Nome, name: name, widget: string }
+              - { label: Descrição, name: description, widget: string }
+              - { label: Preço, name: price, widget: string, hint: "Ex: €12 ou Consultar" }
+              - { label: Destaque, name: featured, widget: boolean, default: false }
+
+# ─────────────────────────────────────────────────────────────
+# TRADIÇÕES
+# ─────────────────────────────────────────────────────────────
+
+  - name: tradicoes_info
+    label: "🥐 Tradições — Informações"
+    files:
+      - label: "Contacto & Horário"
+        name: info
+        file: "demos/tradicoes/_data/content.json"
+        fields:
+          - { label: "Telefone (sem espaços)", name: phone, widget: string }
+          - { label: "Morada — Rua", name: address_street, widget: string }
+          - { label: "Horário — Dias", name: hours_days, widget: string }
+          - { label: "Horário — Abertura", name: hours_open, widget: string }
+          - { label: "Horário — Encerramento", name: hours_close, widget: string }
+          - { label: "Nota de encerramento", name: hours_closed_note, widget: string }
+
+# ─────────────────────────────────────────────────────────────
+# MARIAS & MANÉIS
+# ─────────────────────────────────────────────────────────────
+
+  - name: marias_maneis_info
+    label: "👶 Marias & Manéis — Informações"
+    files:
+      - label: "Contacto & Horário"
+        name: info
+        file: "demos/marias-maneis/_data/content.json"
+        fields:
+          - { label: "Telefone / WhatsApp", name: phone, widget: string }
+          - { label: "Email", name: email, widget: string }
+          - { label: "Morada — Rua", name: address_street, widget: string }
+          - { label: "Horário — Dias úteis", name: hours_days, widget: string }
+          - { label: "Horário", name: hours_range, widget: string }
+          - { label: "Nota de horário", name: hours_note, widget: string }

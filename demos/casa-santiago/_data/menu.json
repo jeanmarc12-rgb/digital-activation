@@ -1,0 +1,32 @@
+{
+  "note": "Ementa sujeita a alterações consoante a disponibilidade do pescado fresco.",
+  "categories": [
+    {
+      "emoji": "⭐",
+      "title": "Especialidades",
+      "items": [
+        { "name": "Choco Frito",         "price": "€12", "description": "A nossa assinatura. Choco do Sado, panado e frito na hora." },
+        { "name": "Caldeirada de Peixe", "price": "€14", "description": "Receita de família, peixe do dia com legumes da época." },
+        { "name": "Arroz de Lingueirão", "price": "€16", "description": "Mariscos frescos, arroz meloso, sabor do estuário." }
+      ]
+    },
+    {
+      "emoji": "🦐",
+      "title": "Mariscos",
+      "items": [
+        { "name": "Gambas à Guilho",          "price": "€15",     "description": "Alho, azeite e limão. Simples e perfeito." },
+        { "name": "Percebes",                 "price": "Mercado", "description": "Quando há, é frescura garantida." },
+        { "name": "Amêijoas à Bulhão Pato",   "price": "€13",     "description": "Azeite, alho e coentros. Um clássico." }
+      ]
+    },
+    {
+      "emoji": "🐟",
+      "title": "Grelhados",
+      "items": [
+        { "name": "Dourada Grelhada", "price": "€13", "description": "Peixe do dia, brasa, azeite e limão." },
+        { "name": "Robalo no Sal",    "price": "€16", "description": "Confeccionado inteiro, sabor puro." },
+        { "name": "Bacalhau à Brás",  "price": "€12", "description": "Receita tradicional portuguesa." }
+      ]
+    }
+  ]
+}

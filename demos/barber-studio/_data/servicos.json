@@ -1,0 +1,10 @@
+{
+  "items": [
+    { "emoji": "✂️", "name": "Corte de Cabelo",  "description": "Corte clássico ou moderno, adaptado ao seu estilo e tipo de cabelo.", "price": "€12", "featured": true },
+    { "emoji": "🪒", "name": "Corte + Barba",     "description": "O pack completo — cabelo e barba tratados na mesma sessão.",            "price": "€15", "featured": true },
+    { "emoji": "🧔", "name": "Barba",             "description": "Aparar, modelar e definir a barba com navalha e precisão.",              "price": "Consultar", "featured": false },
+    { "emoji": "💈", "name": "Navalha Quente",    "description": "Ritual de barbeiro clássico com toalha quente e navalha.",              "price": "Consultar", "featured": false },
+    { "emoji": "🧴", "name": "Produtos",          "description": "Produtos de qualidade para cabelo e barba disponíveis na loja.",         "price": "Loja",      "featured": false },
+    { "emoji": "📅", "name": "Marcação",          "description": "Pode marcar por telefone ou aparecer diretamente no espaço.",            "price": "265 419 947", "featured": false }
+  ]
+}

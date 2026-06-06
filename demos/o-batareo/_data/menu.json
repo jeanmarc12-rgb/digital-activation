@@ -1,0 +1,33 @@
+{
+  "note": "O peixe é exposto na montra à entrada — escolha o seu e grelhamos na hora. Preços variam com a época.",
+  "categories": [
+    {
+      "emoji": "🐟",
+      "title": "Peixe do Dia",
+      "items": [
+        { "name": "Dourada na Brasa",  "price": "€/kg", "description": "Fresca do Sado, grelhada inteira com azeite e alho." },
+        { "name": "Robalo Grelhado",   "price": "€/kg", "description": "Textura firme, sabor delicado. Um dos favoritos da casa." },
+        { "name": "Salmonete",         "price": "€/kg", "description": "Carne fina e saborosa, grelhada na perfeição." },
+        { "name": "Solha Grelhada",    "price": "€/kg", "description": "Peixe plano, delicado, típico do estuário do Sado." }
+      ]
+    },
+    {
+      "emoji": "🦑",
+      "title": "Cefalópodes",
+      "items": [
+        { "name": "Lulas Grelhadas",   "price": "€/kg",    "description": "Tenras e suculentas, servidas com salada e batata." },
+        { "name": "Choco Grelhado",    "price": "€/kg",    "description": "O choco do Sado, na brasa em vez de frito." },
+        { "name": "Polvo à Lagareiro", "price": "Mercado", "description": "Quando há, é para não perder." }
+      ]
+    },
+    {
+      "emoji": "🦐",
+      "title": "Marisco",
+      "items": [
+        { "name": "Amêijoas à Bulhão Pato", "price": "Mercado", "description": "Alho, coentros e azeite. Um clássico português." },
+        { "name": "Gambas Grelhadas",        "price": "Mercado", "description": "Grelhadas inteiras, com limão e flor de sal." },
+        { "name": "Lingueirão na Brasa",     "price": "Mercado", "description": "Do estuário, na brasa com azeite e alho." }
+      ]
+    }
+  ]
+}
