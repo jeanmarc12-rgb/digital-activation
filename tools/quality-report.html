@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quality Report — Digital Activation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0f0f0f;
+      --dark: #1a1a1a;
+      --card: #222;
+      --border: #2e2e2e;
+      --gold: #c9a84c;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --white: #fff;
+      --muted: #888;
+      --text: #e8e8e8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--black); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* HEADER */
+    .header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .header-left h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); margin-bottom: 4px; }
+    .header-left p { color: var(--muted); font-size: 0.9rem; }
+    .header-meta { display: flex; flex-direction: column; gap: 6px; text-align: right; }
+    .header-meta span { font-size: 0.82rem; color: var(--muted); }
+    .header-meta strong { color: var(--text); }
+    .badge-ready { display: inline-flex; align-items: center; gap: 6px; background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); padding: 6px 14px; border-radius: 50px; font-size: 0.82rem; font-weight: 600; margin-top: 8px; }
+    .badge-not-ready { background: rgba(239,68,68,0.15); color: var(--red); border-color: rgba(239,68,68,0.3); }
+    .badge-warning { background: rgba(245,158,11,0.15); color: var(--yellow); border-color: rgba(245,158,11,0.3); }
+
+    /* SCORE SUMMARY */
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .summary-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 16px; text-align: center; }
+    .summary-card .score { font-size: 1.8rem; font-weight: 700; font-family: 'Playfair Display', serif; }
+    .summary-card .score.green { color: var(--green); }
+    .summary-card .score.yellow { color: var(--yellow); }
+    .summary-card .score.red { color: var(--red); }
+    .summary-card .label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* CATEGORIES */
+    .category { margin-bottom: 32px; }
+    .category-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .category-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); }
+    .category-score { font-size: 0.82rem; color: var(--muted); }
+    .items { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .item { display: grid; grid-template-columns: 28px 1fr auto; align-items: start; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+    .item:last-child { border-bottom: none; }
+    .item-icon { font-size: 1rem; margin-top: 1px; flex-shrink: 0; }
+    .item-body { min-width: 0; }
+    .item-label { font-weight: 500; color: var(--white); font-size: 0.9rem; }
+    .item-note { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .item-status { font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; align-self: start; margin-top: 2px; }
+    .status-pass { background: rgba(34,197,94,0.12); color: var(--green); }
+    .status-fail { background: rgba(239,68,68,0.12); color: var(--red); }
+    .status-warn { background: rgba(245,158,11,0.12); color: var(--yellow); }
+    .status-na { background: rgba(136,136,136,0.1); color: var(--muted); }
+
+    /* SITE URL */
+    .site-url { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .site-url span { font-size: 0.82rem; color: var(--muted); }
+    .site-url a { color: var(--gold); font-weight: 500; font-size: 0.95rem; word-break: break-all; }
+
+    /* FOOTER */
+    .footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer p { color: var(--muted); font-size: 0.8rem; }
+
+    @media print {
+      body { background: white; color: #111; }
+      :root { --black: #fff; --dark: #f8f8f8; --card: #f4f4f4; --border: #e0e0e0; --text: #111; --muted: #666; }
+      .container { padding: 20px; }
+    }
+    @media (max-width: 600px) {
+      .header { flex-direction: column; }
+      .header-meta { text-align: left; }
+      .item { grid-template-columns: 24px 1fr; }
+      .item-status { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header" id="header">
+    <div class="header-left">
+      <h1 id="siteName">—</h1>
+      <p id="siteType">Quality Report · Digital Activation</p>
+    </div>
+    <div class="header-meta">
+      <span>Data de auditoria: <strong id="auditDate">—</strong></span>
+      <span>URL: <strong id="siteUrlShort">—</strong></span>
+      <span id="badgeWrap"></span>
+    </div>
+  </div>
+
+  <div class="site-url">
+    <span>Site URL</span>
+    <a id="siteUrlFull" href="#" target="_blank">—</a>
+  </div>
+
+  <div class="summary" id="summary"></div>
+  <div id="categories"></div>
+
+  <div class="footer">
+    <p>Digital Activation — Quality Report</p>
+    <p id="footerDate"></p>
+  </div>
+
+</div>
+<script>
+const ICONS = { pass: '✅', fail: '❌', warn: '⚠️', na: '—' };
+const STATUS_LABEL = { pass: 'OK', fail: 'Falhou', warn: 'Atenção', na: 'N/A' };
+const STATUS_CLASS = { pass: 'status-pass', fail: 'status-fail', warn: 'status-warn', na: 'status-na' };
+const SCORE_COLOR = (pct) => pct >= 85 ? 'green' : pct >= 60 ? 'yellow' : 'red';
+
+function getParam() {
+  const p = new URLSearchParams(location.search).get('data');
+  return p || 'quality/casa-santiago.json';
+}
+
+async function load() {
+  const data = await fetch(getParam()).then(r => r.json());
+  render(data);
+}
+
+function render(d) {
+  const { site, categories } = d;
+  document.title = `Quality Report — ${site.name}`;
+  document.getElementById('siteName').textContent = site.name;
+  document.getElementById('siteType').textContent = `${site.type} · Quality Report · ${site.date}`;
+  document.getElementById('auditDate').textContent = site.date;
+  document.getElementById('siteUrlShort').textContent = new URL(site.url).hostname;
+  document.getElementById('siteUrlFull').textContent = site.url;
+  document.getElementById('siteUrlFull').href = site.url;
+  document.getElementById('footerDate').textContent = `Auditoria: ${site.date}`;
+
+  // Overall badge
+  const badge = document.getElementById('badgeWrap');
+  const allItems = Object.values(categories).flatMap(c => c.items);
+  const fails = allItems.filter(i => i.status === 'fail').length;
+  const warns = allItems.filter(i => i.status === 'warn').length;
+  const cls = fails > 0 ? 'badge-not-ready' : warns > 2 ? 'badge-warning' : 'badge-ready';
+  const txt = fails > 0 ? '❌ Não pronto' : warns > 2 ? '⚠️ Melhorias recomendadas' : '✅ Pronto para entregar';
+  badge.innerHTML = `<span class="badge-ready ${cls}">${txt}</span>`;
+
+  // Summary cards
+  const summaryEl = document.getElementById('summary');
+  Object.entries(categories).forEach(([, cat]) => {
+    const items = cat.items.filter(i => i.status !== 'na');
+    const passing = items.filter(i => i.status === 'pass').length;
+    const pct = items.length ? Math.round(passing / items.length * 100) : 100;
+    summaryEl.innerHTML += `
+      <div class="summary-card">
+        <div class="score ${SCORE_COLOR(pct)}">${pct}%</div>
+        <div class="label">${cat.label}</div>
+      </div>`;
+  });
+
+  // Categories
+  const catEl = document.getElementById('categories');
+  Object.entries(categories).forEach(([, cat]) => {
+    const items = cat.items.filter(i => i.status !== 'na');
+    const passing = items.filter(i => i.status === 'pass').length;
+    const itemsHtml = cat.items.map(item => `
+      <div class="item">
+        <span class="item-icon">${ICONS[item.status]}</span>
+        <div class="item-body">
+          <div class="item-label">${item.label}</div>
+          ${item.note ? `<div class="item-note">${item.note}</div>` : ''}
+        </div>
+        <span class="item-status ${STATUS_CLASS[item.status]}">${STATUS_LABEL[item.status]}</span>
+      </div>`).join('');
+
+    catEl.innerHTML += `
+      <div class="category">
+        <div class="category-header">
+          <span class="category-title">${cat.label}</span>
+          <span class="category-score">${passing}/${items.length} itens OK</span>
+        </div>
+        <div class="items">${itemsHtml}</div>
+      </div>`;
+  });
+}
+
+load().catch(e => {
+  document.getElementById('categories').innerHTML = `<p style="color:#ef4444;padding:24px">Erro ao carregar dados: ${e.message}.<br>Usa: quality-report.html?data=quality/SITE.json</p>`;
+});
+</script>
+</body>
+</html>

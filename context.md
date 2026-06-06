@@ -52,6 +52,17 @@ Stream 5 · CONVERSION   → Reservas online + email marketing + menu UX
 
 ---
 
+## Decisões de produto (arquitectura)
+
+- **Sites são entregues como produção**, não como demos — preços, horários, fotos e dados têm de ser reais
+- **CMS: Decap CMS** — painel admin em `/admin`, gratuito, git-based, Vercel auto-deploy. O cliente gere conteúdo sem programador
+- **E-commerce: adiado** — Marias & Manéis mantém o carrinho actual por agora
+- **Checklist de qualidade**: cada site entregue tem um `tools/quality/[site].json` pré-preenchido por Claude, visualizado em `tools/quality-report.html`
+- **Domínio próprio**: o cliente regista o domínio — nós configuramos no Vercel
+- **Analytics**: Google Analytics 4 ou Plausible — instalar quando o cliente confirmar
+
+---
+
 ## O que foi construído
 
 ### 1. Sistema de prospeção (`prospects/`)
