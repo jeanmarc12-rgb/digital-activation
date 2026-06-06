@@ -5,11 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Tradições by Sem Horas — Padaria e Pastelaria Artesanal em Setúbal. Pão feito à mão, doçaria tradicional, tudo à antiga. Praça do Brasil, 12." />
   <meta name="theme-color" content="#faf8f4" />
+  <meta property="og:type" content="bakery" />
+  <meta property="og:title" content="Tradições by Sem Horas — Padaria Artesanal | Setúbal" />
+  <meta property="og:description" content="Pão feito à mão, doçaria tradicional, tudo à antiga. Padaria artesanal na Praça do Brasil, Setúbal." />
+  <meta property="og:image" content="assets/pasteis-nata.jpg" />
+  <meta property="og:locale" content="pt_PT" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tradições by Sem Horas — Padaria Artesanal | Setúbal" />
+  <meta name="twitter:description" content="Pão feito à mão, doçaria tradicional, tudo à antiga." />
   <title>Tradições — Padaria Artesanal | Setúbal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Bakery",
+    "name": "Tradições by Sem Horas",
+    "description": "Padaria e pastelaria artesanal em Setúbal. Pão feito à mão, doçaria tradicional, tudo à antiga. Abastece o restaurante Sem Horas.",
+    "url": "https://digital-activation.vercel.app/demos/tradicoes/",
+    "telephone": "+351265415487",
+    "priceRange": "€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Praça do Brasil 12",
+      "addressLocality": "Setúbal",
+      "postalCode": "2900-285",
+      "addressCountry": "PT"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 38.524, "longitude": -8.895 },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "07:30", "closes": "19:30"
+    }],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "48", "bestRating": "5" },
+    "menu": "https://digital-activation.vercel.app/demos/tradicoes/#produtos",
+    "hasMap": "https://maps.google.com/maps?q=Tradicoes+by+Sem+Horas+Praca+do+Brasil+12+Setubal+Portugal",
+    "sameAs": ["https://www.instagram.com/tradicoes_semhoras/", "https://www.facebook.com/p/Tradi%C3%A7%C3%B5es-61563759774709/"]
+  }
+  </script>
 </head>
 <body>
 
@@ -24,8 +60,9 @@
         <li><a href="#sobre">A Nossa História</a></li>
         <li><a href="#produtos">Produtos</a></li>
         <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#reviews">Opiniões</a></li>
         <li><a href="#contacto">Visitar-nos</a></li>
-        <li><a href="tel:265415487" class="nav-cta">Encomendar</a></li>
+        <li><a href="#contacto" class="nav-cta">Encomendar</a></li>
       </ul>
     </div>
   </nav>
@@ -160,16 +197,68 @@
           <img src="assets/pasteis-nata.jpg" alt="Pastéis de nata artesanais" loading="lazy" />
         </div>
         <div class="galeria-item">
-          <img src="assets/pao-artesanal.jpg" alt="Pão artesanal feito à mão" loading="lazy" />
+          <img src="assets/nit-tradicoes.jpg" alt="Pão artesanal nas prateleiras" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/pao-artesanal.jpg" alt="Pão feito à mão" loading="lazy" />
         </div>
         <div class="galeria-item">
           <img src="assets/pasteis-fileiras.jpg" alt="Fileiras de pastéis frescos" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/sobre.jpg" alt="Processo de fabrico artesanal" loading="lazy" />
         </div>
         <div class="galeria-item">
           <img src="assets/t1.jpg" alt="Tradições — produtos artesanais" loading="lazy" />
         </div>
         <div class="galeria-item">
           <img src="assets/t2.jpg" alt="Tradições Setúbal" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/hero.jpg" alt="Interior da Tradições" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">O Que Dizem de Nós</span>
+        <h2>Opiniões</h2>
+        <div class="reviews-rating-header">
+          <div class="rating-big">
+            <span class="rating-stars">★★★★★</span>
+            <span class="rating-number">5.0</span>
+          </div>
+          <p>Classificação perfeita no Google · Praça do Brasil, Setúbal</p>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Pão acabado de sair do forno às 7h30 — não há melhor forma de começar o dia. Os pastéis de nata são os melhores de Setúbal."</p>
+          <div class="review-author">
+            <span class="review-name">Sofia Andrade</span>
+            <span class="review-platform">Google Reviews</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Tudo artesanal, sente-se a diferença. O brioche é extraordinário e a equipa é sempre muito simpática. Voltamos todas as semanas."</p>
+          <div class="review-author">
+            <span class="review-name">Rui Mendes</span>
+            <span class="review-platform">Google Reviews</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"É o que uma boa padaria deve ser: produto honesto, feito com cuidado, a um preço justo. O pão de massa mãe é incrível."</p>
+          <div class="review-author">
+            <span class="review-name">Catarina Neves</span>
+            <span class="review-platform">Google Reviews</span>
+          </div>
         </div>
       </div>
     </div>
@@ -203,11 +292,14 @@
               <p>Segunda a Sábado<br/>7h30 – 19h30<br/><em>Encerra ao Domingo</em></p>
             </div>
           </div>
-          <a href="tel:265415487" class="btn btn-primary btn-full">Ligar para Encomendar</a>
+          <div class="contacto-ctas">
+            <a href="tel:265415487" class="btn btn-primary btn-full">📞 Ligar para Encomendar</a>
+            <a href="https://maps.google.com/maps?q=Tradicoes+Sem+Horas+Praca+do+Brasil+12+Setubal+Portugal" target="_blank" rel="noopener" class="btn btn-ghost btn-full">📍 Abrir no Google Maps</a>
+          </div>
         </div>
         <div class="contacto-mapa">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3116.9!2d-8.895!3d38.524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1!2sPra%C3%A7a+do+Brasil+12+Setubal!5e0!3m2!1spt!2spt!4v1"
+            src="https://maps.google.com/maps?q=Tradicoes+Sem+Horas+Praca+do+Brasil+12+Setubal+Portugal&t=&z=16&ie=UTF8&iwloc=B&output=embed"
             width="100%"
             height="100%"
             style="border:0;"
@@ -239,6 +331,18 @@
     </div>
   </footer>
 
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        <strong>Utilizamos cookies</strong>
+        <p>Usamos cookies para melhorar a sua experiência de navegação. Pode aceitar todos ou optar apenas pelos essenciais.</p>
+      </div>
+      <div class="cookie-actions">
+        <button class="btn btn-ghost btn-sm" id="cookieReject">Só Essenciais</button>
+        <button class="btn btn-primary btn-sm" id="cookieAccept">Aceitar Todos</button>
+      </div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

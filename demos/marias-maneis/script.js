@@ -154,3 +154,17 @@ document.querySelectorAll('.btn-cart').forEach(btn => {
     openCart();
   });
 });
+
+// Cookie banner
+const cookieBanner = document.getElementById("cookieBanner");
+if (!localStorage.getItem("cookieConsent")) {
+  setTimeout(() => cookieBanner.classList.add("visible"), 1200);
+}
+document.getElementById("cookieAccept").addEventListener("click", () => {
+  localStorage.setItem("cookieConsent", "accepted");
+  cookieBanner.classList.remove("visible");
+});
+document.getElementById("cookieReject").addEventListener("click", () => {
+  localStorage.setItem("cookieConsent", "essential");
+  cookieBanner.classList.remove("visible");
+});

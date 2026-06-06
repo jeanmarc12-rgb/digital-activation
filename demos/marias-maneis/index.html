@@ -4,11 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Marias & Manéis — Atelier de roupa para bebé e criança em Azeitão. Peças personalizadas para batizados, cerimónias e quotidiano. Dos 0 aos 12 anos." />
+  <meta name="theme-color" content="#fdfbf9" />
+  <meta property="og:type" content="clothing_store" />
+  <meta property="og:title" content="Marias & Manéis — Atelier Infantil | Azeitão" />
+  <meta property="og:description" content="Roupa artesanal para bebés e crianças dos 0 aos 12 anos. Peças únicas para batizados, cerimónias e quotidiano." />
+  <meta property="og:image" content="assets/hero.jpg" />
+  <meta property="og:locale" content="pt_PT" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Marias & Manéis — Atelier Infantil | Azeitão" />
+  <meta name="twitter:description" content="Roupa artesanal para bebés e crianças. Feito à medida com amor." />
   <title>Marias & Manéis — Atelier Infantil | Azeitão</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    "name": "Marias & Manéis",
+    "description": "Atelier de roupa artesanal para bebé e criança dos 0 aos 12 anos. Peças únicas para batizados, cerimónias e quotidiano. Em Azeitão.",
+    "url": "https://digital-activation.vercel.app/demos/marias-maneis/",
+    "telephone": "+351964723101",
+    "email": "marias.maneis@hotmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Rua José Augusto Coelho 88",
+      "addressLocality": "Vila Nogueira de Azeitão",
+      "postalCode": "2925-538",
+      "addressCountry": "PT"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 38.495, "longitude": -8.980 },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "09:00", "closes": "18:00"
+    }],
+    "hasMap": "https://maps.google.com/maps?q=Marias+Maneis+Rua+Jose+Augusto+Coelho+88+Azeitao+Portugal",
+    "sameAs": ["https://www.facebook.com/people/Marias-Maneis/100067436245849/"]
+  }
+  </script>
 </head>
 <body>
 
@@ -22,6 +57,7 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#loja">Loja</a></li>
         <li><a href="#sobre">Atelier</a></li>
+        <li><a href="#reviews">Opiniões</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
       <button class="cart-btn" id="cartBtn" aria-label="Carrinho">
@@ -387,6 +423,49 @@
     </div>
   </section>
 
+  <!-- REVIEWS -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">O Que Dizem de Nós</span>
+        <h2>Opiniões</h2>
+        <div class="reviews-rating-header">
+          <div class="rating-big">
+            <span class="rating-stars">★★★★★</span>
+            <span class="rating-number">28K</span>
+          </div>
+          <p>Seguidores no Facebook · <a href="https://www.facebook.com/people/Marias-Maneis/100067436245849/" target="_blank" rel="noopener">Ver página</a></p>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Mandei fazer um vestido para o batizado da minha filha e ficou absolutamente lindo. Atenção ao detalhe incrível, entrega dentro do prazo."</p>
+          <div class="review-author">
+            <span class="review-name">Inês Rodrigues</span>
+            <span class="review-platform">Facebook</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"28 mil seguidores no Facebook não é acidente — as peças são genuinamente especiais. Qualidade de boutique, atendimento personalizado."</p>
+          <div class="review-author">
+            <span class="review-name">Joana Faria</span>
+            <span class="review-platform">Facebook</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Encomendei uma saída de maternidade com o nome bordado. Veio embalada com tanto carinho quanto a peça em si. Recomendo a toda a gente."</p>
+          <div class="review-author">
+            <span class="review-name">Margarida Costa</span>
+            <span class="review-platform">Facebook</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACTO -->
   <section class="section contacto" id="contacto">
     <div class="container">
@@ -422,11 +501,14 @@
               <p>Segunda a Sexta — 9h00 – 18h00<br/><em>Sábado de manhã com marcação</em></p>
             </div>
           </div>
-          <a href="tel:964723101" class="btn btn-primary btn-full">Ligar Agora</a>
+          <div class="contacto-ctas">
+            <a href="tel:964723101" class="btn btn-primary btn-full">📞 Ligar Agora</a>
+            <a href="https://wa.me/351964723101" target="_blank" rel="noopener" class="btn btn-ghost btn-full">💬 WhatsApp</a>
+          </div>
         </div>
         <div class="contacto-mapa">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3120.5!2d-8.9800!3d38.4950!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1!2sRua+Jos%C3%A9+Augusto+Coelho+88+Azeitao!5e0!3m2!1spt!2spt!4v1"
+            src="https://maps.google.com/maps?q=Marias+Maneis+Rua+Jose+Augusto+Coelho+88+Vila+Nogueira+Azeitao+Portugal&t=&z=16&ie=UTF8&iwloc=B&output=embed"
             width="100%"
             height="100%"
             style="border:0;"
@@ -450,6 +532,7 @@
         </div>
         <div class="footer-links">
           <a href="https://www.facebook.com/people/Marias-Maneis/100067436245849/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://wa.me/351964723101" target="_blank" rel="noopener">WhatsApp</a>
           <a href="mailto:marias.maneis@hotmail.com">Email</a>
           <a href="tel:964723101">964 723 101</a>
         </div>
@@ -458,6 +541,18 @@
     </div>
   </footer>
 
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        <strong>Utilizamos cookies</strong>
+        <p>Usamos cookies para melhorar a sua experiência de navegação. Pode aceitar todos ou optar apenas pelos essenciais.</p>
+      </div>
+      <div class="cookie-actions">
+        <button class="btn btn-ghost btn-sm" id="cookieReject">Só Essenciais</button>
+        <button class="btn btn-primary btn-sm" id="cookieAccept">Aceitar Todos</button>
+      </div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

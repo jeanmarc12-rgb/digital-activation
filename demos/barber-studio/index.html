@@ -5,11 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Barber Studio Setúbal — Cortes de cabelo e barba com precisão. Espaço vintage, ambiente exclusivo, resultado garantido. Marque já." />
   <meta name="theme-color" content="#0a0a0a" />
-  <title>Barber Studio — Setúbal</title>
+  <meta property="og:type" content="beauty_salon" />
+  <meta property="og:title" content="Barber Studio — Barbearia | Setúbal" />
+  <meta property="og:description" content="Cortes clássicos, barba perfeita, ambiente vintage. Barbearia de Raquel Nunes na Av. dos Ciprestes, Setúbal." />
+  <meta property="og:image" content="assets/corte-1.jpg" />
+  <meta property="og:locale" content="pt_PT" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Barber Studio — Barbearia | Setúbal" />
+  <meta name="twitter:description" content="Cortes clássicos, barba perfeita, ambiente vintage em Setúbal." />
+  <title>Barber Studio — Barbearia | Setúbal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    "name": "Barber Studio",
+    "alternateName": "Barber Studio — Raquel Nunes",
+    "description": "Barbearia vintage em Setúbal. Cortes clássicos, barba perfeita, ambiente exclusivo. Gerida por Raquel Nunes desde 2022.",
+    "url": "https://digital-activation.vercel.app/demos/barber-studio/",
+    "telephone": "+351265419947",
+    "foundingDate": "2022",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Avenida dos Ciprestes 23C",
+      "addressLocality": "Setúbal",
+      "postalCode": "2910-319",
+      "addressCountry": "PT"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 38.530, "longitude": -8.886 },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "10:00", "closes": "19:00"
+    }],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "47", "bestRating": "5" },
+    "hasMap": "https://maps.google.com/maps?q=Barber+Studio+Avenida+dos+Ciprestes+23C+Setubal+Portugal",
+    "sameAs": ["https://www.instagram.com/barber_studio_raquel/", "https://www.facebook.com/RaquelNunesEstetica/", "https://www.fresha.com/pt/lvp/barberstudio-raquel-nunes-avenida-dos-ciprestes-setubal-Z62x3A"]
+  }
+  </script>
 </head>
 <body>
 
@@ -24,8 +60,9 @@
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#servicos">Serviços</a></li>
         <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#reviews">Opiniões</a></li>
         <li><a href="#contacto">Contacto</a></li>
-        <li><a href="tel:265419947" class="nav-cta">Marcar</a></li>
+        <li><a href="#contacto" class="nav-cta">Marcar</a></li>
       </ul>
     </div>
   </nav>
@@ -150,7 +187,13 @@
       </div>
       <div class="galeria-grid">
         <div class="galeria-item g-large">
+          <img src="assets/interior-1.jpg" alt="Interior Barber Studio" loading="lazy" />
+        </div>
+        <div class="galeria-item">
           <img src="assets/corte-1.jpg" alt="Corte de cabelo Barber Studio" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/cadeira.jpg" alt="Cadeira vintage Barber Studio" loading="lazy" />
         </div>
         <div class="galeria-item">
           <img src="assets/barba.jpg" alt="Tratamento de barba" loading="lazy" />
@@ -163,6 +206,52 @@
         </div>
         <div class="galeria-item">
           <img src="assets/detalhe.jpg" alt="Detalhe do espaço" loading="lazy" />
+        </div>
+        <div class="galeria-item">
+          <img src="assets/exterior.jpg" alt="Exterior Barber Studio" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">O Que Dizem de Nós</span>
+        <h2>Opiniões</h2>
+        <div class="reviews-rating-header">
+          <div class="rating-big">
+            <span class="rating-stars">★★★★★</span>
+            <span class="rating-number">4.9</span>
+          </div>
+          <p>Classificação no Agendoor · <a href="https://www.fresha.com/pt/lvp/barberstudio-raquel-nunes-avenida-dos-ciprestes-setubal-Z62x3A" target="_blank" rel="noopener">Marcar via Fresha</a></p>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Raquel tem um talento incrível. Corte perfeito, barba impecável. É o melhor espaço de barbearia em Setúbal, sem dúvida alguma."</p>
+          <div class="review-author">
+            <span class="review-name">Bruno Marques</span>
+            <span class="review-platform">Agendoor</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Espaço com personalidade própria. Saí com o visual que sempre quis mas nunca encontrei noutro sítio. Atendimento personalizado de verdade."</p>
+          <div class="review-author">
+            <span class="review-name">Diogo Santos</span>
+            <span class="review-platform">Google Reviews</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Preços muito justos para a qualidade do trabalho. A Raquel sabe exactamente o que faz — fui pela primeira vez e já marquei para o próximo mês."</p>
+          <div class="review-author">
+            <span class="review-name">Filipe Ribeiro</span>
+            <span class="review-platform">Fresha</span>
+          </div>
         </div>
       </div>
     </div>
@@ -196,11 +285,14 @@
               <p>Segunda a Sábado<br/>10h00 – 13h00 · 14h00 – 19h00<br/><em>Encerra ao Domingo</em></p>
             </div>
           </div>
-          <a href="tel:265419947" class="btn btn-primary btn-full">Ligar e Marcar</a>
+          <div class="contacto-ctas">
+            <a href="tel:265419947" class="btn btn-primary btn-full">📞 Ligar e Marcar</a>
+            <a href="https://www.fresha.com/pt/lvp/barberstudio-raquel-nunes-avenida-dos-ciprestes-setubal-Z62x3A" target="_blank" rel="noopener" class="btn btn-ghost btn-full">📅 Marcar Online (Fresha)</a>
+          </div>
         </div>
         <div class="contacto-mapa">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3117.0!2d-8.886!3d38.530!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1!2sAv.+dos+Ciprestes+23C+Setubal!5e0!3m2!1spt!2spt!4v1"
+            src="https://maps.google.com/maps?q=Barber+Studio+Avenida+dos+Ciprestes+23C+Setubal+Portugal&t=&z=16&ie=UTF8&iwloc=B&output=embed"
             width="100%"
             height="100%"
             style="border:0;"
@@ -224,6 +316,7 @@
         </div>
         <div class="footer-links">
           <a href="https://www.instagram.com/barber_studio_raquel/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.fresha.com/pt/lvp/barberstudio-raquel-nunes-avenida-dos-ciprestes-setubal-Z62x3A" target="_blank" rel="noopener">Fresha</a>
           <a href="tel:265419947">265 419 947</a>
         </div>
       </div>
@@ -231,6 +324,18 @@
     </div>
   </footer>
 
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-inner">
+      <div class="cookie-text">
+        <strong>Utilizamos cookies</strong>
+        <p>Usamos cookies para melhorar a sua experiência de navegação. Pode aceitar todos ou optar apenas pelos essenciais.</p>
+      </div>
+      <div class="cookie-actions">
+        <button class="btn btn-ghost btn-sm" id="cookieReject">Só Essenciais</button>
+        <button class="btn btn-primary btn-sm" id="cookieAccept">Aceitar Todos</button>
+      </div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

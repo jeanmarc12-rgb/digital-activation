@@ -463,3 +463,30 @@ img { display: block; max-width: 100%; }
   .galeria-grid { grid-template-columns: 1fr; }
   .g-large { grid-column: span 1; min-height: 240px; }
 }
+
+/* ── REVIEWS ──────────────────────────────────── */
+.reviews { background: var(--black); }
+.reviews-rating-header { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 16px; }
+.rating-big { display: flex; align-items: center; gap: 12px; }
+.rating-stars { color: #f5a623; font-size: 1.4rem; letter-spacing: 2px; }
+.rating-number { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--white); }
+.reviews-rating-header > p { color: var(--muted); font-size: 0.9rem; }
+.reviews-rating-header a { color: var(--teal); }
+.reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 48px; }
+.review-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+.review-stars { color: #f5a623; font-size: 1.1rem; letter-spacing: 2px; }
+.review-text { color: rgba(220,232,240,0.85); font-size: 0.95rem; line-height: 1.7; font-style: italic; flex: 1; }
+.review-author { display: flex; flex-direction: column; gap: 2px; padding-top: 16px; border-top: 1px solid var(--border); }
+.review-name { font-weight: 600; color: var(--white); font-size: 0.9rem; }
+.review-platform { font-size: 0.78rem; color: var(--muted); }
+.contacto-ctas { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+/* ── COOKIE ────────────────────────────────────── */
+.cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: rgba(8,14,20,0.97); border-top: 1px solid var(--border); backdrop-filter: blur(12px); padding: 20px; transform: translateY(100%); transition: transform 0.4s ease; }
+.cookie-banner.visible { transform: translateY(0); }
+.cookie-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.cookie-text strong { color: var(--white); display: block; margin-bottom: 4px; font-size: 0.95rem; }
+.cookie-text p { font-size: 0.83rem; color: var(--muted); max-width: 580px; line-height: 1.5; }
+.cookie-actions { display: flex; gap: 12px; flex-shrink: 0; }
+.btn-sm { padding: 10px 20px; font-size: 0.85rem; }
+@media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .cookie-inner { flex-direction: column; } .cookie-actions { width: 100%; } .cookie-actions .btn { flex: 1; } }
