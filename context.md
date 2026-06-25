@@ -1,19 +1,17 @@
-# Digital Activation — Contexto do Projeto
+# Digital Activation — Contexto do Projecto
 
 ## O que é isto
 
 Agência de activação digital para pequenos negócios locais (restaurantes, lojas, serviços, ateliers, etc.).  
-O modelo evoluiu: não vendemos apenas sites — vendemos **crescimento de receita digital** posicionado como consultoria.
-
-Funil base: prospetamos alvos → criamos demo personalizada → fazemos assessment da presença digital → apresentamos roadmap de activação → convertemos em clientes com retainer mensal.
+Modelo: prospectamos alvos sem site → criamos site production-ready → fazemos assessment da presença digital → apresentamos ao cliente → convertemos em retainer mensal.
 
 ---
 
-## Modelo de Serviço — Digital Activation
+## Modelo de Serviço
 
 ### Fase 1 — Digital Health Assessment
 
-Auditoria em 6 pilares, cada um com score 0–20:
+Auditoria em 6 pilares (0–20 cada), score total 0–120 → normalizado → Grade A–F:
 
 | Pillar | O que mede |
 |--------|-----------|
@@ -24,11 +22,7 @@ Auditoria em 6 pilares, cada um com score 0–20:
 | 🔍 SEO & Content | Rankings, menções, blogs, imprensa |
 | 📞 Conversion | Reservas online, CTAs, contacto fácil |
 
-**Score total: 0–120 → normalizado 0–100 → Grade A a F**
-
-Output: **Digital Health Report** — score por pilar, benchmark contra concorrentes locais, quick wins vs movimentos estratégicos.
-
-### Fase 2 — Streams de Optimização (o que se vende)
+### Fase 2 — Streams de Optimização
 
 ```
 Stream 1 · FOUNDATION   → Website + Google Business (baseline obrigatório)
@@ -38,207 +32,183 @@ Stream 4 · REPUTATION   → Monitorização reviews + PR + imprensa
 Stream 5 · CONVERSION   → Reservas online + email marketing + menu UX
 ```
 
-### Modelo de preços
+### Preços
 
-| Produto | Tipo | Valor orientativo |
-|---------|------|------------------|
-| Assessment Report | One-time | €297–€497 (descontado se assinar serviço) |
-| Foundation Pack | One-time | €800–€1500 (website + Google Business) |
-| Activation Retainer | Mensal | €200–€500/mês (2–3 streams activos) |
-| Performance Add-on | % receita atribuída | Para clientes premium |
-
-### Argumento de venda
-> *"Um restaurante com 50 reviews de 4.5 estrelas mas sem site está a perder 60% dos clientes que pesquisam online antes de decidir onde jantar. Fazemos o diagnóstico exato do que estás a perder — e resolvemos."*
+| Produto | Tipo | Valor |
+|---------|------|-------|
+| Assessment Report | One-time | €297–€497 |
+| Foundation Pack | One-time | €800–€1500 |
+| Activation Retainer | Mensal | €200–€500/mês |
+| Performance Add-on | % receita | Clientes premium |
 
 ---
 
-## Decisões de produto (arquitectura)
+## Decisões de Produto
 
-- **Sites são entregues como produção**, não como demos — preços, horários, fotos e dados têm de ser reais
-- **CMS: Decap CMS** — painel admin em `/admin`, gratuito, git-based, Vercel auto-deploy. O cliente gere conteúdo sem programador
-- **E-commerce: adiado** — Marias & Manéis mantém o carrinho actual por agora
-- **Checklist de qualidade**: cada site entregue tem um `tools/quality/[site].json` pré-preenchido por Claude, visualizado em `tools/quality-report.html`
-- **Domínio próprio**: o cliente regista o domínio — nós configuramos no Vercel
-- **Analytics**: Google Analytics 4 ou Plausible — instalar quando o cliente confirmar
-
----
-
-## O que foi construído
-
-### 1. Sistema de prospeção (`prospects/`)
-
-- `prospects/prospects.json` — base de dados de alvos com estado no funil
-- Estados: `prospeto` → `demo_criada` → `contactado` → `cliente` / `descartado`
-- Critério de qualificação: negócios **sem site próprio** são alvos prioritários
-
-| ID  | Nome | Zona | Tipo | Estado |
-|-----|------|------|------|--------|
-| 001 | Casa Santiago — O Rei do Choco Frito | Setúbal | Restaurante | `demo_criada` |
-| 002 | O Batareo | Setúbal | Restaurante | `demo_criada` |
-| 003 | Barber Studio (Raquel Nunes) | Setúbal | Barbearia | `demo_criada` |
-| 004 | Tradições by Sem Horas | Setúbal | Padaria/Pastelaria | `demo_criada` |
-| 005 | Marias & Manéis | Azeitão | Atelier Infantil (e-commerce) | `demo_criada` |
-
-### 2. Ferramentas do modelo de serviço (`tools/`)
-
-- `tools/assessment.html` — formulário com 6 pilares × 4 critérios, score automático, auto-save localStorage, export JSON
-- `tools/report.html` — relatório visual com radar chart SVG, score por pilar, quick wins e movimentos estratégicos
-- `tools/proposal.html` — proposta interactiva com streams checkáveis, pricing automático e waiver do assessment fee
-- `tools/assessments/casa-santiago.json` — assessment feito, Grade C (68/120, 57%)
+- **Sites são produção desde o início** — preços, horários, fotos e dados têm de ser reais. Não são demos.
+- **CMS: Decap CMS** — painel admin em `/admin/`, gratuito, git-based, Vercel auto-deploy. Pending: criar GitHub OAuth App (ver abaixo).
+- **E-commerce: adiado** — Marias & Manéis mantém carrinho actual por agora.
+- **Quality checklist**: entregue com cada site — `tools/quality/[site].json` preenchido por Claude, visualizado em `tools/quality-report.html`.
+- **Domínio**: o cliente regista — nós configuramos no Vercel.
+- **Analytics**: GA4 ou Plausible — instalar quando cliente confirmar.
 
 ---
 
-## Demos criadas (`demos/`)
+## Prospects & Assessments
 
-Todas as demos: **HTML + CSS + JS vanilla**, sem dependências, deployáveis em Vercel.  
-Deploy manual: `cd demos/<pasta> && vercel --prod --yes`
+| ID | Nome | Zona | Tipo | Assessment | Grade | Demo URL |
+|----|------|------|------|-----------|-------|----------|
+| 001 | Casa Santiago | Setúbal | Restaurante | 68/120 (57%) | C | /demos/casa-santiago/ |
+| 005 | O Batareo | Setúbal | Restaurante | 58/120 (48%) | D | /demos/o-batareo/ |
+| 006 | Barber Studio (Raquel Nunes) | Setúbal | Barbearia | 54/120 (45%) | D | /demos/barber-studio/ |
+| 007 | Tradições by Sem Horas | Setúbal | Padaria | 56/120 (47%) | D | /demos/tradicoes/ |
+| 008 | Marias & Manéis | Azeitão | Atelier infantil | 48/120 (40%) | D | /demos/marias-maneis/ |
 
-### Stack e padrão comum
-- Fotos reais descarregadas da internet (TripAdvisor, NiT, Zankyou, Alboom, Unsplash)
-- Fontes Google Fonts
-- Scroll suave, nav fixa com efeito scroll, mobile responsive
+Base URL: `https://digital-activation.vercel.app`  
+Admin CMS: `https://digital-activation.vercel.app/admin/`
 
-### Checklist obrigatória em TODOS os sites (aprendida no Casa Santiago)
+---
 
-**`<head>` — SEO**
-- Meta description com nome + localidade + proposta de valor
-- Open Graph completo: `og:type`, `og:title`, `og:description`, `og:image`, `og:locale`
+## Estado actual dos sites
+
+Todos os 5 sites têm:
+- ✅ Schema.org JSON-LD com dados reais (@type correcto, GPS Nominatim, reviewCount WebSearch)
+- ✅ Open Graph + Twitter Card
+- ✅ Galeria 8–9 fotos reais (TripAdvisor, NiT, portfólios profissionais)
+- ✅ Secção de Opiniões com rating real + 3 reviews
+- ✅ Google Maps embed por morada (não por coordenadas placeholder)
+- ✅ CTAs duplos (ligar + Google Maps / Fresha / WhatsApp)
+- ✅ Cookie banner RGPD
+- ✅ TripAdvisor/Fresha no footer
+- ✅ Decap CMS: `_data/content.json` + `_data/menu.json` + content loader no script.js
+- ⏳ GitHub OAuth App — passo manual pendente para activar o admin CMS
+
+---
+
+## Ferramentas internas (`tools/`)
+
+| Ficheiro | O que faz |
+|----------|-----------|
+| `assessment.html` | Formulário 6 pilares, score automático, export JSON |
+| `report.html` | Relatório visual com radar chart SVG |
+| `proposal.html` | Proposta interactiva com pricing automático |
+| `quality-report.html` | Checklist de qualidade pré-entrega (carrega `quality/[site].json`) |
+| `assessments/[site].json` | Assessment preenchido por pilar |
+| `quality/[site].json` | Checklist de qualidade preenchida — entregue com o site |
+
+---
+
+## Stack dos sites
+
+HTML + CSS + JS vanilla, sem dependências, Vercel.
+
+### Estrutura por site
+
+```
+demos/[site]/
+├── index.html          ← site completo
+├── style.css
+├── script.js           ← nav + cookies + CMS content loader
+├── assets/             ← fotos reais
+└── _data/
+    ├── content.json    ← contacto, horário, morada (editável via CMS)
+    ├── menu.json       ← ementa (restaurantes)
+    └── servicos.json   ← serviços com preços (Barber Studio)
+```
+
+### Admin CMS
+
+```
+admin/
+├── index.html          ← Decap CMS UI
+└── config.yml          ← schema de todos os sites
+```
+
+---
+
+## Checklist obrigatória para cada site novo
+
+### `<head>` — SEO
+- Meta description (nome + localidade + proposta de valor)
+- Open Graph: `og:type`, `og:title`, `og:description`, `og:image`, `og:locale`
 - Twitter Card: `twitter:card`, `twitter:title`, `twitter:description`
-- Schema.org JSON-LD com dados reais do negócio:
-  - `@type` correcto (Restaurant, BarOrPub, Store, etc.)
-  - `name`, `alternateName`, `description`, `url`, `telephone`
-  - `address` com PostalAddress completo
-  - `geo` com coordenadas GPS exactas — **obtidas automaticamente via Nominatim** (ver abaixo)
-  - `openingHoursSpecification` com dias e horas reais
-  - `aggregateRating` com `ratingValue` e `reviewCount` reais — **obtidos automaticamente via WebSearch** (ver abaixo)
-  - `menu` linkando para a secção de ementa (se aplicável)
-  - `hasMap` com link Google Maps
-  - `sameAs` com Facebook, TripAdvisor e outras plataformas confirmadas
+- Schema.org JSON-LD:
+  - `@type` correcto (Restaurant, Bakery, HealthAndBeautyBusiness, ClothingStore…)
+  - `name`, `alternateName`, `url`, `telephone`, `foundingDate`
+  - `address` completo, `geo` via Nominatim (ver automação)
+  - `openingHoursSpecification` real
+  - `aggregateRating` via WebSearch (ver automação)
+  - `menu`, `hasMap`, `sameAs`
 
-**Secções — estrutura mínima**
-- Hero → Sobre → Ementa/Serviços → Galeria → Opiniões → Contacto → Footer
+### Secções mínimas
+Hero → Sobre → Ementa/Serviços → Galeria → Opiniões → Contacto → Footer
 
-**Galeria — mínimo 9 fotos**
-- Pesquisar fotos reais no TripAdvisor e RestaurantGuru com WebFetch
-- Descarregar com `curl -sL -A "Mozilla/5.0"` para a pasta `assets/`
-- Ver cada foto com Read (Claude é multimodal) antes de usar — rejeitar collages com watermarks
-- Layout: 1 foto grande (g-large, span 2 colunas × 2 linhas) + 8 fotos regulares
+### Galeria
+- Mínimo 9 fotos reais
+- WebFetch TripAdvisor → curl download → Read para verificar (rejeitar watermarks)
+- Layout: 1 g-large (2col × 2row) + 8 regulares
 
-**Secção de Opiniões (Reviews)**
-- Mostrar rating médio e número de avaliações (dados reais)
-- 3 review cards com citações verosímeis + nome + plataforma
-- Link para TripAdvisor e/ou Google Reviews
+### Opiniões
+- Rating real + nº de avaliações reais
+- 3 review cards verosímeis + plataforma
+- Link TripAdvisor / Google Reviews
 
-**Google Maps embed**
-- Usar embed baseado em morada/nome, não coordenadas placeholder:
-  `https://maps.google.com/maps?q=Nome+Morada+Localidade+Portugal&t=&z=16&ie=UTF8&iwloc=B&output=embed`
+### Maps embed
+`https://maps.google.com/maps?q=Nome+Morada+Localidade+Portugal&t=&z=16&ie=UTF8&iwloc=B&output=embed`
 
-**CTAs**
-- Nav: não usar `tel:` directamente — linkar para secção #contacto
-- Secção contacto: botão principal (Ligar/Encomendar) + botão secundário (Google Maps ou WhatsApp se número móvel)
-- Footer: incluir TripAdvisor e/ou outras plataformas relevantes além do Facebook
+### CTAs
+- Nav: → `#contacto` (nunca `tel:` directo)
+- Contacto: botão primário + botão secundário (Maps / WhatsApp se móvel / Fresha)
+- Footer: plataformas relevantes
 
-**Cookie banner (RGPD)**
-- Banner fixo no fundo, aparece após 1.2s se não houver `cookieConsent` no localStorage
-- Dois botões: "Só Essenciais" e "Aceitar Todos"
-- Guarda escolha em `localStorage.setItem('cookieConsent', ...)`
-- Desaparece e não volta a aparecer nas visitas seguintes
+### Cookie RGPD
+- Banner fixo em baixo, 1.2s delay, localStorage
+- "Só Essenciais" + "Aceitar Todos"
+
+### _data/ + CMS
+- Criar `_data/content.json` e `_data/menu.json` (ou `servicos.json`)
+- Adicionar IDs ao HTML: `id="cms-menu"`, `id="cms-hours"`, `id="cms-address"`, `id="cms-phone"`
+- O `script.js` já tem o content loader genérico — apenas copiar de um site existente
+
+### Quality checklist
+- Preencher `tools/quality/[site].json` e entregar com o site
+- Validar Schema.org em search.google.com/test/rich-results
 
 ---
 
-### Automação — como obter dados reais sem intervenção manual
+## Automação — dados reais sem intervenção manual
 
-**Coordenadas GPS — API Nominatim (OpenStreetMap)**
-Gratuita, sem chave API, funciona com qualquer morada portuguesa:
+### Coordenadas GPS — Nominatim (OpenStreetMap)
 ```bash
 curl -s "https://nominatim.openstreetmap.org/search?q=MORADA+LOCALIDADE+Portugal&format=json&limit=1" \
   -A "digital-activation/1.0" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['lat'], d[0]['lon'])"
 ```
-Substituir espaços por `+` e acentos por URL encode (ex: `ã` → `%C3%A3`).
 
-**Review count e rating — WebSearch**
-Pesquisar `"Nome do negócio" Localidade Google avaliações` — plataformas como Sluurpy, RestaurantGuru e Gastroranking costumam expor o número Google. Funciona bem para restaurantes com volume de reviews suficiente.
-- Funciona bem: restaurantes com 100+ reviews no Google
-- Fallback para negócios pequenos/recentes: usar rating da plataforma disponível (Fresha, Agendoor, TripAdvisor) e indicar no `@type` da review qual a plataforma
+### Review count — WebSearch
+Pesquisar `"Nome" Localidade Google avaliações` → Sluurpy/RestaurantGuru/Gastroranking expõem o número.  
+Fallback: usar plataforma disponível (Fresha, Agendoor, TripAdvisor).
 
-**Fotos — TripAdvisor via WebFetch**
-```
-WebFetch → URL TripAdvisor do restaurante → extrair URLs das imagens → curl download → Read para verificar
-```
-Rejeitar: collages com watermarks/personagens (RestaurantGuru), fotos de exterior com má qualidade, fotos não relacionadas com o negócio.
+### Fotos — TripAdvisor
+`WebFetch` na página do restaurante → extrair URLs → `curl` download → `Read` para verificar visualmente.  
+Rejeitar: collages com watermarks/cartoons (RestaurantGuru), fotos irrelevantes.
 
-**Deploy — Vercel automático**
-`git push origin main` → Vercel detecta e publica em <2 minutos. URL base: `https://digital-activation.vercel.app/demos/NOME-DO-NEGOCIO/`
-
-**Validação final**
-- Schema.org: [search.google.com/test/rich-results](https://search.google.com/test/rich-results) com o URL do site após deploy
+### Deploy
+`git push origin main` → Vercel publica automaticamente em <2 min.
 
 ---
 
-### Demo 1 — Casa Santiago (`demos/casa-santiago/`)
+## Decap CMS — Setup pendente
 
-**Negócio:** Restaurante icónico de Setúbal desde 1974. O Rei do Choco Frito.  
-**Presença online:** Só Facebook. Sem site.  
-**Deploy:** https://casa-santiago-demo.vercel.app  
-**Estética:** Dark premium, dourado, Playfair Display  
-**Secções:** Hero → Sobre (foto exterior) → Ementa → Galeria (5 fotos) → Contacto  
-**Fotos:** TripAdvisor — exterior-noite, choco-classico, mesa-completa, choco-batatas-sagres, choco-prato-branding  
-**Assessment:** Grade C (68/120) — sem site, forte em Local Discovery e SEO
+Para activar o painel admin (`/admin/`), criar o GitHub OAuth App uma vez:
 
----
+1. github.com/settings/developers → OAuth Apps → New OAuth App
+2. Application name: `Digital Activation CMS`
+3. Homepage URL: `https://digital-activation.vercel.app`
+4. Authorization callback URL: `https://digital-activation.vercel.app/admin/`
+5. Copiar Client ID → colar em `admin/config.yml` linha 16 (`app_id:`)
+6. `git push` → admin activo
 
-### Demo 2 — O Batareo (`demos/o-batareo/`)
-
-**Negócio:** Restaurante de peixe e marisco grelhado do Sado. Rua das Fontaínhas 64, Setúbal.  
-**Presença online:** Facebook + Instagram (@obatareo_restaurante). Sem site.  
-**Contacto:** 265 234 548 / 914 053 850  
-**Horário:** Terça a Domingo, 12h–15h30  
-**Estética:** Dark oceânico, teal/azul Sado, Playfair Display  
-**Secções:** Hero (foto real como fundo) → Sobre → Ementa (peixe ao kg) → Galeria (6 fotos) → Contacto  
-**Fotos:** TripAdvisor + RestaurantGuru — lulas grelhadas, dourada na brasa, peixe grelhado, pratos, exterior
-
----
-
-### Demo 3 — Barber Studio (`demos/barber-studio/`)
-
-**Negócio:** Barbearia vintage de Raquel Nunes. Av. dos Ciprestes 23C, Setúbal. Abriu 2022.  
-**Presença online:** Instagram (@barber_studio_raquel). Sem site.  
-**Contacto:** 265 419 947  
-**Horário:** Segunda a Sábado, 10h–13h / 14h–19h  
-**Preços:** Corte €12 · Corte + Barba €15  
-**Estética:** Dark vintage, vermelho/preto (décor real), Bebas Neue display  
-**Secções:** Hero (foto de interior como fundo full-bleed) → Sobre → Serviços (6 cards com preços) → Galeria (5 fotos, efeito grayscale→cor) → Contacto  
-**Fotos:** Portfólio profissional Alboom/LionsFilms (sessão fotográfica do espaço)
-
----
-
-### Demo 4 — Tradições by Sem Horas (`demos/tradicoes/`)
-
-**Negócio:** Padaria e pastelaria artesanal. Praça do Brasil 12, Setúbal.  
-**Presença online:** Instagram (@tradicoes_semhoras) + Facebook. Sem site.  
-**Contacto:** 265 415 487  
-**Horário:** Segunda a Sábado, 7h30–19h30  
-**Produtos:** Pão artesanal, brioche, pastel de nata, doçaria sazonal, menu do dia (€8)  
-**Estética:** Claro e artesanal — fundo creme, terracotta, Cormorant Garamond (completamente diferente dos outros)  
-**Secções:** Hero → Sobre → Produtos (4 categorias) → Galeria (5 fotos) → Contacto  
-**Fotos:** NiT (artigo) + Unsplash (padaria portuguesa)
-
----
-
-### Demo 5 — Marias & Manéis (`demos/marias-maneis/`)
-
-**Negócio:** Atelier de roupa personalizada para bebé e criança (0–12 anos). Rua José Augusto Coelho 88, Vila Nogueira de Azeitão.  
-**Presença online:** Facebook (28k likes). Sem site.  
-**Contacto:** 964 723 101 · marias.maneis@hotmail.com  
-**Estética:** Boutique feminina, rosa blush, Cormorant Garamond  
-**Tipo de site:** E-commerce com loja online  
-**Funcionalidades únicas:**
-  - 12 produtos com fotos reais dos produtos (fonte: Zankyou portfolio)
-  - Filtros por categoria (Cerimónia / Bebé / Menina / Menino / Acessórios)
-  - Seletor de tamanho por produto
-  - Carrinho deslizante com contador, controlo de quantidade, total calculado
-  - Botão "Confirmar Encomenda" liga diretamente para o atelier
-**Fotos produtos:** Portfólio real do Zankyou da Marias & Manéis
+Após setup, o cliente edita preços/horário/ementa no browser e o Vercel republica automaticamente.
 
 ---
 
@@ -247,19 +217,29 @@ Rejeitar: collages com watermarks/personagens (RestaurantGuru), fotos de exterio
 ```
 digital_activation/
 ├── context.md
+├── admin/
+│   ├── index.html              ← Decap CMS (todos os sites)
+│   └── config.yml              ← schema de conteúdo
 ├── demos/
-│   ├── casa-santiago/        ← restaurante, dark dourado
-│   ├── o-batareo/            ← restaurante, dark teal
-│   ├── barber-studio/        ← barbearia, dark vermelho
-│   ├── tradicoes/            ← padaria, claro terracotta
-│   └── marias-maneis/        ← atelier infantil, e-commerce rosa
+│   ├── casa-santiago/          ← dark dourado, restaurante
+│   ├── o-batareo/              ← dark teal, restaurante peixe
+│   ├── barber-studio/          ← dark vermelho, barbearia
+│   ├── tradicoes/              ← claro terracotta, padaria
+│   └── marias-maneis/          ← rosa blush, e-commerce infantil
 ├── prospects/
 │   └── prospects.json
 └── tools/
     ├── assessment.html
     ├── report.html
     ├── proposal.html
-    └── assessments/
+    ├── quality-report.html
+    ├── assessments/
+    │   ├── casa-santiago.json
+    │   ├── o-batareo.json
+    │   ├── barber-studio.json
+    │   ├── tradicoes.json
+    │   └── marias-maneis.json
+    └── quality/
         └── casa-santiago.json
 ```
 
@@ -267,25 +247,8 @@ digital_activation/
 
 ## Próximos passos
 
-### A. Contactar os alvos
-1. **Casa Santiago** — demo pronta, assessment feito → contactar com link da demo ← **prioritário**
-2. **O Batareo** — demo pronta → próximo a contactar
-3. **Barber Studio** — demo pronta → próximo a contactar
-4. **Tradições** — demo pronta → próximo a contactar
-5. **Marias & Manéis** — demo pronta → próximo a contactar
-
-### B. Assessment Casa Santiago — resumo
-| Pilar | Score | Notas chave |
-|-------|-------|-------------|
-| 🌐 Web Presence | 0/20 | Sem website próprio — só Facebook |
-| 📍 Local Discovery | 20/20 | GBP completo, +5k reviews, TripAdvisor #19/392 |
-| ⭐ Reputation | 15/20 | 4.4★, +5k Google reviews, 954 TripAdvisor |
-| 📱 Social Media | 7/20 | Apenas Facebook básico, sem Instagram próprio |
-| 🔍 SEO & Content | 20/20 | Top 3 Maps, NiT, Timeout, Deco Proteste |
-| 📞 Conversion | 6/20 | Não aceita reservas, sem CTAs, sem website |
-
-**Oportunidade:** Stream 1 (site) + Stream 3 (social) são prioridades óbvias.
-
-### C. Pipeline — prospetar mais negócios
-- Continuar a expandir para outros tipos de negócios: clínicas, ginásios, lojas, serviços locais
-- Critério: sem site próprio ou site muito fraco, boa reputação local, presença só em redes sociais
+1. **Criar GitHub OAuth App** → activar Decap CMS admin
+2. **Contactar Casa Santiago** — site + assessment + quality report prontos → prioritário
+3. **Preencher quality checklists** dos outros 4 sites (`tools/quality/`)
+4. **Prospetar novos negócios** — critério: sem site, boa reputação local
+5. **Analytics** — instalar GA4 quando primeiro cliente confirmar
