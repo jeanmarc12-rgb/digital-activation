@@ -15,15 +15,27 @@ module.exports = async function handler(req, res) {
   const token = data.access_token;
 
   if (!token) {
-    return res.send(page('error', data.error_description || 'Erro de autenticação'));
+    return res.send(page('error', JSON.stringify(data.error_description || 'Erro de autenticação')));
   }
 
   return res.send(page('success', JSON.stringify({ token, provider: 'github' })));
 };
 
 function page(status, content) {
-  return `<!DOCTYPE html><html><body><script>
-window.opener.postMessage('authorization:github:${status}:${content}','*');
-window.close();
-</script></body></html>`;
+  return `<!DOCTYPE html>
+<html>
+<body>
+<script>
+(function() {
+  function receiveMessage(e) {
+    window.removeEventListener('message', receiveMessage, false);
+    window.opener.postMessage('authorization:github:${status}:${content}', e.origin || '*');
+    setTimeout(function() { window.close(); }, 100);
+  }
+  window.addEventListener('message', receiveMessage, false);
+  window.opener.postMessage('authorizing:github', '*');
+})();
+</script>
+</body>
+</html>`;
 }
