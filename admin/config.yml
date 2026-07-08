@@ -14,8 +14,8 @@ backend:
   name: github
   repo: jeanmarc12-rgb/digital-activation
   branch: main
-  auth_type: pkce
-  app_id: Ov23liypQIrt39T7GLUU
+  base_url: https://digital-activation.vercel.app
+  auth_endpoint: api/auth
 
 media_folder: uploads
 public_folder: /uploads

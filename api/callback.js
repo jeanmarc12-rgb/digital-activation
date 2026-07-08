@@ -1,0 +1,29 @@
+module.exports = async function handler(req, res) {
+  const { code } = req.query;
+
+  const r = await fetch('https://github.com/login/oauth/access_token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      client_id: process.env.GITHUB_CLIENT_ID,
+      client_secret: process.env.GITHUB_CLIENT_SECRET,
+      code,
+    }),
+  });
+
+  const data = await r.json();
+  const token = data.access_token;
+
+  if (!token) {
+    return res.send(page('error', data.error_description || 'Erro de autenticação'));
+  }
+
+  return res.send(page('success', JSON.stringify({ token, provider: 'github' })));
+};
+
+function page(status, content) {
+  return `<!DOCTYPE html><html><body><script>
+window.opener.postMessage('authorization:github:${status}:${content}','*');
+window.close();
+</script></body></html>`;
+}
