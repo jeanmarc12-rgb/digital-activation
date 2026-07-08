@@ -14,7 +14,7 @@ backend:
   name: github
   repo: jeanmarc12-rgb/digital-activation
   branch: main
-  auth_type: implicit
+  auth_type: pkce
   app_id: Ov23liypQIrt39T7GLUU
 
 media_folder: uploads
