@@ -86,6 +86,17 @@
 <body>
 <div class="container">
 
+  <div style="margin-bottom:24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <label style="font-size:0.82rem;color:var(--muted);white-space:nowrap;">Escolher site:</label>
+    <select id="siteSelector" onchange="location.search='?data='+this.value" style="background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:0.9rem;cursor:pointer;flex:1;max-width:360px;">
+      <option value="quality/casa-santiago.json">Casa Santiago — O Rei do Choco Frito</option>
+      <option value="quality/o-batareo.json">O Batareo</option>
+      <option value="quality/barber-studio.json">Barber Studio (Raquel Nunes)</option>
+      <option value="quality/tradicoes.json">Tradições by Sem Horas</option>
+      <option value="quality/marias-maneis.json">Marias & Manéis</option>
+    </select>
+  </div>
+
   <div class="header" id="header">
     <div class="header-left">
       <h1 id="siteName">—</h1>
@@ -120,7 +131,10 @@ const SCORE_COLOR = (pct) => pct >= 85 ? 'green' : pct >= 60 ? 'yellow' : 'red';
 
 function getParam() {
   const p = new URLSearchParams(location.search).get('data');
-  return p || 'quality/casa-santiago.json';
+  const val = p || 'quality/casa-santiago.json';
+  const sel = document.getElementById('siteSelector');
+  if (sel) sel.value = val;
+  return val;
 }
 
 async function load() {
