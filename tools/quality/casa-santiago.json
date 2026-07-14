@@ -78,8 +78,8 @@
     "cms": {
       "label": "CMS & Gestão",
       "items": [
-        { "label": "Decap CMS configurado", "status": "fail", "note": "A implementar — cliente poderá gerir ementa, horário e fotos" },
-        { "label": "Cliente consegue actualizar conteúdo", "status": "fail", "note": "Bloqueado pelo ponto anterior" }
+        { "label": "Decap CMS configurado", "status": "pass", "note": "Admin activo em digital-activation.vercel.app/admin/" },
+        { "label": "Cliente consegue actualizar conteúdo", "status": "pass", "note": "Ementa, horário, contacto editáveis via painel sem tocar em código" }
       ]
     }
   }
