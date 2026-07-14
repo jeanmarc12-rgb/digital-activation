@@ -149,7 +149,7 @@
         </div>
       </div>
       <div class="stream-price">
-        <div class="amount">€1.200</div>
+        <div class="amount">€450</div>
         <div class="period">one-time</div>
         <div class="setup">Setup único</div>
       </div>
@@ -171,31 +171,9 @@
         </div>
       </div>
       <div class="stream-price">
-        <div class="amount">€200</div>
+        <div class="amount">€100</div>
         <div class="period">/mês</div>
-        <div class="setup">Setup: €150</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="stream-card" id="card_s3">
-    <div class="stream-header" onclick="toggleStream('s3')">
-      <div class="stream-cb"><input type="checkbox" id="cb_s3" onchange="recalc()"></div>
-      <div class="stream-num">Stream 3</div>
-      <div class="stream-info">
-        <h3>Engagement <span class="priority-badge" id="badge_s3" style="display:none">Prioritário</span></h3>
-        <p>Gestão de redes sociais — Instagram e Facebook. Conteúdo semanal com fotos reais dos pratos e storytelling da marca.</p>
-        <div class="deliverables">
-          <span class="del">Gestão Instagram</span>
-          <span class="del">Gestão Facebook</span>
-          <span class="del">12 posts/mês</span>
-          <span class="del">Stories semanais</span>
-        </div>
-      </div>
-      <div class="stream-price">
-        <div class="amount">€300</div>
-        <div class="period">/mês</div>
-        <div class="setup">Setup: €100</div>
+        <div class="setup">Setup: €80</div>
       </div>
     </div>
   </div>
@@ -215,9 +193,9 @@
         </div>
       </div>
       <div class="stream-price">
-        <div class="amount">€150</div>
+        <div class="amount">€80</div>
         <div class="period">/mês</div>
-        <div class="setup">Setup: €80</div>
+        <div class="setup">Setup: €50</div>
       </div>
     </div>
   </div>
@@ -237,9 +215,9 @@
         </div>
       </div>
       <div class="stream-price">
-        <div class="amount">€180</div>
+        <div class="amount">€100</div>
         <div class="period">/mês</div>
-        <div class="setup">Setup: €80</div>
+        <div class="setup">Setup: €50</div>
       </div>
     </div>
   </div>
@@ -257,7 +235,7 @@
     </div>
     <div class="pricing-row" id="pr_assessment">
       <span class="lbl">Digital Health Assessment Report</span>
-      <span class="val" id="pv_assessment">€297 <span style="font-weight:400;color:#6b7280;font-size:12px">(one-time)</span></span>
+      <span class="val" id="pv_assessment">€150 <span style="font-weight:400;color:#6b7280;font-size:12px">(one-time)</span></span>
     </div>
     <div class="pricing-row total">
       <span class="lbl">Total primeiro mês</span>
@@ -306,11 +284,10 @@
 
 <script>
 const STREAM_DATA = {
-  s1: { oneTime: 1200, monthly: 0, setup: 0 },
-  s2: { oneTime: 0, monthly: 200, setup: 150 },
-  s3: { oneTime: 0, monthly: 300, setup: 100 },
-  s4: { oneTime: 0, monthly: 150, setup: 80 },
-  s5: { oneTime: 0, monthly: 180, setup: 80 },
+  s1: { oneTime: 450, monthly: 0, setup: 0 },
+  s2: { oneTime: 0, monthly: 100, setup: 80 },
+  s4: { oneTime: 0, monthly: 80, setup: 50 },
+  s5: { oneTime: 0, monthly: 100, setup: 50 },
 };
 
 const GRADE_LABELS = { A:'Presença digital excelente', B:'Presença digital sólida', C:'Presença digital moderada', D:'Presença digital fraca', F:'Presença digital crítica' };
@@ -322,7 +299,7 @@ function toggleStream(id) {
 }
 
 function recalc() {
-  const ids = ['s1','s2','s3','s4','s5'];
+  const ids = ['s1','s2','s4','s5'];
   let oneTime = 0, monthly = 0, setupTotal = 0;
   let anySelected = false;
 
@@ -341,8 +318,8 @@ function recalc() {
     }
   });
 
-  const assessmentFee = anySelected ? 0 : 297;
-  const assessmentLabel = anySelected ? '€0 (incluído — waived)' : '€297 (one-time)';
+  const assessmentFee = anySelected ? 0 : 150;
+  const assessmentLabel = anySelected ? '€0 (incluído — waived)' : '€150 (one-time)';
 
   document.getElementById('pv_assessment').innerHTML = assessmentLabel;
 
@@ -358,7 +335,7 @@ function recalc() {
   document.getElementById('pv_total').textContent = '€' + totalFirst.toLocaleString('pt-PT') + (monthly > 0 ? ' + €' + monthly + '/mês seguintes' : '');
 
   const note = anySelected
-    ? `O fee do Assessment Report (€297) é totalmente descontado ao assinar qualquer stream. Contrato mensal — cancela com 30 dias de aviso prévio, sem penalização.`
+    ? `O fee do Assessment Report (€150) é totalmente descontado ao assinar qualquer stream. Contrato mensal — cancela com 30 dias de aviso prévio, sem penalização.`
     : `Selecciona os streams que queres activar. O fee do Assessment é descontado na totalidade ao assinar serviço.`;
   document.getElementById('pricing_note').textContent = note;
 }
@@ -385,7 +362,6 @@ function loadData() {
     const checks = {
       s1: (p.web?.score||0) < 10,
       s2: (p.loc?.score||0) < 10 || (p.seo?.score||0) < 10,
-      s3: (p.soc?.score||0) < 10,
       s4: (p.rep?.score||0) < 10,
       s5: (p.conv?.score||0) < 10,
     };
