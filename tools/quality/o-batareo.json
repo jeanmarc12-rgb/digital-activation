@@ -1,0 +1,86 @@
+{
+  "site": {
+    "name": "O Batareo",
+    "type": "Restaurante (peixe e marisco)",
+    "url": "https://digital-activation.vercel.app/demos/o-batareo/",
+    "date": "2026-07-14",
+    "auditor": "Claude"
+  },
+  "categories": {
+    "seo": {
+      "label": "SEO & Schema",
+      "items": [
+        { "label": "Schema.org JSON-LD presente", "status": "pass", "note": "@type Restaurant com todos os campos obrigatórios" },
+        { "label": "Coordenadas GPS confirmadas", "status": "pass", "note": "Rua das Fontaínhas 64, Setúbal — via Nominatim" },
+        { "label": "reviewCount real", "status": "pass", "note": "437 avaliações — confirmado via WebSearch" },
+        { "label": "ratingValue real", "status": "pass", "note": "4.4★ — Google Maps" },
+        { "label": "Open Graph completo", "status": "pass", "note": "og:type, og:title, og:description, og:image, og:locale" },
+        { "label": "Twitter Card presente", "status": "pass", "note": "summary_large_image" },
+        { "label": "Meta description", "status": "pass", "note": "Dentro dos 160 caracteres, com localidade e proposta de valor" },
+        { "label": "Title tag correcto", "status": "pass", "note": "O Batareo — Peixe Fresco do Sado | Setúbal" },
+        { "label": "sameAs com plataformas reais", "status": "pass", "note": "Facebook + TripAdvisor" },
+        { "label": "Rich Results Test", "status": "warn", "note": "Verificar em search.google.com/test/rich-results após deploy com domínio próprio" }
+      ]
+    },
+    "conteudo": {
+      "label": "Conteúdo",
+      "items": [
+        { "label": "Preços reais na ementa", "status": "pass", "note": "Pratos indicados como 'Mercado' — prática real do restaurante" },
+        { "label": "Horário correcto", "status": "warn", "note": "Confirmar horário exacto com o cliente antes de entregar" },
+        { "label": "Morada correcta", "status": "pass", "note": "Rua das Fontaínhas 64, 2910-082 Setúbal" },
+        { "label": "Telefone correcto", "status": "pass", "note": "265 234 548" },
+        { "label": "Mínimo 9 fotos reais na galeria", "status": "pass", "note": "9 fotos reais — TripAdvisor, sem watermarks" },
+        { "label": "Secção de opiniões com dados reais", "status": "pass", "note": "4.4★ · 437 avaliações · link TripAdvisor" },
+        { "label": "Google Maps aponta local correcto", "status": "warn", "note": "Embed por morada — confirmar visualmente no browser" }
+      ]
+    },
+    "ux": {
+      "label": "UX & Funcionalidade",
+      "items": [
+        { "label": "Navegação funcional (todos os links)", "status": "pass", "note": "Hero, nav, footer — todos testados" },
+        { "label": "CTA principal funcional", "status": "pass", "note": "📞 Ligar → tel:265234548" },
+        { "label": "CTA secundário funcional", "status": "pass", "note": "📍 Abrir no Google Maps — link correcto" },
+        { "label": "Nav CTA não vai directamente para tel:", "status": "pass", "note": "Leva para #contacto" },
+        { "label": "Menu mobile funcional", "status": "pass", "note": "Toggle abre e fecha, links fecham o menu" },
+        { "label": "Scroll suave funcional", "status": "pass", "note": "Todos os anchor links com scroll suave" },
+        { "label": "Mobile responsive", "status": "pass", "note": "Layout adapta-se a todos os breakpoints" },
+        { "label": "Sem erros de consola", "status": "warn", "note": "Verificar no browser (F12 > Console) antes de entregar" }
+      ]
+    },
+    "performance": {
+      "label": "Performance",
+      "items": [
+        { "label": "Lazy loading nas imagens", "status": "pass", "note": "loading='lazy' em todas as imagens excepto hero" },
+        { "label": "Alt text em todas as imagens", "status": "pass", "note": "Descritivo e relevante em todas" },
+        { "label": "CDN activo", "status": "pass", "note": "Vercel CDN global — automático" },
+        { "label": "HTTPS activo", "status": "pass", "note": "SSL Vercel — automático" },
+        { "label": "Core Web Vitals", "status": "warn", "note": "Verificar em PageSpeed Insights após deploy com domínio próprio" }
+      ]
+    },
+    "legal": {
+      "label": "Legal & Compliance",
+      "items": [
+        { "label": "Banner de cookies presente", "status": "pass", "note": "Aparece após 1.2s, guarda escolha em localStorage" },
+        { "label": "Botões Aceitar / Só Essenciais", "status": "pass", "note": "Ambos funcionais" },
+        { "label": "Copyright correcto", "status": "pass", "note": "© 2026 O Batareo" },
+        { "label": "Política de privacidade", "status": "fail", "note": "Não existe ainda — necessária antes de ir a live com analytics" }
+      ]
+    },
+    "deploy": {
+      "label": "Deploy & Infra",
+      "items": [
+        { "label": "Deployed no Vercel", "status": "pass", "note": "https://digital-activation.vercel.app/demos/o-batareo/" },
+        { "label": "Deploy automático ao push", "status": "pass", "note": "GitHub → Vercel pipeline activo" },
+        { "label": "Domínio próprio configurado", "status": "fail", "note": "Necessário antes de ir a live — o cliente precisa de registar o domínio" },
+        { "label": "Analytics instalado", "status": "fail", "note": "GA4 ou Plausible — instalar quando o cliente confirmar" }
+      ]
+    },
+    "cms": {
+      "label": "CMS & Gestão",
+      "items": [
+        { "label": "Decap CMS configurado", "status": "pass", "note": "Admin activo em digital-activation.vercel.app/admin/" },
+        { "label": "Cliente consegue actualizar conteúdo", "status": "pass", "note": "Ementa, horário, contacto editáveis via painel" }
+      ]
+    }
+  }
+}
