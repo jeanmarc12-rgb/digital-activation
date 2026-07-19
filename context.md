@@ -27,28 +27,31 @@ Auditoria em 6 pilares (0–20 cada), score total 0–120 → normalizado → Gr
 ```
 Stream 1 · FOUNDATION   → Website + Google Business (baseline obrigatório)
 Stream 2 · VISIBILITY   → SEO local + review platforms + backlinks
-Stream 3 · ENGAGEMENT   → Social media (gestão + conteúdo)
 Stream 4 · REPUTATION   → Monitorização reviews + PR + imprensa
 Stream 5 · CONVERSION   → Reservas online + email marketing + menu UX
 ```
 
-### Preços
+(Stream 3 — Redes Sociais foi removido: o agente não faz gestão de redes sociais)
+
+### Preços actuais
 
 | Produto | Tipo | Valor |
 |---------|------|-------|
-| Assessment Report | One-time | €297–€497 |
-| Foundation Pack | One-time | €800–€1500 |
-| Activation Retainer | Mensal | €200–€500/mês |
-| Performance Add-on | % receita | Clientes premium |
+| Assessment Report | One-time | €150 (descontado se fechar serviço) |
+| Foundation Pack (site) | One-time | €450 |
+| Stream 2 — SEO/Visibilidade | Mensal | €100/mês + €80 setup |
+| Stream 4 — Reputação | Mensal | €80/mês + €50 setup |
+| Stream 5 — Conversão | Mensal | €100/mês + €50 setup |
 
 ---
 
 ## Decisões de Produto
 
 - **Sites são produção desde o início** — preços, horários, fotos e dados têm de ser reais. Não são demos.
-- **CMS: Decap CMS** — painel admin em `/admin/`, gratuito, git-based, Vercel auto-deploy. Pending: criar GitHub OAuth App (ver abaixo).
+- **CMS: Decap CMS** — painel admin em `/admin/`, activo e a funcionar com OAuth proxy no Vercel.
+- **Redes sociais: fora do âmbito** — o agente não faz gestão de redes sociais (Stream 3 removido).
 - **E-commerce: adiado** — Marias & Manéis mantém carrinho actual por agora.
-- **Quality checklist**: entregue com cada site — `tools/quality/[site].json` preenchido por Claude, visualizado em `tools/quality-report.html`.
+- **Quality checklist**: entregue com cada site — `tools/quality/[site].json` preenchido por Claude, visualizado em `tools/quality-report.html` (tem selector para escolher entre os 5 sites).
 - **Domínio**: o cliente regista — nós configuramos no Vercel.
 - **Analytics**: GA4 ou Plausible — instalar quando cliente confirmar.
 
@@ -81,7 +84,27 @@ Todos os 5 sites têm:
 - ✅ Cookie banner RGPD
 - ✅ TripAdvisor/Fresha no footer
 - ✅ Decap CMS: `_data/content.json` + `_data/menu.json` + content loader no script.js
-- ⏳ GitHub OAuth App — passo manual pendente para activar o admin CMS
+- ✅ Quality checklists preenchidas para todos os 5 sites (`tools/quality/`)
+- ✅ CMS activo — OAuth proxy a funcionar no Vercel
+
+---
+
+## Decap CMS — Setup completo
+
+O admin está activo. Arquitectura:
+
+- `admin/index.html` — Decap CMS UI
+- `admin/config.yml` — schema de todos os sites, usa `base_url` + `auth_endpoint`
+- `api/auth.js` — redireccionamento para GitHub OAuth
+- `api/callback.js` — troca o código por token e envia para o CMS (handshake de 2 passos)
+
+**Variáveis de ambiente no Vercel (já configuradas):**
+- `GITHUB_CLIENT_ID` — OAuth App da conta jeanmarc12-rgb
+- `GITHUB_CLIENT_SECRET` — OAuth App da conta jeanmarc12-rgb
+
+**GitHub OAuth App:** registada na conta `jeanmarc12-rgb`, callback URL: `https://digital-activation.vercel.app/api/callback`
+
+**Vercel:** projecto `digital-activation` na equipa `jean-marc-oliveira-s-projects` (conta `jeanmarc12@gmail.com`)
 
 ---
 
@@ -91,10 +114,10 @@ Todos os 5 sites têm:
 |----------|-----------|
 | `assessment.html` | Formulário 6 pilares, score automático, export JSON |
 | `report.html` | Relatório visual com radar chart SVG |
-| `proposal.html` | Proposta interactiva com pricing automático |
-| `quality-report.html` | Checklist de qualidade pré-entrega (carrega `quality/[site].json`) |
+| `proposal.html` | Proposta interactiva com pricing automático (4 streams, preços actualizados) |
+| `quality-report.html` | Checklist de qualidade com **selector** para escolher entre os 5 sites |
 | `assessments/[site].json` | Assessment preenchido por pilar |
-| `quality/[site].json` | Checklist de qualidade preenchida — entregue com o site |
+| `quality/[site].json` | Checklist de qualidade preenchida para todos os 5 sites |
 
 ---
 
@@ -122,6 +145,10 @@ demos/[site]/
 admin/
 ├── index.html          ← Decap CMS UI
 └── config.yml          ← schema de todos os sites
+
+api/
+├── auth.js             ← OAuth proxy — redireccionamento GitHub
+└── callback.js         ← OAuth proxy — troca código por token
 ```
 
 ---
@@ -169,9 +196,11 @@ Hero → Sobre → Ementa/Serviços → Galeria → Opiniões → Contacto → F
 - Criar `_data/content.json` e `_data/menu.json` (ou `servicos.json`)
 - Adicionar IDs ao HTML: `id="cms-menu"`, `id="cms-hours"`, `id="cms-address"`, `id="cms-phone"`
 - O `script.js` já tem o content loader genérico — apenas copiar de um site existente
+- Adicionar o novo site ao `admin/config.yml`
 
 ### Quality checklist
 - Preencher `tools/quality/[site].json` e entregar com o site
+- Adicionar o novo site ao selector em `tools/quality-report.html`
 - Validar Schema.org em search.google.com/test/rich-results
 
 ---
@@ -197,18 +226,24 @@ Rejeitar: collages com watermarks/cartoons (RestaurantGuru), fotos irrelevantes.
 
 ---
 
-## Decap CMS — Setup pendente
+## Estado das vendas
 
-Para activar o painel admin (`/admin/`), criar o GitHub OAuth App uma vez:
+| Prospect | Estado |
+|----------|--------|
+| Casa Santiago | Pronto para contactar — guião preparado |
+| O Batareo | Site pronto, quality checklist feita |
+| Barber Studio | Site pronto, quality checklist feita (confirmar preços e horário) |
+| Tradições | Site pronto, quality checklist feita (confirmar preços e horário) |
+| Marias & Manéis | Site pronto, quality checklist feita (confirmar rating/reviews) |
 
-1. github.com/settings/developers → OAuth Apps → New OAuth App
-2. Application name: `Digital Activation CMS`
-3. Homepage URL: `https://digital-activation.vercel.app`
-4. Authorization callback URL: `https://digital-activation.vercel.app/admin/`
-5. Copiar Client ID → colar em `admin/config.yml` linha 16 (`app_id:`)
-6. `git push` → admin activo
+---
 
-Após setup, o cliente edita preços/horário/ementa no browser e o Vercel republica automaticamente.
+## Próximos passos
+
+1. **Contactar Casa Santiago** — prioridade máxima. Guião completo preparado.
+2. **Prospetar negócios novos** — critério: sem site próprio, boa reputação local (Setúbal/Sesimbra)
+3. **Analytics** — instalar GA4 quando primeiro cliente confirmar
+4. **Política de privacidade** — necessária antes de ir a live com analytics (item "fail" em todos os sites)
 
 ---
 
@@ -220,6 +255,9 @@ digital_activation/
 ├── admin/
 │   ├── index.html              ← Decap CMS (todos os sites)
 │   └── config.yml              ← schema de conteúdo
+├── api/
+│   ├── auth.js                 ← OAuth proxy — auth
+│   └── callback.js             ← OAuth proxy — callback
 ├── demos/
 │   ├── casa-santiago/          ← dark dourado, restaurante
 │   ├── o-batareo/              ← dark teal, restaurante peixe
@@ -231,8 +269,8 @@ digital_activation/
 └── tools/
     ├── assessment.html
     ├── report.html
-    ├── proposal.html
-    ├── quality-report.html
+    ├── proposal.html           ← 4 streams, preços actualizados
+    ├── quality-report.html     ← com selector de site
     ├── assessments/
     │   ├── casa-santiago.json
     │   ├── o-batareo.json
@@ -240,15 +278,9 @@ digital_activation/
     │   ├── tradicoes.json
     │   └── marias-maneis.json
     └── quality/
-        └── casa-santiago.json
+        ├── casa-santiago.json
+        ├── o-batareo.json
+        ├── barber-studio.json
+        ├── tradicoes.json
+        └── marias-maneis.json
 ```
-
----
-
-## Próximos passos
-
-1. **Criar GitHub OAuth App** → activar Decap CMS admin
-2. **Contactar Casa Santiago** — site + assessment + quality report prontos → prioritário
-3. **Preencher quality checklists** dos outros 4 sites (`tools/quality/`)
-4. **Prospetar novos negócios** — critério: sem site, boa reputação local
-5. **Analytics** — instalar GA4 quando primeiro cliente confirmar
