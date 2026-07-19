@@ -86,21 +86,60 @@ Todos os 5 sites têm:
 - ✅ Decap CMS: `_data/content.json` + `_data/menu.json` + content loader no script.js
 - ✅ Quality checklists preenchidas para todos os 5 sites (`tools/quality/`)
 - ✅ CMS activo — OAuth proxy a funcionar no Vercel
+- ✅ Painéis de admin isolados por cliente — magic links com PIN por URL
 
 ---
 
-## Decap CMS — Setup completo
+## Admin por cliente — Magic Links (novo, Jul 2026)
 
-O admin está activo. Arquitectura:
+Cada demo tem o seu próprio `/admin/` com campos específicos do negócio. O cliente acede via magic link (PIN na URL), sem conta GitHub.
 
-- `admin/index.html` — Decap CMS UI
-- `admin/config.yml` — schema de todos os sites, usa `base_url` + `auth_endpoint`
-- `api/auth.js` — redireccionamento para GitHub OAuth
-- `api/callback.js` — troca o código por token e envia para o CMS (handshake de 2 passos)
+### Arquitectura
 
-**Variáveis de ambiente no Vercel (já configuradas):**
-- `GITHUB_CLIENT_ID` — OAuth App da conta jeanmarc12-rgb
-- `GITHUB_CLIENT_SECRET` — OAuth App da conta jeanmarc12-rgb
+```
+demos/[site]/admin/index.html   ← painel isolado daquele negócio
+api/save.js                     ← endpoint central — valida PIN + escreve no GitHub via PAT
+```
+
+**Fluxo:** cliente abre link → formulário carrega dados actuais do `_data/*.json` → edita → guarda → `api/save.js` valida PIN → commit no GitHub → Vercel reconstrói em ~60s.
+
+### Magic links activos
+
+Os admins funcionam via o projecto principal (`digital-activation.vercel.app`):
+
+| Site | Magic link | PIN |
+|------|-----------|-----|
+| Casa Santiago | `https://digital-activation.vercel.app/demos/casa-santiago/admin/?acesso=santiago2024` | `santiago2024` |
+| O Batareo | `https://digital-activation.vercel.app/demos/o-batareo/admin/?acesso=batareo2024` | `batareo2024` |
+| Barber Studio | `https://digital-activation.vercel.app/demos/barber-studio/admin/?acesso=barber2024` | `barber2024` |
+| Tradições | `https://digital-activation.vercel.app/demos/tradicoes/admin/?acesso=tradicoes2024` | `tradicoes2024` |
+| Marias & Manéis | `https://digital-activation.vercel.app/demos/marias-maneis/admin/?acesso=marias2024` | `marias2024` |
+
+Os domínios demo (ex: `casa-santiago-demo.vercel.app/admin/`) também funcionarão assim que ligados ao GitHub via Settings → Git no Vercel.
+
+### Variáveis de ambiente no Vercel (projecto `digital-activation`)
+
+| Variável | Descrição |
+|----------|-----------|
+| `GITHUB_PAT` | Personal Access Token (scope: repo, no expiration) — conta jeanmarc12-rgb |
+| `ADMIN_KEY_CASA_SANTIAGO` | PIN do painel Casa Santiago |
+| `ADMIN_KEY_O_BATAREO` | PIN do painel O Batareo |
+| `ADMIN_KEY_BARBER_STUDIO` | PIN do painel Barber Studio |
+| `ADMIN_KEY_TRADICOES` | PIN do painel Tradições |
+| `ADMIN_KEY_MARIAS_MANEIS` | PIN do painel Marias & Manéis |
+| `GITHUB_CLIENT_ID` | OAuth App (Decap CMS legacy) |
+| `GITHUB_CLIENT_SECRET` | OAuth App (Decap CMS legacy) |
+
+---
+
+## Decap CMS — Setup (legacy, substituído pelos magic links)
+
+O admin central em `/admin/` ainda existe mas foi substituído pelos painéis isolados por cliente.
+
+- `admin/index.html` — Decap CMS UI (todos os sites num só painel)
+- `admin/config.yml` — schema de todos os sites
+- `api/auth.js` — OAuth proxy — redireccionamento GitHub
+- `api/callback.js` — OAuth proxy — troca código por token
 
 **GitHub OAuth App:** registada na conta `jeanmarc12-rgb`, callback URL: `https://digital-activation.vercel.app/api/callback`
 
@@ -139,16 +178,17 @@ demos/[site]/
     └── servicos.json   ← serviços com preços (Barber Studio)
 ```
 
-### Admin CMS
+### Admin por cliente (magic links)
 
 ```
-admin/
-├── index.html          ← Decap CMS UI
-└── config.yml          ← schema de todos os sites
+demos/[site]/
+└── admin/
+    └── index.html      ← painel isolado do negócio (PIN via URL ?acesso=KEY)
 
 api/
-├── auth.js             ← OAuth proxy — redireccionamento GitHub
-└── callback.js         ← OAuth proxy — troca código por token
+├── auth.js             ← OAuth proxy — redireccionamento GitHub (Decap legacy)
+├── callback.js         ← OAuth proxy — troca código por token (Decap legacy)
+└── save.js             ← endpoint de gravação — valida PIN + escreve no GitHub
 ```
 
 ---
@@ -256,14 +296,15 @@ digital_activation/
 │   ├── index.html              ← Decap CMS (todos os sites)
 │   └── config.yml              ← schema de conteúdo
 ├── api/
-│   ├── auth.js                 ← OAuth proxy — auth
-│   └── callback.js             ← OAuth proxy — callback
+│   ├── auth.js                 ← OAuth proxy — auth (Decap legacy)
+│   ├── callback.js             ← OAuth proxy — callback (Decap legacy)
+│   └── save.js                 ← gravação via PIN + GitHub PAT
 ├── demos/
-│   ├── casa-santiago/          ← dark dourado, restaurante
-│   ├── o-batareo/              ← dark teal, restaurante peixe
-│   ├── barber-studio/          ← dark vermelho, barbearia
-│   ├── tradicoes/              ← claro terracotta, padaria
-│   └── marias-maneis/          ← rosa blush, e-commerce infantil
+│   ├── casa-santiago/          ← dark dourado, restaurante (admin/ activo)
+│   ├── o-batareo/              ← dark teal, restaurante peixe (admin/ activo)
+│   ├── barber-studio/          ← dark vermelho, barbearia (admin/ activo)
+│   ├── tradicoes/              ← claro terracotta, padaria (admin/ activo)
+│   └── marias-maneis/          ← rosa blush, e-commerce infantil (admin/ activo)
 ├── prospects/
 │   └── prospects.json
 └── tools/
