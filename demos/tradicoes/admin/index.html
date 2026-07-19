@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tradições — Painel</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5; color: #111827; min-height: 100vh;
+    }
+
+    #no-access {
+      display: none; position: fixed; inset: 0;
+      background: #f0f2f5; align-items: center; justify-content: center;
+      text-align: center; padding: 24px;
+    }
+    .na-icon { font-size: 48px; margin-bottom: 16px; }
+    .na-box h1 { font-size: 22px; margin-bottom: 8px; }
+    .na-box p { color: #6b7280; font-size: 15px; line-height: 1.6; }
+
+    #app { display: none; padding-bottom: 40px; }
+
+    .admin-header {
+      background: #fff; border-bottom: 1px solid #e5e7eb;
+      padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .admin-header .emoji { font-size: 26px; }
+    .admin-header h1 { font-size: 18px; font-weight: 700; }
+    .admin-header .badge {
+      margin-left: auto; font-size: 11px;
+      background: #dcfce7; color: #15803d;
+      padding: 3px 8px; border-radius: 20px; font-weight: 600;
+    }
+
+    main { max-width: 640px; margin: 0 auto; padding: 20px 16px; }
+
+    .section { background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); overflow: hidden; }
+    .section-header { padding: 16px 20px; border-bottom: 1px solid #f3f4f6; display: flex; align-items: center; gap: 8px; }
+    .section-header h2 { font-size: 15px; font-weight: 700; color: #374151; }
+    .section-header .s-emoji { font-size: 18px; }
+    .section-body { padding: 20px; }
+
+    .fields { display: flex; flex-direction: column; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: .04em; }
+    .field input {
+      font-size: 16px; padding: 10px 12px;
+      border: 1.5px solid #d1d5db; border-radius: 8px;
+      color: #111827; background: #fff; outline: none;
+      transition: border-color .15s; width: 100%; font-family: inherit;
+    }
+    .field input:focus { border-color: #2563eb; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .btn-save {
+      width: 100%; margin-top: 20px; padding: 13px;
+      background: #16a34a; color: #fff; font-size: 15px; font-weight: 600;
+      border: none; border-radius: 8px; cursor: pointer; transition: background .15s, opacity .15s;
+    }
+    .btn-save:hover { background: #15803d; }
+    .btn-save:disabled { opacity: .6; cursor: not-allowed; }
+
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #1f2937; color: #fff; padding: 12px 20px; border-radius: 10px;
+      font-size: 14px; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,.2);
+      transition: transform .3s ease, opacity .3s ease;
+      opacity: 0; pointer-events: none; white-space: nowrap; z-index: 100;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    #toast.success { background: #15803d; }
+    #toast.error { background: #dc2626; }
+
+    #loading { display: flex; align-items: center; justify-content: center; min-height: 200px; color: #6b7280; font-size: 15px; gap: 10px; }
+    .spinner { width: 20px; height: 20px; border: 2px solid #e5e7eb; border-top-color: #2563eb; border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div id="no-access">
+  <div class="na-box">
+    <div class="na-icon">🔒</div>
+    <h1>Acesso Restrito</h1>
+    <p>Este painel requer um link de acesso válido.<br>Contacte a Digital Activation para obter o seu link.</p>
+  </div>
+</div>
+
+<div id="app">
+  <header class="admin-header">
+    <span class="emoji">🥐</span>
+    <h1>Tradições</h1>
+    <span class="badge">● Painel activo</span>
+  </header>
+
+  <main>
+    <div id="loading"><div class="spinner"></div> A carregar…</div>
+
+    <div id="content" style="display:none;">
+      <div class="section">
+        <div class="section-header">
+          <span class="s-emoji">📋</span>
+          <h2>Informações & Contacto</h2>
+        </div>
+        <div class="section-body">
+          <form id="form-info">
+            <div class="fields">
+              <div class="row-2">
+                <div class="field">
+                  <label>Telefone (sem espaços)</label>
+                  <input type="tel" id="phone" placeholder="265415487">
+                </div>
+                <div class="field">
+                  <label>Telefone (com espaços)</label>
+                  <input type="tel" id="phone_display" placeholder="265 415 487">
+                </div>
+              </div>
+              <div class="field">
+                <label>Morada — Rua</label>
+                <input type="text" id="address_street">
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label>Cidade</label>
+                  <input type="text" id="address_city">
+                </div>
+                <div class="field">
+                  <label>Código Postal</label>
+                  <input type="text" id="address_postal">
+                </div>
+              </div>
+              <div class="field">
+                <label>Horário — Dias</label>
+                <input type="text" id="hours_days" placeholder="Segunda a Sábado">
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label>Abertura</label>
+                  <input type="text" id="hours_open" placeholder="7h30">
+                </div>
+                <div class="field">
+                  <label>Encerramento</label>
+                  <input type="text" id="hours_close" placeholder="19h30">
+                </div>
+              </div>
+              <div class="field">
+                <label>Nota de encerramento</label>
+                <input type="text" id="hours_closed_note" placeholder="Encerra ao Domingo">
+              </div>
+            </div>
+            <button type="submit" class="btn-save">Guardar informações</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const API = 'https://digital-activation.vercel.app/api/save';
+  const SITE = 'tradicoes';
+
+  const params = new URLSearchParams(location.search);
+  const KEY = params.get('acesso') || '';
+
+  if (!KEY) {
+    document.getElementById('no-access').style.display = 'flex';
+  } else {
+    document.getElementById('app').style.display = 'block';
+    init();
+  }
+
+  async function init() {
+    try {
+      const res = await fetch('../_data/content.json');
+      const info = await res.json();
+
+      ['phone','phone_display','address_street','address_city','address_postal',
+       'hours_days','hours_open','hours_close','hours_closed_note'].forEach(k => {
+        const el = document.getElementById(k);
+        if (el && info[k] != null) el.value = info[k];
+      });
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+    } catch (e) {
+      document.getElementById('loading').innerHTML = '⚠️ Erro ao carregar dados.';
+    }
+  }
+
+  document.getElementById('form-info').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-save');
+    const content = {
+      phone: v('phone'), phone_display: v('phone_display'),
+      address_street: v('address_street'), address_city: v('address_city'),
+      address_postal: v('address_postal'), hours_days: v('hours_days'),
+      hours_open: v('hours_open'), hours_close: v('hours_close'),
+      hours_closed_note: v('hours_closed_note'),
+      rating_value: '5.0', rating_count: '48', rating_platform: 'Google',
+    };
+    await save('demos/tradicoes/_data/content.json', content, btn);
+  });
+
+  async function save(file, content, btn) {
+    const orig = btn.textContent;
+    btn.disabled = true; btn.textContent = 'A guardar…';
+    try {
+      const res = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ site: SITE, file, content, key: KEY }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
+      showToast('✅ Guardado! O site actualiza em ~60 segundos.', 'success');
+    } catch (err) {
+      showToast('❌ ' + err.message, 'error');
+    } finally {
+      btn.disabled = false; btn.textContent = orig;
+    }
+  }
+
+  function v(id) { return (document.getElementById(id)?.value || '').trim(); }
+
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.className = type; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+</script>
+</body>
+</html>

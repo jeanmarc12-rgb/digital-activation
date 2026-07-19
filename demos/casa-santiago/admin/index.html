@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casa Santiago — Painel</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      color: #111827;
+      min-height: 100vh;
+    }
+
+    /* ── No access screen ── */
+    #no-access {
+      display: none;
+      position: fixed; inset: 0;
+      background: #f0f2f5;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 24px;
+    }
+    .na-icon { font-size: 48px; margin-bottom: 16px; }
+    .na-box h1 { font-size: 22px; margin-bottom: 8px; color: #111827; }
+    .na-box p { color: #6b7280; font-size: 15px; line-height: 1.6; }
+
+    /* ── App ── */
+    #app { display: none; padding-bottom: 40px; }
+
+    /* ── Header ── */
+    .admin-header {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .admin-header .emoji { font-size: 26px; }
+    .admin-header h1 { font-size: 18px; font-weight: 700; color: #111827; }
+    .admin-header .badge {
+      margin-left: auto;
+      font-size: 11px;
+      background: #dcfce7;
+      color: #15803d;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* ── Main layout ── */
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ── Section cards ── */
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #f3f4f6;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-header h2 { font-size: 15px; font-weight: 700; color: #374151; }
+    .section-header .s-emoji { font-size: 18px; }
+    .section-body { padding: 20px; }
+
+    /* ── Form fields ── */
+    .fields { display: flex; flex-direction: column; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: .04em; }
+    .field input, .field textarea {
+      font-size: 16px;
+      padding: 10px 12px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      color: #111827;
+      background: #fff;
+      outline: none;
+      transition: border-color .15s;
+      width: 100%;
+      font-family: inherit;
+    }
+    .field input:focus, .field textarea:focus { border-color: #2563eb; }
+    .field textarea { resize: vertical; min-height: 60px; }
+    .field .hint { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ── Save button ── */
+    .btn-save {
+      width: 100%;
+      margin-top: 20px;
+      padding: 13px;
+      background: #16a34a;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .15s, opacity .15s;
+    }
+    .btn-save:hover { background: #15803d; }
+    .btn-save:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* ── Menu / category editor ── */
+    .menu-note-wrap { margin-bottom: 20px; }
+    .menu-note-wrap label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: .04em; display: block; margin-bottom: 5px; }
+    .menu-note-wrap input {
+      font-size: 15px; padding: 10px 12px;
+      border: 1.5px solid #d1d5db; border-radius: 8px;
+      width: 100%; outline: none; transition: border-color .15s; font-family: inherit;
+    }
+    .menu-note-wrap input:focus { border-color: #2563eb; }
+
+    .category { border: 1.5px solid #e5e7eb; border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+    .category-header { background: #f9fafb; padding: 12px 16px; font-size: 14px; font-weight: 700; color: #374151; }
+    .category-items { padding: 12px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    .dish-row { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .dish-row .dish-fields { display: grid; grid-template-columns: 1fr 90px; gap: 8px; }
+    .dish-row input {
+      font-size: 14px; padding: 8px 10px;
+      border: 1px solid #d1d5db; border-radius: 6px;
+      width: 100%; outline: none; font-family: inherit; background: #fff;
+    }
+    .dish-row input:focus { border-color: #2563eb; }
+    .dish-row .dish-desc input { grid-column: 1 / -1; }
+    .dish-actions { display: flex; justify-content: flex-end; }
+    .btn-remove {
+      font-size: 12px; padding: 4px 10px;
+      background: none; border: 1px solid #fca5a5;
+      color: #dc2626; border-radius: 6px; cursor: pointer;
+    }
+    .btn-remove:hover { background: #fee2e2; }
+
+    .btn-add-dish {
+      width: 100%; padding: 9px;
+      background: none; border: 1.5px dashed #d1d5db;
+      color: #6b7280; border-radius: 8px; cursor: pointer;
+      font-size: 13px; transition: all .15s;
+    }
+    .btn-add-dish:hover { border-color: #2563eb; color: #2563eb; background: #eff6ff; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #1f2937; color: #fff;
+      padding: 12px 20px; border-radius: 10px;
+      font-size: 14px; font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,.2);
+      transition: transform .3s ease, opacity .3s ease;
+      opacity: 0; pointer-events: none; white-space: nowrap; z-index: 100;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    #toast.success { background: #15803d; }
+    #toast.error { background: #dc2626; }
+
+    /* ── Loading ── */
+    #loading {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 200px; color: #6b7280; font-size: 15px; gap: 10px;
+    }
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid #e5e7eb; border-top-color: #2563eb;
+      border-radius: 50%; animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div id="no-access">
+  <div class="na-box">
+    <div class="na-icon">🔒</div>
+    <h1>Acesso Restrito</h1>
+    <p>Este painel requer um link de acesso válido.<br>Contacte a Digital Activation para obter o seu link.</p>
+  </div>
+</div>
+
+<div id="app">
+  <header class="admin-header">
+    <span class="emoji">🐙</span>
+    <h1>Casa Santiago</h1>
+    <span class="badge">● Painel activo</span>
+  </header>
+
+  <main>
+    <div id="loading"><div class="spinner"></div> A carregar…</div>
+
+    <div id="content" style="display:none; flex-direction:column; gap:20px;">
+
+      <!-- Informações -->
+      <div class="section">
+        <div class="section-header">
+          <span class="s-emoji">📋</span>
+          <h2>Informações & Contacto</h2>
+        </div>
+        <div class="section-body">
+          <form id="form-info">
+            <div class="fields">
+              <div class="row-2">
+                <div class="field">
+                  <label>Telefone (sem espaços)</label>
+                  <input type="tel" id="phone" placeholder="265221688">
+                </div>
+                <div class="field">
+                  <label>Telefone (com espaços)</label>
+                  <input type="tel" id="phone_display" placeholder="265 221 688">
+                </div>
+              </div>
+              <div class="field">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="restaurante@exemplo.com">
+              </div>
+              <div class="field">
+                <label>Morada — Rua</label>
+                <input type="text" id="address_street">
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label>Cidade</label>
+                  <input type="text" id="address_city">
+                </div>
+                <div class="field">
+                  <label>Código Postal</label>
+                  <input type="text" id="address_postal">
+                </div>
+              </div>
+              <div class="field">
+                <label>Horário — Dias</label>
+                <input type="text" id="hours_days" placeholder="Segunda a Sábado">
+              </div>
+              <div class="row-2">
+                <div class="field">
+                  <label>Abertura</label>
+                  <input type="text" id="hours_open" placeholder="12h00">
+                </div>
+                <div class="field">
+                  <label>Encerramento</label>
+                  <input type="text" id="hours_close" placeholder="22h00">
+                </div>
+              </div>
+              <div class="field">
+                <label>Nota de encerramento</label>
+                <input type="text" id="hours_closed_note" placeholder="Encerra ao Domingo">
+              </div>
+            </div>
+            <button type="submit" class="btn-save">Guardar informações</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Ementa -->
+      <div class="section">
+        <div class="section-header">
+          <span class="s-emoji">🍽️</span>
+          <h2>Ementa</h2>
+        </div>
+        <div class="section-body">
+          <div class="menu-note-wrap">
+            <label>Nota de rodapé da ementa</label>
+            <input type="text" id="menu_note">
+          </div>
+          <div id="categories-editor"></div>
+          <button type="button" class="btn-save" id="btn-save-menu">Guardar ementa</button>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const API = 'https://digital-activation.vercel.app/api/save';
+  const SITE = 'casa-santiago';
+
+  const params = new URLSearchParams(location.search);
+  const KEY = params.get('acesso') || '';
+
+  if (!KEY) {
+    document.getElementById('no-access').style.display = 'flex';
+  } else {
+    document.getElementById('app').style.display = 'block';
+    init();
+  }
+
+  async function init() {
+    try {
+      const [infoRes, menuRes] = await Promise.all([
+        fetch('../_data/content.json'),
+        fetch('../_data/menu.json'),
+      ]);
+      const info = await infoRes.json();
+      const menu = await menuRes.json();
+
+      // Populate info fields
+      ['phone','phone_display','email','address_street','address_city','address_postal',
+       'hours_days','hours_open','hours_close','hours_closed_note'].forEach(k => {
+        const el = document.getElementById(k);
+        if (el && info[k] != null) el.value = info[k];
+      });
+
+      // Populate menu
+      document.getElementById('menu_note').value = menu.note || '';
+      renderCategories(menu.categories || []);
+
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('content').style.display = 'flex';
+    } catch (e) {
+      document.getElementById('loading').innerHTML = '⚠️ Erro ao carregar dados.';
+    }
+  }
+
+  // ── Menu editor ──────────────────────────────────────────────
+
+  function renderCategories(categories) {
+    const container = document.getElementById('categories-editor');
+    container.innerHTML = '';
+    categories.forEach((cat, ci) => {
+      container.appendChild(buildCategory(cat, ci));
+    });
+  }
+
+  function buildCategory(cat, ci) {
+    const div = document.createElement('div');
+    div.className = 'category';
+    div.dataset.ci = ci;
+
+    div.innerHTML = `
+      <div class="category-header">${cat.emoji} ${cat.title}</div>
+      <div class="category-items" id="items-${ci}"></div>
+      <div style="padding:0 16px 16px;">
+        <button type="button" class="btn-add-dish" onclick="addDish(${ci})">+ Adicionar prato</button>
+      </div>
+    `;
+
+    const itemsDiv = div.querySelector(`#items-${ci}`);
+    (cat.items || []).forEach((item, ii) => {
+      itemsDiv.appendChild(buildDishRow(item, ci, ii));
+    });
+
+    return div;
+  }
+
+  function buildDishRow(item, ci, ii) {
+    const row = document.createElement('div');
+    row.className = 'dish-row';
+    row.dataset.ii = ii;
+    row.innerHTML = `
+      <div class="dish-fields">
+        <input type="text" placeholder="Nome do prato" value="${esc(item.name)}" data-field="name">
+        <input type="text" placeholder="Preço" value="${esc(item.price)}" data-field="price">
+      </div>
+      <input type="text" placeholder="Descrição" value="${esc(item.description)}" data-field="description">
+      <div class="dish-actions">
+        <button type="button" class="btn-remove" onclick="removeDish(this)">Remover</button>
+      </div>
+    `;
+    return row;
+  }
+
+  function addDish(ci) {
+    const itemsDiv = document.getElementById(`items-${ci}`);
+    const newIndex = itemsDiv.children.length;
+    itemsDiv.appendChild(buildDishRow({ name: '', price: '', description: '' }, ci, newIndex));
+  }
+
+  function removeDish(btn) {
+    btn.closest('.dish-row').remove();
+  }
+
+  function collectMenu() {
+    const note = document.getElementById('menu_note').value.trim();
+    const categories = [];
+
+    document.querySelectorAll('.category').forEach(catEl => {
+      const header = catEl.querySelector('.category-header').textContent.trim();
+      const emoji = header.split(' ')[0];
+      const title = header.slice(emoji.length).trim();
+      const items = [];
+
+      catEl.querySelectorAll('.dish-row').forEach(row => {
+        const name = row.querySelector('[data-field="name"]').value.trim();
+        const price = row.querySelector('[data-field="price"]').value.trim();
+        const description = row.querySelector('[data-field="description"]').value.trim();
+        if (name) items.push({ name, price, description });
+      });
+
+      categories.push({ emoji, title, items });
+    });
+
+    return { note, categories };
+  }
+
+  // ── Form handlers ─────────────────────────────────────────────
+
+  document.getElementById('form-info').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-save');
+    const content = {
+      phone: v('phone'),
+      phone_display: v('phone_display'),
+      email: v('email'),
+      address_street: v('address_street'),
+      address_city: v('address_city'),
+      address_postal: v('address_postal'),
+      hours_days: v('hours_days'),
+      hours_open: v('hours_open'),
+      hours_close: v('hours_close'),
+      hours_closed_note: v('hours_closed_note'),
+      rating_value: '4.4',
+      rating_count: '5.736',
+      rating_platform: 'Google',
+    };
+    await save('demos/casa-santiago/_data/content.json', content, btn);
+  });
+
+  document.getElementById('btn-save-menu').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-save-menu');
+    const content = collectMenu();
+    await save('demos/casa-santiago/_data/menu.json', content, btn);
+  });
+
+  // ── Core save ────────────────────────────────────────────────
+
+  async function save(file, content, btn) {
+    const orig = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'A guardar…';
+    try {
+      const res = await fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ site: SITE, file, content, key: KEY }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Erro desconhecido');
+      showToast('✅ Guardado! O site actualiza em ~60 segundos.', 'success');
+    } catch (err) {
+      showToast('❌ ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = orig;
+    }
+  }
+
+  // ── Utils ────────────────────────────────────────────────────
+
+  function v(id) { return (document.getElementById(id)?.value || '').trim(); }
+  function esc(s) { return (s || '').replace(/"/g, '&quot;'); }
+
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = type;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
+</script>
+</body>
+</html>
