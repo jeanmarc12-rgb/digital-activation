@@ -98,6 +98,10 @@ function renderCart() {
     return;
   }
 
+  const linhas = cart.map(i => `• ${i.qty}x ${i.nome} (Tam: ${i.tam}) — €${i.preco * i.qty}`).join('\n');
+  const msg = `Olá! Gostaria de fazer uma encomenda:\n\n${linhas}\n\nTotal: €${total}\n\nPodiam confirmar disponibilidade? Obrigado!`;
+  document.getElementById('whatsappBtn').href = `https://wa.me/351964723101?text=${encodeURIComponent(msg)}`;
+
   cartFooter.style.display = 'block';
   cartItems.innerHTML = cart.map((item, i) => `
     <div class="cart-item">
