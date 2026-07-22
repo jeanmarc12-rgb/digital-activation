@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CRM — Digital Activation</title>
+  <style>
+    :root {
+      --navy: #0f172a; --accent: #2563eb; --green: #16a34a; --red: #dc2626;
+      --amber: #d97706; --purple: #7c3aed; --gray: #6b7280;
+      --bg: #f1f5f9; --white: #fff; --border: #e2e8f0; --radius: 8px;
+      --sidebar: 220px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--navy); display: flex; min-height: 100vh; font-size: 14px; }
+
+    /* SIDEBAR */
+    .sidebar { width: var(--sidebar); background: var(--navy); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; z-index: 10; }
+    .sidebar-logo { padding: 18px; font-size: 13px; font-weight: 800; color: #93c5fd; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .sidebar-logo span { display: block; font-size: 10px; font-weight: 500; color: rgba(255,255,255,.35); margin-top: 2px; text-transform: uppercase; letter-spacing: .07em; }
+    .sidebar nav { flex: 1; padding: 10px 0; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 18px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.55); cursor: pointer; border-left: 3px solid transparent; transition: all .12s; user-select: none; }
+    .nav-item:hover { color: #fff; background: rgba(255,255,255,.05); }
+    .nav-item.active { color: #fff; border-left-color: #3b82f6; background: rgba(59,130,246,.12); }
+    .sidebar-footer { padding: 14px 18px; border-top: 1px solid rgba(255,255,255,.08); font-size: 10px; color: rgba(255,255,255,.25); }
+
+    /* MAIN */
+    .main { margin-left: var(--sidebar); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* TOPBAR */
+    .topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 5; gap: 16px; }
+    .topbar h1 { font-size: 15px; font-weight: 800; white-space: nowrap; }
+    .topbar-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .progress-wrap { display: flex; align-items: center; gap: 8px; }
+    .progress-label { font-size: 11px; color: var(--gray); white-space: nowrap; }
+    .progress-bar { width: 120px; height: 5px; background: var(--border); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width .3s; }
+    .progress-count { font-size: 12px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+
+    /* BTNS */
+    .btn { border: none; padding: 7px 14px; font-size: 12px; font-weight: 600; border-radius: var(--radius); cursor: pointer; transition: background .12s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-purple { background: var(--purple); color: #fff; }
+    .btn-purple:hover { background: #6d28d9; }
+    .btn-sm { padding: 5px 10px; font-size: 11px; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-green:hover { background: #15803d; }
+
+    /* CONTENT */
+    .content { padding: 22px 24px; flex: 1; }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; margin-bottom: 22px; }
+    .stat-card { background: var(--white); border-radius: var(--radius); padding: 14px 16px; border: 1px solid var(--border); }
+    .stat-card .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--gray); margin-bottom: 4px; }
+    .stat-card .val { font-size: 30px; font-weight: 900; line-height: 1; }
+    .sc-total .val { color: var(--navy); }
+    .sc-contact .val { color: var(--accent); }
+    .sc-sched .val { color: var(--purple); }
+    .sc-conv .val { color: var(--green); }
+    .sc-rej .val { color: var(--gray); }
+
+    /* SECTION TITLE */
+    .section-title { font-size: 13px; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .badge { background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 999px; }
+    .badge-purple { background: var(--purple); }
+
+    /* TODAY GRID */
+    .today-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 22px; }
+    .today-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px; cursor: pointer; transition: border-color .12s; }
+    .today-card:hover { border-color: var(--accent); }
+    .tc-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .tc-sub { font-size: 11px; color: var(--gray); }
+    .tc-phone { font-size: 13px; font-weight: 800; color: var(--accent); margin: 8px 0 4px; }
+    .tc-pitch { font-size: 11px; color: #374151; line-height: 1.5; }
+    .tc-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+
+    /* PRIORITY DOTS */
+    .dots { display: flex; gap: 3px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; }
+    .dot-on { background: var(--accent); }
+    .dot-off { background: var(--border); }
+
+    /* STATUS BADGE */
+    .sb { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; display: inline-block; white-space: nowrap; }
+    .sb-new { background: #eff6ff; color: #1d4ed8; }
+    .sb-no_answer { background: #fef3c7; color: #92400e; }
+    .sb-callback { background: #fff7ed; color: #c2410c; }
+    .sb-scheduled { background: #f5f3ff; color: #6d28d9; }
+    .sb-converted { background: #f0fdf4; color: #166534; }
+    .sb-rejected { background: #f9fafb; color: #9ca3af; }
+
+    /* TABLE */
+    .leads-table { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; }
+    .th { display: grid; grid-template-columns: 2.5fr 1fr 1.2fr 1fr 130px 90px; padding: 9px 16px; background: #f8fafc; border-bottom: 1px solid var(--border); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--gray); }
+    .tr { display: grid; grid-template-columns: 2.5fr 1fr 1.2fr 1fr 130px 90px; padding: 11px 16px; border-bottom: 1px solid var(--border); align-items: center; cursor: pointer; transition: background .1s; }
+    .tr:last-child { border-bottom: none; }
+    .tr:hover { background: #f8fafc; }
+    .tr-name { font-size: 13px; font-weight: 700; }
+    .tr-sub { font-size: 11px; color: var(--gray); margin-top: 1px; }
+    .tr-phone { font-size: 12px; font-weight: 700; color: var(--accent); }
+    .tr-cell { font-size: 12px; }
+
+    /* FILTERS */
+    .filters { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
+    .fbtn { padding: 5px 12px; font-size: 11px; font-weight: 600; border: 1px solid var(--border); border-radius: 999px; background: var(--white); cursor: pointer; color: var(--gray); transition: all .12s; }
+    .fbtn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .search-box { padding: 6px 12px; font-size: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--white); width: 200px; outline: none; margin-left: auto; }
+    .search-box:focus { border-color: var(--accent); }
+
+    /* SCHEDULED ITEM */
+    .sched-item { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); padding: 12px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 14px; cursor: pointer; }
+    .sched-item:hover { border-color: var(--purple); }
+    .sched-date { font-size: 11px; font-weight: 700; color: var(--purple); background: #f5f3ff; padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
+    .sched-info .si-name { font-size: 13px; font-weight: 700; }
+    .sched-info .si-meta { font-size: 11px; color: var(--gray); margin-top: 1px; }
+
+    /* MODAL */
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 100; align-items: center; justify-content: center; }
+    .overlay.open { display: flex; }
+    .modal { background: var(--white); border-radius: 12px; width: 780px; max-width: 96vw; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
+    .modal-hd { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .modal-hd h2 { font-size: 15px; font-weight: 800; }
+    .modal-hd .mh-meta { font-size: 11px; color: var(--gray); margin-top: 2px; }
+    .modal-close { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--gray); padding: 2px 6px; border-radius: 4px; }
+    .modal-close:hover { background: var(--bg); }
+    .tabs { display: flex; border-bottom: 1px solid var(--border); padding: 0 20px; background: #f8fafc; }
+    .tab { padding: 9px 14px; font-size: 12px; font-weight: 600; color: var(--gray); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .modal-body { padding: 18px 20px; overflow-y: auto; flex: 1; }
+    .tc { display: none; }
+    .tc.active { display: block; }
+    .modal-ft { padding: 12px 20px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .status-sel { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 600; outline: none; }
+
+    /* FICHA */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .ii label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--gray); display: block; margin-bottom: 3px; }
+    .ii .v { font-size: 13px; font-weight: 600; }
+    .ii .v a { color: var(--accent); text-decoration: none; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+    .tag { font-size: 11px; padding: 3px 9px; border-radius: 999px; font-weight: 600; }
+    .tg { background: #fef2f2; color: #991b1b; }
+    .ts { background: #f0fdf4; color: #166534; }
+    .pitch-box { background: #eff6ff; border-left: 3px solid var(--accent); padding: 11px 13px; border-radius: 0 6px 6px 0; font-size: 12px; line-height: 1.6; color: #1e3a8a; margin-top: 12px; }
+
+    /* CALL FORM */
+    .call-form { background: #f8fafc; border-radius: var(--radius); padding: 14px; margin-bottom: 16px; border: 1px solid var(--border); }
+    .call-form h3 { font-size: 12px; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--gray); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .fg { display: flex; flex-direction: column; gap: 4px; }
+    .fg label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--gray); }
+    .fg select, .fg input, .fg textarea { padding: 7px 9px; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; outline: none; background: var(--white); font-family: inherit; }
+    .fg select:focus, .fg input:focus, .fg textarea:focus { border-color: var(--accent); }
+    .fg textarea { resize: vertical; min-height: 60px; }
+
+    /* CALL HISTORY */
+    .call-item { padding: 11px 13px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 7px; }
+    .call-ih { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .call-dt { font-size: 11px; color: var(--gray); font-weight: 600; }
+    .call-notes { font-size: 12px; line-height: 1.4; }
+    .call-next { font-size: 11px; color: var(--purple); font-weight: 700; margin-top: 4px; }
+
+    /* SCRIPT */
+    .script-block { background: #f8fafc; border-radius: 6px; padding: 13px; font-size: 12px; line-height: 1.8; white-space: pre-wrap; color: var(--navy); margin-bottom: 14px; border: 1px solid var(--border); }
+    .script-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); margin-bottom: 7px; }
+    .obj-item { background: #fff7ed; border-left: 3px solid #f59e0b; padding: 8px 11px; border-radius: 0 6px 6px 0; margin-bottom: 7px; font-size: 12px; line-height: 1.5; }
+    .obj-item strong { display: block; color: #92400e; margin-bottom: 2px; font-size: 11px; }
+
+    /* COACHING */
+    .coaching-area { display: flex; flex-direction: column; gap: 10px; }
+    .coaching-area textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; min-height: 130px; resize: vertical; outline: none; font-family: inherit; line-height: 1.6; }
+    .coaching-area textarea:focus { border-color: var(--purple); }
+    .copy-status { font-size: 11px; color: var(--green); font-weight: 600; }
+
+    /* ADD MODAL */
+    .add-modal { background: var(--white); border-radius: 12px; width: 500px; max-width: 96vw; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* EMPTY */
+    .empty { text-align: center; padding: 36px 20px; color: var(--gray); font-size: 12px; }
+
+    /* CALLED OPACITY */
+    .tr-dimmed { opacity: .45; }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">Digital Activation <span>CRM de Prospecção</span></div>
+  <nav>
+    <div class="nav-item active" id="nav-dashboard" onclick="showView('dashboard')">📊 Dashboard</div>
+    <div class="nav-item" id="nav-today" onclick="showView('today')">📞 Para Chamar Hoje</div>
+    <div class="nav-item" id="nav-scheduled" onclick="showView('scheduled')">📅 Agendadas</div>
+    <div class="nav-item" id="nav-leads" onclick="showView('leads')">🏪 Todos os Leads</div>
+  </nav>
+  <div class="sidebar-footer">v1.0 · Digital Activation</div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <h1 id="page-title">Dashboard</h1>
+    <div class="topbar-right">
+      <div class="progress-wrap">
+        <span class="progress-label">Chamadas hoje</span>
+        <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+        <span class="progress-count" id="prog-count">0 / 20</span>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Novo Lead</button>
+    </div>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+
+<!-- LEAD MODAL -->
+<div class="overlay" id="lead-overlay" onclick="maybeClose(event,'lead-overlay',closeLeadModal)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-hd">
+      <div>
+        <h2 id="m-name"></h2>
+        <div class="mh-meta" id="m-meta"></div>
+      </div>
+      <button class="modal-close" onclick="closeLeadModal()">✕</button>
+    </div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('ficha')">Ficha</div>
+      <div class="tab" onclick="switchTab('script')">Script</div>
+      <div class="tab" onclick="switchTab('chamadas')">Chamadas</div>
+      <div class="tab" onclick="switchTab('coaching')">Coaching</div>
+    </div>
+    <div class="modal-body">
+      <div class="tc active" id="tc-ficha">
+        <div class="info-grid" id="m-info"></div>
+        <div style="margin-bottom:12px">
+          <div class="script-label">O que lhes falta</div>
+          <div class="tag-list" id="m-gaps"></div>
+        </div>
+        <div style="margin-bottom:12px">
+          <div class="script-label">O que têm de bom</div>
+          <div class="tag-list" id="m-strengths"></div>
+        </div>
+        <div class="pitch-box" id="m-pitch"></div>
+      </div>
+      <div class="tc" id="tc-script">
+        <div class="script-label">Script de chamada personalizado</div>
+        <div class="script-block" id="m-script"></div>
+        <div class="script-label">Objecções comuns — como responder</div>
+        <div id="m-objections"></div>
+      </div>
+      <div class="tc" id="tc-chamadas">
+        <div class="call-form">
+          <h3>Registar Chamada</h3>
+          <div class="form-row">
+            <div class="fg">
+              <label>Resultado</label>
+              <select id="c-result">
+                <option value="no_answer">Não Atendeu</option>
+                <option value="callback">Pediu Callback</option>
+                <option value="scheduled">Reunião Marcada ✓</option>
+                <option value="rejected">Não Interessado</option>
+                <option value="converted">Convertido — Cliente!</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Data e Hora da Chamada</label>
+              <input type="datetime-local" id="c-dt">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="fg">
+              <label>Próxima Acção (data/hora)</label>
+              <input type="datetime-local" id="c-next">
+            </div>
+            <div class="fg">
+              <label>Notas da Conversa</label>
+              <textarea id="c-notes" placeholder="O que disse? Objecções? Próximos passos?"></textarea>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="saveCall()">Guardar Chamada</button>
+        </div>
+        <div id="m-history"></div>
+      </div>
+      <div class="tc" id="tc-coaching">
+        <div class="coaching-area">
+          <p style="font-size:11px;color:var(--gray);line-height:1.6">Cola aqui a transcrição ou as tuas notas sobre como correu a chamada. Clica em "Copiar Prompt" e cola no Claude para receberes coaching personalizado sobre como melhorar.</p>
+          <textarea id="co-transcript" placeholder="Ex: 'Liguei às 10h, atendeu o dono. Disse que não tinha interesse porque já tinha tentado antes e não resultou. Eu disse... ele respondeu...'"></textarea>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-purple btn-sm" onclick="genCoaching()">Copiar Prompt de Coaching para Claude</button>
+            <span class="copy-status" id="co-status"></span>
+          </div>
+          <div>
+            <div class="script-label" style="margin-bottom:6px">As minhas notas de coaching (o que aprendi)</div>
+            <textarea id="co-notes" placeholder="O que vou fazer diferente na próxima chamada?"></textarea>
+            <button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="saveCoNotes()">Guardar Notas</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-ft">
+      <span style="font-size:11px;color:var(--gray)">Status:</span>
+      <select class="status-sel" id="m-status" onchange="updateStatus()">
+        <option value="new">Novo</option>
+        <option value="no_answer">Não Atendeu</option>
+        <option value="callback">Callback Agendado</option>
+        <option value="scheduled">Reunião Marcada</option>
+        <option value="converted">Convertido</option>
+        <option value="rejected">Rejeitado</option>
+      </select>
+      <div style="flex:1"></div>
+      <button class="btn btn-green btn-sm" onclick="callNow()">📞 Ligar Agora</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD LEAD MODAL -->
+<div class="overlay" id="add-overlay" onclick="maybeClose(event,'add-overlay',closeAddModal)">
+  <div class="add-modal" onclick="event.stopPropagation()">
+    <div class="modal-hd">
+      <div><h2>Novo Lead</h2></div>
+      <button class="modal-close" onclick="closeAddModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="fg"><label>Nome do Negócio *</label><input id="a-name" placeholder="Ex: Tasca do João"></div>
+        <div class="fg"><label>Tipo *</label>
+          <select id="a-type">
+            <option value="restaurante">Restaurante / Tasca</option>
+            <option value="marisqueira">Marisqueira</option>
+            <option value="padaria">Padaria / Pastelaria</option>
+            <option value="barbearia">Barbearia</option>
+            <option value="cabeleireiro">Cabeleireiro</option>
+            <option value="atelier">Atelier / Costura</option>
+            <option value="atelier_infantil">Atelier Infantil</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Zona / Cidade *</label><input id="a-zone" placeholder="Ex: Lisboa"></div>
+        <div class="fg"><label>Telefone *</label><input id="a-phone" placeholder="Ex: 912 345 678"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Email</label><input id="a-email" type="email"></div>
+        <div class="fg"><label>Prioridade</label>
+          <select id="a-priority">
+            <option value="5">5 — Máxima</option>
+            <option value="4">4 — Alta</option>
+            <option value="3" selected>3 — Normal</option>
+            <option value="2">2 — Baixa</option>
+            <option value="1">1 — Mínima</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg" style="margin-bottom:10px"><label>O que lhes falta (separar por vírgulas)</label><input id="a-gaps" placeholder="Ex: Sem website, Sem Google Business Profile"></div>
+      <div class="fg" style="margin-bottom:10px"><label>O que têm de bom (separar por vírgulas)</label><input id="a-strengths" placeholder="Ex: Google 4.5★, Facebook activo, clientela fiel"></div>
+      <div class="fg"><label>Pitch / Argumento principal</label><textarea id="a-pitch" placeholder="Em 1-2 frases: qual é o argumento para ligar a este lead?"></textarea></div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-primary" onclick="saveNewLead()">Guardar Lead</button>
+      <button class="btn" style="background:var(--bg);color:var(--gray)" onclick="closeAddModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DEFAULT_LEADS = [
+  {
+    id:"casa-santiago", name:"Casa Santiago — O Rei do Choco Frito",
+    type:"restaurante", zone:"Setúbal", phone:"265 221 688", phone2:null,
+    email:"reidochocofrito@hotmail.com", website:null,
+    demo:"https://digital-activation.vercel.app/demos/casa-santiago/",
+    gaps:["Sem website próprio","Google Business Profile não optimizado","Sem reservas online"],
+    strengths:["Restaurante icónico desde 1974","Presença activa no Facebook","Referenciado em guias de viagem"],
+    pitch:"O Rei do Choco Frito é conhecido em Setúbal mas invisível no Google. Quem pesquisa 'choco frito Setúbal' não vos encontra — esses clientes vão para a concorrência.",
+    priority:5, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"o-batareo", name:"O Batareo",
+    type:"restaurante", zone:"Setúbal", phone:"265 234 548", phone2:"914 053 850",
+    email:null, website:null,
+    demo:"https://digital-activation.vercel.app/demos/o-batareo/",
+    gaps:["Sem website próprio","Google Business Profile incompleto","Sem reservas online"],
+    strengths:["Google 4.4★","TripAdvisor #49 de 536 em Setúbal","Facebook 2.2K seguidores","Referenciado no Público e NiT"],
+    pitch:"O Batareo tem excelentes reviews mas sem website perde turistas que procuram online. Estão bem no TripAdvisor mas não têm para onde enviar os clientes.",
+    priority:5, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"barber-studio", name:"Barber Studio — Raquel Nunes",
+    type:"barbearia", zone:"Setúbal", phone:"265 419 947", phone2:null,
+    email:null, website:null,
+    demo:"https://digital-activation.vercel.app/demos/barber-studio/",
+    gaps:["Sem website próprio","Marcações só via apps de terceiros (Fresha/Agendoor)"],
+    strengths:["Instagram activo com bom conteúdo","Rating 4.9★ no Fresha e Agendoor","Mencionada 2x no NiT"],
+    pitch:"O Barber Studio já usa ferramentas de marcação online — entendem o valor digital. Mas sem website próprio dependem de plataformas que ficam com comissão e controlam o cliente.",
+    priority:4, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"tradicoes", name:"Tradições by Sem Horas",
+    type:"padaria", zone:"Setúbal", phone:"265 415 487", phone2:null,
+    email:null, website:null,
+    demo:"https://digital-activation.vercel.app/demos/tradicoes/",
+    gaps:["Sem website próprio","Instagram sem link para encomendas online"],
+    strengths:["Google 5★ perfeito","Instagram 3.795 seguidores activos","194 posts publicados","Artigo de abertura no NiT"],
+    pitch:"Tradições tem um Instagram fantástico mas não conseguem converter seguidores em encomendas. Um site resolve isso e multiplica as vendas sem esforço extra.",
+    priority:4, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"marias-maneis", name:"Marias & Manéis",
+    type:"atelier_infantil", zone:"Azeitão", phone:"964 723 101", phone2:null,
+    email:"marias.maneis@hotmail.com", website:null,
+    demo:"https://digital-activation.vercel.app/demos/marias-maneis/",
+    gaps:["Sem website próprio","Sem loja online","Todas as encomendas por DM e telefone"],
+    strengths:["Facebook 28.222 likes","Negócio validado com procura enorme","Roupa infantil artesanal personalizada — produto único"],
+    pitch:"28 mil seguidores no Facebook e todas as encomendas são por mensagem directa. Com loja online recebem pedidos 24h sem esforço extra de comunicação — e escalam sem limite.",
+    priority:5, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"tasca-paulo", name:"A Tasca do Paulo",
+    type:"restaurante", zone:"Évora", phone:"964 161 919", phone2:null,
+    email:null, website:null, demo:null,
+    gaps:["Sem website","Presença digital mínima","Google Business Profile não optimizado"],
+    strengths:["Cozinha alentejana autêntica","Centro histórico de Évora (cidade turística UNESCO)","Clientela fiel e regular"],
+    pitch:"Évora recebe milhares de turistas que pesquisam restaurantes alentejanos no Google. A Tasca do Paulo não aparece — receita perdida todos os dias para quem tem website.",
+    priority:4, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"neguinha-atelier", name:"Neguinha Atelier",
+    type:"atelier_infantil", zone:"Guimarães", phone:"934 652 688", phone2:null,
+    email:null, website:null, demo:null,
+    gaps:["Sem website próprio","Sem loja online","Encomendas só por mensagem directa"],
+    strengths:["Presença no Facebook e Instagram","Roupa infantil artesanal personalizada","Localização em centro comercial — tráfego físico garantido"],
+    pitch:"Fazem roupa personalizada para crianças mas recebem encomendas por mensagem. Uma loja online multiplica os pedidos sem trabalho extra de comunicação.",
+    priority:4, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"maria-paiva", name:"Maria Paiva Atelier",
+    type:"atelier", zone:"Guimarães", phone:"253 036 853", phone2:null,
+    email:null, website:null, demo:null,
+    gaps:["Sem website identificado","Presença digital fraca"],
+    strengths:["Atelier de roupa estabelecido em Guimarães","Cidade com forte tradição têxtil e turismo"],
+    pitch:"Guimarães tem uma herança têxtil única e muito turismo. Um atelier sem website perde todos os clientes que procuram online antes de visitar.",
+    priority:3, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"adda-atelier", name:"ADDA Atelier",
+    type:"atelier", zone:"Aveiro", phone:"965 665 735", phone2:null,
+    email:null, website:null, demo:null,
+    gaps:["Sem website próprio","Só Facebook","Sem sistema de encomendas online"],
+    strengths:["Activo no Facebook","Localização em centro comercial de Aveiro","Faz roupa por medida e arranjos — procura constante"],
+    pitch:"Fazem roupa por medida mas toda a comunicação é por Facebook. Com website e sistema de pedidos online triplicam a capacidade de captar clientes novos.",
+    priority:3, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"costureira-braga", name:"Costureira Atelier de Costura",
+    type:"atelier", zone:"Braga", phone:"965 433 066", phone2:null,
+    email:null, website:null, demo:null,
+    gaps:["Sem website","Visibilidade online quase nula"],
+    strengths:["Centro de Braga — cidade jovem e activa","Serviço de costura tradicional com procura constante"],
+    pitch:"Braga tem muita gente jovem. Uma costureira sem website perde todos os clientes que pesquisam 'arranjos de roupa Braga' ou 'costureira Braga' no Google.",
+    priority:3, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"tiptop-caldas", name:"Cabeleireiros Tip-Top",
+    type:"cabeleireiro", zone:"Caldas da Rainha", phone:"262 832 757", phone2:null,
+    email:null, website:null, demo:null,
+    gaps:["Sem website","Sem marcações online","Só listagem em directório antigo"],
+    strengths:["Nome estabelecido em Caldas da Rainha","Localização central"],
+    pitch:"Cabeleireiros perdem clientes novos para quem aparece primeiro no Google. Sem website e Google Business Profile optimizado, os Tip-Top são invisíveis para quem chega à cidade.",
+    priority:3, status:"new", calls:[], coachingNotes:""
+  },
+  {
+    id:"lina-caldas", name:"Lina Cabeleireiro",
+    type:"cabeleireiro", zone:"Caldas da Rainha", phone:"262 843 654", phone2:null,
+    email:null, website:null, demo:null,
+    gaps:["Sem website","Sem marcações online","Só listagem em directório"],
+    strengths:["Praça 5 de Outubro — localização central prime","Cabeleireiro estabelecido com clientela fiel"],
+    pitch:"Praça central é excelente localização mas sem website ninguém a encontra online. Clientes novos na zona procuram no Google e vão para quem aparece.",
+    priority:3, status:"new", calls:[], coachingNotes:""
+  }
+];
+
+const OBJECTIONS = [
+  { q:"Não tenho interesse", a:"Compreendo. Posso enviar-lhe o relatório de análise da vossa presença online por email? É gratuito e pode ser útil para decisões futuras — não o compromete a nada." },
+  { q:"Já temos alguém para isso", a:"Ótimo — então já sabem o valor que isso tem. Posso perguntar se estão satisfeitos com os resultados? Quantos clientes chegam por mês pelo Google?" },
+  { q:"Quanto custa?", a:"Depende do que precisam — é exactamente isso que vamos ver juntos na reunião. O investimento base é €450 tudo incluído, sem mensalidades obrigatórias. Mas primeiro quero mostrar-lhe o que está em falta." },
+  { q:"Não tenho tempo agora", a:"Sem problema — quando é que fica melhor para si? São só 20 minutos, posso adaptar ao vosso horário, incluindo ao final do dia se preferir." },
+  { q:"Já temos Facebook / Instagram", a:"Ótimo — isso é uma excelente base. O problema é que o Facebook e o Instagram não aparecem nas pesquisas do Google. Quem pesquisa o vosso tipo de negócio na zona não vos encontra." },
+  { q:"É muito dinheiro / muito caro", a:"Compreendo. Por isso prefiro primeiro mostrar-lhe o impacto concreto — quando vê quanto está a perder em clientes por mês, o investimento faz mais sentido. São 20 minutos." },
+];
+
+function buildScript(lead) {
+  const tipo = { restaurante:"restaurante", marisqueira:"marisqueira", padaria:"pastelaria", barbearia:"barbearia", cabeleireiro:"cabeleireiro", atelier:"atelier", atelier_infantil:"atelier", outro:"negócio" };
+  const t = tipo[lead.type] || "negócio";
+  const s0 = lead.strengths[0] || "negócio com potencial";
+
+  if (lead.type === "atelier_infantil" || lead.type === "atelier") {
+    return `ABERTURA
+"Bom dia, estou a falar com ${lead.name}?"
+
+[quando atender]
+"Bom dia, o meu nome é Jean-Marc, sou consultor de marketing digital. Vi o vosso trabalho — ${s0}. Tenho uma pergunta rápida: recebem muitas encomendas por mensagem directa no Facebook ou Instagram?"
+
+[esperar — vão dizer que sim]
+
+"Pois... e quanto tempo perdem por dia a responder, confirmar medidas, combinar pagamentos?"
+
+GANCHO
+"Porque há uma forma de automatizar tudo isso. Com uma loja online simples, o cliente escolhe, indica as medidas, faz a encomenda — tudo no site. Vocês só têm de produzir. Sem mensagens para gerir."
+
+PROPOSTA
+"Posso mostrar-lhe um exemplo exactamente para o vosso tipo de negócio numa reunião de 20 minutos. Quando tem disponibilidade esta semana?"
+
+FECHAR
+"Que tal [propor dia específico]? São só 20 minutos — sem compromisso."`;
+  }
+
+  if (lead.type === "barbearia" || lead.type === "cabeleireiro") {
+    return `ABERTURA
+"Bom dia, estou à procura do responsável pela ${t}."
+
+[quando atender]
+"Bom dia, o meu nome é Jean-Marc, sou consultor de marketing digital. Fiz uma análise à vossa presença online e tenho algo útil para mostrar. Tem 2 minutos?"
+
+GANCHO
+"${s0} — isso é muito bom. Mas sem website próprio, quando alguém pesquisa '${t} em ${lead.zone}' no Google, vocês não aparecem. Clientes novos que chegam à zona vão para a concorrência sem sequer saber que existem."
+
+PROPOSTA
+"O que eu faço é criar um website com marcações online — o cliente marca directamente, sem telefonemas. Posso mostrar exactamente como ficaria em 20 minutos. Quando tem disponibilidade?"
+
+FECHAR
+"Que tal [propor dia específico]? São só 20 minutos — sem pressão, sem compromisso."`;
+  }
+
+  if (lead.type === "padaria") {
+    return `ABERTURA
+"Bom dia, estou à procura do responsável pela ${t}."
+
+[quando atender]
+"Bom dia, o meu nome é Jean-Marc, sou consultor de marketing digital. Vi a vossa presença online — ${s0}. Impressionante. Tenho uma questão: já pensaram em receber encomendas de bolos e pastelaria online?"
+
+GANCHO
+"Com ${s0} têm claramente uma audiência que adora o vosso trabalho. Mas sem site, não conseguem converter essa atenção em encomendas. É dinheiro em cima da mesa."
+
+PROPOSTA
+"Posso mostrar-lhe como ficaria um site com encomendas online em 20 minutos. Quando tem disponibilidade esta semana?"
+
+FECHAR
+"Que tal [propor dia específico]? São só 20 minutos — sem compromisso."`;
+  }
+
+  // restaurante / marisqueira / default
+  return `ABERTURA (primeiros 10 segundos)
+"Bom dia, estou à procura do responsável pelo ${t}."
+
+[quando o dono atender]
+"Bom dia, o meu nome é Jean-Marc. Sou consultor de marketing digital e fiz uma análise à presença online d${lead.name.match(/^[OA] /) ? 'o' : 'e'} ${lead.name}. Tem 2 minutos para eu partilhar o que encontrei?"
+
+SE SIM — GANCHO PRINCIPAL
+"${s0} — isso é muito bom. Mas quando alguém pesquisa '${t} em ${lead.zone}' no Google agora mesmo, vocês não aparecem porque não têm website. Esses clientes vão para a concorrência sem sequer saber que existem."
+
+PROPOSTA
+"O que eu faço é criar um website profissional e optimizar o vosso perfil no Google Maps para aparecerem nas pesquisas certas. Posso mostrar exactamente como ficaria numa reunião de 20 minutos — sem compromisso. Quando tem disponibilidade esta semana?"
+
+FECHAR
+"Que tal [propor dia específico, ex: quinta-feira à tarde]? São só 20 minutos."`;
+}
+
+// ============================================================
+// STATE & STORAGE
+// ============================================================
+let leads = [];
+let curId = null;
+let view = 'dashboard';
+let fStatus = 'all';
+let fSearch = '';
+
+function save() { localStorage.setItem('da_crm_v1', JSON.stringify(leads)); }
+function load() {
+  const d = localStorage.getItem('da_crm_v1');
+  leads = d ? JSON.parse(d) : JSON.parse(JSON.stringify(DEFAULT_LEADS));
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+const SL = { new:'Novo', no_answer:'Não Atendeu', callback:'Callback', scheduled:'Reunião Marcada', converted:'Convertido', rejected:'Rejeitado' };
+const TL = { restaurante:'Restaurante', marisqueira:'Marisqueira', padaria:'Padaria', barbearia:'Barbearia', cabeleireiro:'Cabeleireiro', atelier:'Atelier', atelier_infantil:'Atelier Infantil', outro:'Outro' };
+
+function sl(s) { return SL[s] || s; }
+function tl(t) { return TL[t] || t; }
+function dots(p) {
+  let h = '<div class="dots">';
+  for (let i=1;i<=5;i++) h+=`<div class="dot ${i<=p?'dot-on':'dot-off'}"></div>`;
+  return h+'</div>';
+}
+function sb(s) { return `<span class="sb sb-${s}">${sl(s)}</span>`; }
+
+function todayCount() {
+  const td = new Date().toDateString();
+  return leads.reduce((n,l) => n + l.calls.filter(c => new Date(c.dt).toDateString()===td).length, 0);
+}
+function updateProg() {
+  const n = todayCount();
+  document.getElementById('prog-fill').style.width = Math.min(100,(n/20)*100)+'%';
+  document.getElementById('prog-count').textContent = n+' / 20';
+}
+function nowLocal() {
+  const d = new Date();
+  return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16);
+}
+
+// ============================================================
+// VIEWS
+// ============================================================
+function showView(v) {
+  view = v;
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('nav-'+v).classList.add('active');
+  const titles = { dashboard:'Dashboard', today:'Para Chamar Hoje', scheduled:'Reuniões Agendadas', leads:'Todos os Leads' };
+  document.getElementById('page-title').textContent = titles[v];
+  render();
+}
+
+function render() {
+  if (view==='dashboard') renderDashboard();
+  else if (view==='today') renderToday();
+  else if (view==='scheduled') renderScheduled();
+  else if (view==='leads') renderLeads();
+}
+
+function renderDashboard() {
+  const total = leads.length;
+  const contacted = leads.filter(l=>l.calls.length>0).length;
+  const scheduled = leads.filter(l=>l.status==='scheduled').length;
+  const converted = leads.filter(l=>l.status==='converted').length;
+  const rejected = leads.filter(l=>l.status==='rejected').length;
+
+  const td = new Date().toDateString();
+  const todaySched = leads.filter(l => l.calls.some(c=>c.next && new Date(c.next).toDateString()===td));
+  const calledIds = new Set(leads.filter(l=>l.calls.some(c=>new Date(c.dt).toDateString()===td)).map(l=>l.id));
+  const prio = leads.filter(l=>l.status!=='rejected'&&l.status!=='converted'&&!calledIds.has(l.id)).sort((a,b)=>b.priority-a.priority).slice(0,6);
+
+  document.getElementById('content').innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card sc-total"><div class="lbl">Total Leads</div><div class="val">${total}</div></div>
+      <div class="stat-card sc-contact"><div class="lbl">Contactados</div><div class="val">${contacted}</div></div>
+      <div class="stat-card sc-sched"><div class="lbl">Agendados</div><div class="val">${scheduled}</div></div>
+      <div class="stat-card sc-conv"><div class="lbl">Convertidos</div><div class="val">${converted}</div></div>
+      <div class="stat-card sc-rej"><div class="lbl">Rejeitados</div><div class="val">${rejected}</div></div>
+    </div>
+
+    ${todaySched.length ? `
+    <div class="section-title">📅 Agendados para Hoje <span class="badge badge-purple">${todaySched.length}</span></div>
+    <div style="margin-bottom:22px">
+      ${todaySched.map(l=>{
+        const c=[...l.calls].reverse().find(c=>c.next&&new Date(c.next).toDateString()===td);
+        return `<div class="sched-item" onclick="openLead('${l.id}')">
+          <div class="sched-date">${c?new Date(c.next).toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'}):'Hoje'}</div>
+          <div class="sched-info"><div class="si-name">${l.name}</div><div class="si-meta">${tl(l.type)} · ${l.zone} · ${l.phone}</div></div>
+          ${sb(l.status)}
+        </div>`;
+      }).join('')}
+    </div>` : ''}
+
+    <div class="section-title">🔥 Prioridade para Hoje <span class="badge">${prio.length}</span></div>
+    ${prio.length===0 ? '<div class="empty">Todos os leads já foram contactados hoje. Excelente!</div>' : `
+    <div class="today-grid">
+      ${prio.map(l=>`
+        <div class="today-card" onclick="openLead('${l.id}')">
+          <div class="tc-name">${l.name}</div>
+          <div class="tc-sub">${tl(l.type)} · ${l.zone}</div>
+          <div class="tc-phone">${l.phone}</div>
+          <div class="tc-pitch">${l.pitch.slice(0,110)}…</div>
+          <div class="tc-footer">${sb(l.status)}${dots(l.priority)}</div>
+        </div>`).join('')}
+    </div>`}
+  `;
+}
+
+function renderToday() {
+  const td = new Date().toDateString();
+  const calledIds = new Set(leads.filter(l=>l.calls.some(c=>new Date(c.dt).toDateString()===td)).map(l=>l.id));
+  const active = leads.filter(l=>l.status!=='rejected'&&l.status!=='converted').sort((a,b)=>{
+    if (calledIds.has(a.id)!==calledIds.has(b.id)) return calledIds.has(a.id)?1:-1;
+    return b.priority-a.priority;
+  });
+  document.getElementById('content').innerHTML = `
+    <div class="section-title">📞 Leads para Chamar — ordenados por prioridade</div>
+    <div class="leads-table">
+      <div class="th"><div>Negócio</div><div>Zona</div><div>Telefone</div><div>Tipo</div><div>Status</div><div>Prioridade</div></div>
+      ${active.map(l=>`
+        <div class="tr ${calledIds.has(l.id)?'tr-dimmed':''}" onclick="openLead('${l.id}')">
+          <div><div class="tr-name">${l.name}</div><div class="tr-sub">${calledIds.has(l.id)?'✓ Chamada hoje':l.calls.length?l.calls.length+' chamada(s)':'Nunca contactado'}</div></div>
+          <div class="tr-cell">${l.zone}</div>
+          <div class="tr-phone">${l.phone}</div>
+          <div class="tr-cell">${tl(l.type)}</div>
+          <div>${sb(l.status)}</div>
+          <div>${dots(l.priority)}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderScheduled() {
+  const all = leads.filter(l=>l.calls.some(c=>c.next)).sort((a,b)=>{
+    const an=[...a.calls].reverse().find(c=>c.next);
+    const bn=[...b.calls].reverse().find(c=>c.next);
+    return new Date(an?.next||0)-new Date(bn?.next||0);
+  });
+  document.getElementById('content').innerHTML = `
+    <div class="section-title">📅 Reuniões e Callbacks Agendados</div>
+    ${all.length===0 ? '<div class="empty">Nenhuma reunião ou callback agendado ainda.</div>' : all.map(l=>{
+      const c=[...l.calls].reverse().find(c=>c.next);
+      return `<div class="sched-item" onclick="openLead('${l.id}')">
+        <div class="sched-date">${c?new Date(c.next).toLocaleDateString('pt-PT',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'—'}</div>
+        <div class="sched-info"><div class="si-name">${l.name}</div><div class="si-meta">${l.zone} · ${l.phone}${c?.notes?' · '+c.notes.slice(0,60):''}</div></div>
+        ${sb(l.status)}
+      </div>`;
+    }).join('')}`;
+}
+
+function renderLeads() {
+  const filtered = leads.filter(l=>{
+    const ms = fStatus==='all'||l.status===fStatus;
+    const mq = !fSearch||l.name.toLowerCase().includes(fSearch.toLowerCase())||l.zone.toLowerCase().includes(fSearch.toLowerCase());
+    return ms&&mq;
+  }).sort((a,b)=>b.priority-a.priority);
+
+  document.getElementById('content').innerHTML = `
+    <div class="filters">
+      ${['all','new','no_answer','callback','scheduled','converted','rejected'].map(s=>`
+        <button class="fbtn ${fStatus===s?'active':''}" onclick="setFilter('${s}')">${s==='all'?'Todos':sl(s)}</button>`).join('')}
+      <input class="search-box" type="text" placeholder="Pesquisar..." value="${fSearch}" oninput="setSearch(this.value)">
+    </div>
+    <div class="leads-table">
+      <div class="th"><div>Negócio</div><div>Zona</div><div>Telefone</div><div>Tipo</div><div>Status</div><div>Prioridade</div></div>
+      ${filtered.length===0?'<div class="empty">Nenhum lead encontrado.</div>':filtered.map(l=>`
+        <div class="tr" onclick="openLead('${l.id}')">
+          <div><div class="tr-name">${l.name}</div><div class="tr-sub">${l.calls.length?l.calls.length+' chamada(s)':'Nunca contactado'}</div></div>
+          <div class="tr-cell">${l.zone}</div>
+          <div class="tr-phone">${l.phone}</div>
+          <div class="tr-cell">${tl(l.type)}</div>
+          <div>${sb(l.status)}</div>
+          <div>${dots(l.priority)}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function setFilter(s) { fStatus=s; renderLeads(); }
+function setSearch(q) { fSearch=q; renderLeads(); }
+
+// ============================================================
+// LEAD MODAL
+// ============================================================
+function openLead(id) {
+  curId = id;
+  const l = leads.find(x=>x.id===id);
+  if (!l) return;
+
+  document.getElementById('m-name').textContent = l.name;
+  document.getElementById('m-meta').textContent = `${tl(l.type)} · ${l.zone} · ${l.phone}${l.phone2?' / '+l.phone2:''}`;
+  document.getElementById('m-status').value = l.status;
+
+  // Ficha
+  document.getElementById('m-info').innerHTML = `
+    <div class="ii"><label>Telefone</label><div class="v"><a href="tel:${l.phone.replace(/\s/g,'')}">${l.phone}</a>${l.phone2?` / <a href="tel:${l.phone2.replace(/\s/g,'')}">${l.phone2}</a>`:''}</div></div>
+    <div class="ii"><label>Zona</label><div class="v">${l.zone}</div></div>
+    <div class="ii"><label>Email</label><div class="v">${l.email?`<a href="mailto:${l.email}">${l.email}</a>`:'—'}</div></div>
+    <div class="ii"><label>Website</label><div class="v">${l.website?`<a href="${l.website}" target="_blank">${l.website}</a>`:'Não tem'}</div></div>
+    ${l.demo?`<div class="ii" style="grid-column:1/-1"><label>Demo criada</label><div class="v"><a href="${l.demo}" target="_blank">${l.demo}</a></div></div>`:''}
+  `;
+  document.getElementById('m-gaps').innerHTML = l.gaps.map(g=>`<span class="tag tg">${g}</span>`).join('');
+  document.getElementById('m-strengths').innerHTML = l.strengths.map(s=>`<span class="tag ts">${s}</span>`).join('');
+  document.getElementById('m-pitch').textContent = l.pitch;
+
+  // Script
+  document.getElementById('m-script').textContent = buildScript(l);
+  document.getElementById('m-objections').innerHTML = OBJECTIONS.map(o=>`<div class="obj-item"><strong>"${o.q}"</strong>${o.a}</div>`).join('');
+
+  // Chamadas
+  document.getElementById('c-dt').value = nowLocal();
+  document.getElementById('c-next').value = '';
+  document.getElementById('c-notes').value = '';
+  renderHistory(l);
+
+  // Coaching
+  document.getElementById('co-transcript').value = '';
+  document.getElementById('co-notes').value = l.coachingNotes||'';
+  document.getElementById('co-status').textContent = '';
+
+  switchTab('ficha');
+  document.getElementById('lead-overlay').classList.add('open');
+}
+
+function renderHistory(l) {
+  const h = [...l.calls].reverse();
+  document.getElementById('m-history').innerHTML = h.length===0
+    ? '<div class="empty">Nenhuma chamada registada ainda.</div>'
+    : h.map(c=>`
+      <div class="call-item">
+        <div class="call-ih">${sb(c.result)}<span class="call-dt">${new Date(c.dt).toLocaleString('pt-PT')}</span></div>
+        ${c.notes?`<div class="call-notes">${c.notes}</div>`:''}
+        ${c.next?`<div class="call-next">→ Próxima acção: ${new Date(c.next).toLocaleString('pt-PT')}</div>`:''}
+      </div>`).join('');
+}
+
+function saveCall() {
+  const l = leads.find(x=>x.id===curId);
+  if (!l) return;
+  const result = document.getElementById('c-result').value;
+  l.calls.push({ result, dt: document.getElementById('c-dt').value, next: document.getElementById('c-next').value||null, notes: document.getElementById('c-notes').value });
+  const sm = { no_answer:'no_answer', callback:'callback', scheduled:'scheduled', rejected:'rejected', converted:'converted' };
+  l.status = sm[result]||l.status;
+  save();
+  renderHistory(l);
+  document.getElementById('m-status').value = l.status;
+  document.getElementById('c-notes').value = '';
+  document.getElementById('c-next').value = '';
+  updateProg();
+}
+
+function updateStatus() {
+  const l = leads.find(x=>x.id===curId);
+  if (!l) return;
+  l.status = document.getElementById('m-status').value;
+  save();
+}
+
+function callNow() {
+  const l = leads.find(x=>x.id===curId);
+  if (l) window.location.href = 'tel:'+l.phone.replace(/\s/g,'');
+}
+
+function closeLeadModal() {
+  document.getElementById('lead-overlay').classList.remove('open');
+  render();
+}
+
+function switchTab(t) {
+  const tabs = ['ficha','script','chamadas','coaching'];
+  document.querySelectorAll('.tab').forEach((el,i) => el.classList.toggle('active', tabs[i]===t));
+  tabs.forEach(id => { const el=document.getElementById('tc-'+id); if(el) el.classList.toggle('active', id===t); });
+}
+
+// COACHING
+function genCoaching() {
+  const l = leads.find(x=>x.id===curId);
+  const tr = document.getElementById('co-transcript').value.trim();
+  if (!tr) { alert('Cola primeiro a transcrição ou as notas da conversa.'); return; }
+  const prompt = `Sou consultor de marketing digital em Portugal e estou a aprender a vender websites a pequenos negócios locais.
+
+Acabei de fazer uma chamada de prospecção para ${l.name} (${tl(l.type)} em ${l.zone}).
+
+Objectivo da chamada: marcar uma reunião de 20 minutos para apresentar o serviço.
+
+O script que usei foi:
+---
+${buildScript(l)}
+---
+
+Transcrição / notas da conversa:
+---
+${tr}
+---
+
+Por favor faz-me coaching sobre:
+1. O que correu bem nesta chamada?
+2. O que podia ter corrido melhor?
+3. Que frases específicas devia ter usado em vez das que usei?
+4. Como lidar melhor com as objecções que surgiram?
+5. O que faço diferente na próxima chamada?
+
+Sê directo, construtivo e prático. Foca no que posso melhorar de imediato.`;
+
+  navigator.clipboard.writeText(prompt).then(() => {
+    document.getElementById('co-status').textContent = '✓ Copiado! Cola agora no Claude.';
+  }).catch(() => {
+    document.getElementById('co-status').textContent = 'Erro ao copiar — copia manualmente.';
+  });
+}
+
+function saveCoNotes() {
+  const l = leads.find(x=>x.id===curId);
+  if (!l) return;
+  l.coachingNotes = document.getElementById('co-notes').value;
+  save();
+  document.getElementById('co-status').textContent = '✓ Notas guardadas.';
+}
+
+// ADD LEAD
+function openAddModal() { document.getElementById('add-overlay').classList.add('open'); }
+function closeAddModal() { document.getElementById('add-overlay').classList.remove('open'); }
+
+function saveNewLead() {
+  const name = document.getElementById('a-name').value.trim();
+  const phone = document.getElementById('a-phone').value.trim();
+  if (!name||!phone) { alert('Nome e telefone são obrigatórios.'); return; }
+  leads.push({
+    id:'lead_'+Date.now(), name, phone, phone2:null,
+    type: document.getElementById('a-type').value,
+    zone: document.getElementById('a-zone').value.trim(),
+    email: document.getElementById('a-email').value.trim()||null,
+    website:null, demo:null,
+    gaps: document.getElementById('a-gaps').value.split(',').map(s=>s.trim()).filter(Boolean),
+    strengths: document.getElementById('a-strengths').value.split(',').map(s=>s.trim()).filter(Boolean),
+    pitch: document.getElementById('a-pitch').value.trim(),
+    priority: parseInt(document.getElementById('a-priority').value),
+    status:'new', calls:[], coachingNotes:''
+  });
+  save();
+  closeAddModal();
+  ['a-name','a-phone','a-zone','a-email','a-gaps','a-strengths','a-pitch'].forEach(id=>document.getElementById(id).value='');
+  render();
+}
+
+function maybeClose(e, overlayId, fn) {
+  if (e.target===document.getElementById(overlayId)) fn();
+}
+
+// INIT
+load();
+updateProg();
+render();
+</script>
+</body>
+</html>
