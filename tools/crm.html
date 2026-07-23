@@ -65,6 +65,7 @@
     .section-title { font-size: 13px; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .badge { background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 999px; }
     .badge-purple { background: var(--purple); }
+    .badge-green { background: #16a34a; }
 
     /* TODAY GRID */
     .today-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 22px; }
@@ -794,15 +795,20 @@ function renderDashboard() {
 function renderToday() {
   const td = new Date().toDateString();
   const calledIds = new Set(leads.filter(l=>l.calls.some(c=>new Date(c.dt).toDateString()===td)).map(l=>l.id));
-  const active = leads.filter(l=>l.status!=='rejected'&&l.status!=='converted').sort((a,b)=>{
-    if (calledIds.has(a.id)!==calledIds.has(b.id)) return calledIds.has(a.id)?1:-1;
-    return b.priority-a.priority;
-  });
+  const queue = leads
+    .filter(l => l.status !== 'rejected' && l.status !== 'converted')
+    .sort((a, b) => b.priority - a.priority)
+    .slice(0, 20);
+  const done = queue.filter(l => calledIds.has(l.id)).length;
+  const remaining = queue.length - done;
   document.getElementById('content').innerHTML = `
-    <div class="section-title">📞 Leads para Chamar — ordenados por prioridade</div>
+    <div class="section-title">📞 Chamadas de Hoje — top 20 por prioridade
+      <span class="badge badge-purple">${done}/20 feitas</span>
+      ${remaining > 0 ? `<span class="badge">${remaining} por fazer</span>` : '<span class="badge badge-green">Concluído!</span>'}
+    </div>
     <div class="leads-table">
       <div class="th"><div>Negócio</div><div>Zona</div><div>Telefone</div><div>Tipo</div><div>Status</div><div>Prioridade</div></div>
-      ${active.map(l=>`
+      ${queue.map(l=>`
         <div class="tr ${calledIds.has(l.id)?'tr-dimmed':''}" onclick="openLead('${l.id}')">
           <div><div class="tr-name">${l.name}</div><div class="tr-sub">${calledIds.has(l.id)?'✓ Chamada hoje':l.calls.length?l.calls.length+' chamada(s)':'Nunca contactado'}</div></div>
           <div class="tr-cell">${l.zone}</div>
