@@ -266,24 +266,65 @@ Rejeitar: collages com watermarks/cartoons (RestaurantGuru), fotos irrelevantes.
 
 ---
 
-## Estado das vendas
+## Estado das vendas (Jul 2026)
 
 | Prospect | Estado |
 |----------|--------|
-| Casa Santiago | Pronto para contactar — guião preparado |
-| O Batareo | Site pronto, quality checklist feita |
-| Barber Studio | Site pronto, quality checklist feita (confirmar preços e horário) |
-| Tradições | Site pronto, quality checklist feita (confirmar preços e horário) |
-| Marias & Manéis | Site pronto, quality checklist feita (confirmar rating/reviews) |
+| Casa Santiago | Tentativa de contacto — não atendeu. Voltar a tentar. |
+| O Batareo | Pronto para contactar |
+| Barber Studio | Pronto para contactar |
+| Tradições | Pronto para contactar |
+| Marias & Manéis | Site com carrinho WhatsApp (fix Jul 2026). Pronto para contactar. |
+
+---
+
+## CRM de Prospecção (`tools/crm.html`)
+
+Criado em Jul 2026. Disponível em `https://digital-activation.vercel.app/tools/crm.html`.
+
+- **112 leads** pré-carregados (5 demos existentes + 107 novos encontrados em directórios PT)
+- Leads novos cobrem: Faro/Algarve, Braga/Guimarães, Viseu/Lamego, Coimbra/Figueira, Évora/Alentejo, Setúbal/Sesimbra, Santarém/Tomar
+- Tipos: restaurantes, tascas, cabeleireiros, barbearias, padarias, ateliers infantis
+- Funcionalidades: dashboard com stats, "Para Chamar Hoje", agendadas, ficha por lead, script personalizado por tipo de negócio, registo de chamadas, coaching via Claude
+- Dados guardados em localStorage (auto-merge de novos leads sem apagar dados existentes)
+- Objectivo diário: 20 chamadas
+
+### Abordagem de vendas validada
+
+**Regra principal:** não começar com nome nem empresa — começar com uma pergunta que revela a dor.
+
+Três aberturas leves que funcionam:
+1. *"Bom dia, aparecem quando pesquiso '[tipo] em [zona]' no Google?"*
+2. *"Bom dia, vi o vosso negócio e reparei que não têm website — é uma escolha ou algo que estão a pensar?"*
+3. *"Bom dia, trabalho com negócios aqui na zona a aparecerem no Google. Tenho dois minutos para lhe mostrar como o vosso aparece agora?"*
+
+Apresentação pessoal e empresa vêm depois de o cliente estar curioso — não na abertura.
+
+### Workflow de prospecção
+
+1. Abrir CRM → ver "Para Chamar Hoje" (ordenado por prioridade)
+2. Abrir ficha do lead → ver script personalizado
+3. Ligar → registar resultado (não atendeu / callback / reunião / não interessado)
+4. Se positivo → construir demo em 1-2h → enviar link por WhatsApp
+5. Nunca construir demo antes de ter interesse confirmado
+
+### Fix: GITHUB_PAT expirado (Jul 2026)
+
+O GITHUB_PAT expira. Quando o admin de um cliente deixar de guardar (erro 401), renovar em:
+1. github.com/settings/tokens → Generate new token (classic) → scope: `repo`, **No expiration**
+2. Vercel → digital-activation → Settings → Environment Variables → actualizar `GITHUB_PAT`
+3. Redeploy no Vercel
 
 ---
 
 ## Próximos passos
 
-1. **Contactar Casa Santiago** — prioridade máxima. Guião completo preparado.
-2. **Prospetar negócios novos** — critério: sem site próprio, boa reputação local (Setúbal/Sesimbra)
-3. **Analytics** — instalar GA4 quando primeiro cliente confirmar
-4. **Política de privacidade** — necessária antes de ir a live com analytics (item "fail" em todos os sites)
+1. **Fazer chamadas** — usar CRM diariamente, objectivo 20/dia
+2. **Casa Santiago** — voltar a ligar (não atendeu na primeira tentativa)
+3. **Marias & Manéis** — prioridade alta: 28K Facebook, sem website, encomendas por DM
+4. **Quando positivo** — construir demo em 1-2h, enviar link
+5. **Analytics** — instalar GA4 quando primeiro cliente confirmar
+6. **Política de privacidade** — necessária antes de ir a live com analytics
 
 ---
 
@@ -311,6 +352,7 @@ digital_activation/
     ├── assessment.html
     ├── report.html
     ├── proposal.html           ← 4 streams, preços actualizados
+    ├── crm.html                ← CRM de prospecção com 112 leads (Jul 2026)
     ├── quality-report.html     ← com selector de site
     ├── assessments/
     │   ├── casa-santiago.json
