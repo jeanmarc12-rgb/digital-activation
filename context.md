@@ -66,7 +66,7 @@ Stream 5 · CONVERSION   → Reservas online + email marketing + menu UX
 | 006 | Barber Studio (Raquel Nunes) | Setúbal | Barbearia | 54/120 (45%) | D | /demos/barber-studio/ |
 | 007 | Tradições by Sem Horas | Setúbal | Padaria | 56/120 (47%) | D | /demos/tradicoes/ |
 | 008 | Marias & Manéis | Azeitão | Atelier infantil | 48/120 (40%) | D | /demos/marias-maneis/ |
-| 009 | Cava (Cava Group) | — (B2B, sem morada pública) | Água/ozono — dispensadores, garrafas personalizadas, EcofrogPro, máquinas de troco | N/A — modelo diferente, ver nota abaixo | — | /demos/cava/, /demos/cava-premium/, /demos/cava-dynamic/ |
+| 009 | Cava (Cava Group) | — (B2B, sem morada pública) | Água/ozono — dispensadores, garrafas personalizadas, EcofrogPro, máquinas de troco | N/A — modelo diferente, ver nota abaixo | — | /demos/cava/, /demos/cava-premium/, /demos/cava-dynamic/, /demos/cava-flagship/ |
 
 Base URL: `https://digital-activation.vercel.app`  
 Admin CMS: `https://digital-activation.vercel.app/admin/`
@@ -80,7 +80,7 @@ Cava é diferente dos restantes prospects: não é um pequeno negócio local sem
 - **Modelo de negócio**: comissão sobre vendas fechadas através do site — não retainer mensal, não Foundation Pack pago. Zero custo fixo para o dono da Cava.
 - **Sem checkout/e-commerce fixo**: os clientes da Cava pedem orçamento à medida (preços variam por instalação) — o site funciona como catálogo + lead-gen, com botão "Pedir Orçamento" por produto que abre WhatsApp com mensagem pré-preenchida.
 - **Assets**: fotos reais extraídas do Instagram `@cava_group` via screenshot do Safari (JavaScript-from-Apple-Events e WebFetch bloqueados pelo Instagram para não autenticados) — não via TripAdvisor/WebSearch como os outros sites.
-- **Três versões em paralelo** (ver `DESIGN_TIERS.md`): `/demos/cava/` (v1, antes do template dos 3 níveis), `/demos/cava-premium/` (Nível 2 — Sora/Inter, ícones SVG, blocos alternados), `/demos/cava-dynamic/` (Nível 3 — loading bar, parallax, Ken Burns, secções numeradas, sectores em hover-cards). Ainda por decidir com o cliente qual avança como site final.
+- **Quatro versões em paralelo** (ver `DESIGN_TIERS.md`): `/demos/cava/` (Standard), `/demos/cava-premium/` (Premium — scroll-reveal, elevação em cards, Ken Burns subtil), `/demos/cava-dynamic/` (Dynamic — loading bar, parallax, Ken Burns, hero com reveal por linha, secções numeradas, sectores em hover-cards com fallback de toque/foco), `/demos/cava-flagship/` (Flagship, fora dos 3 níveis do template — dark glassmorphism, bento grid, contadores animados, timeline SVG, cursor magnético, tilt 3D nos cards). Todos os 4 partilham paleta/tipografia geradas via skill `ui-ux-pro-max` (navy `#0F172A` + azul `#0369A1`/`#0EA5E9`, Poppins/Open Sans). Ainda por decidir com o cliente qual avança como site final.
 - **Contactos no site são temporários** — telefone/email são os do agente (Davi), não ainda os da Cava; substituir assim que o dono confirmar os próprios.
 
 ---
@@ -376,9 +376,10 @@ digital_activation/
 │   ├── barber-studio/          ← dark vermelho, barbearia (admin/ activo)
 │   ├── tradicoes/              ← claro terracotta, padaria (admin/ activo)
 │   ├── marias-maneis/          ← rosa blush, e-commerce infantil (admin/ activo)
-│   ├── cava/                   ← v1, água/ozono B2B, modelo comissão (sem admin/)
-│   ├── cava-premium/           ← Nível 2 (DESIGN_TIERS.md) — Sora/Inter, edge-to-edge
-│   └── cava-dynamic/           ← Nível 3 (DESIGN_TIERS.md) — parallax, loading bar
+│   ├── cava/                   ← Standard (DESIGN_TIERS.md), água/ozono B2B, modelo comissão (sem admin/)
+│   ├── cava-premium/           ← Premium (DESIGN_TIERS.md) — Poppins/Open Sans, edge-to-edge, scroll-reveal
+│   ├── cava-dynamic/           ← Dynamic (DESIGN_TIERS.md) — parallax, loading bar, hero reveal por linha
+│   └── cava-flagship/          ← Flagship, fora dos 3 níveis — dark glass, bento grid, cursor magnético, tilt 3D
 ├── prospects/
 │   └── prospects.json
 └── tools/
