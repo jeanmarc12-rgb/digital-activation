@@ -27,10 +27,11 @@ function updateScrollProgress() {
   scrollProgress.style.width = scrolled + '%';
 }
 
-// ── Hero parallax ──
+// ── Hero parallax (desativado se o utilizador preferir menos movimento) ──
 const heroParallax = document.getElementById('heroParallax');
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function updateParallax() {
-  if (!heroParallax) return;
+  if (!heroParallax || prefersReducedMotion) return;
   const y = window.scrollY;
   if (y < window.innerHeight * 1.2) {
     heroParallax.style.transform = `translateY(${y * 0.35}px)`;
