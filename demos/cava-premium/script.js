@@ -1,3 +1,20 @@
+// Scroll reveal (IntersectionObserver) — entrada suave por secção/card
+const revealEls = document.querySelectorAll('[data-reveal]');
+document.querySelectorAll('.stagger').forEach(group => {
+  group.querySelectorAll(':scope > [data-reveal]').forEach((el, i) => {
+    el.style.setProperty('--i', i);
+  });
+});
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
 // Nav scroll
 const nav = document.getElementById('nav');
 const navToggle = document.getElementById('navToggle');

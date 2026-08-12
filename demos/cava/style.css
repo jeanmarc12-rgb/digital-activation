@@ -73,6 +73,7 @@ img { display: block; max-width: 100%; }
 }
 .btn-primary { background: var(--blue); color: #fff; }
 .btn-primary:hover { background: var(--blue-light); transform: translateY(-2px); }
+.btn:active { transform: scale(0.97); }
 .btn-ghost {
   background: transparent;
   color: #fff;

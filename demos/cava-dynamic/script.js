@@ -13,7 +13,10 @@ const loaderPct = document.getElementById('loaderPct');
     if (pct < 100) {
       setTimeout(step, 90 + Math.random() * 90);
     } else {
-      setTimeout(() => loader.classList.add('done'), 250);
+      setTimeout(() => {
+        loader.classList.add('done');
+        document.getElementById('heroContent').classList.add('loaded');
+      }, 250);
     }
   };
   step();
@@ -81,11 +84,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // ── Scroll reveal (IntersectionObserver) ──
 const revealEls = document.querySelectorAll('[data-reveal]');
-revealEls.forEach((el, i) => {
-  const parent = el.parentElement;
-  if (parent && parent.classList.contains('stagger')) {
-    el.style.setProperty('--i', i % 8);
-  }
+document.querySelectorAll('.stagger').forEach(group => {
+  group.querySelectorAll(':scope > [data-reveal]').forEach((el, i) => {
+    el.style.setProperty('--i', i);
+  });
 });
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -96,6 +98,15 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 revealEls.forEach(el => revealObserver.observe(el));
+
+// ── Sector cards — toggle por toque/click (não depender só de hover) ──
+document.querySelectorAll('.sector-hover-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const wasActive = card.classList.contains('active');
+    document.querySelectorAll('.sector-hover-card.active').forEach(c => c.classList.remove('active'));
+    if (!wasActive) card.classList.add('active');
+  });
+});
 
 // ── Pedir Orçamento — WhatsApp pré-preenchido por produto ──
 const WHATSAPP_NUMBER = '351918737731';
