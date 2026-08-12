@@ -66,9 +66,22 @@ Stream 5 · CONVERSION   → Reservas online + email marketing + menu UX
 | 006 | Barber Studio (Raquel Nunes) | Setúbal | Barbearia | 54/120 (45%) | D | /demos/barber-studio/ |
 | 007 | Tradições by Sem Horas | Setúbal | Padaria | 56/120 (47%) | D | /demos/tradicoes/ |
 | 008 | Marias & Manéis | Azeitão | Atelier infantil | 48/120 (40%) | D | /demos/marias-maneis/ |
+| 009 | Cava (Cava Group) | — (B2B, sem morada pública) | Água/ozono — dispensadores, garrafas personalizadas, EcofrogPro, máquinas de troco | N/A — modelo diferente, ver nota abaixo | — | /demos/cava/, /demos/cava-premium/, /demos/cava-dynamic/ |
 
 Base URL: `https://digital-activation.vercel.app`  
 Admin CMS: `https://digital-activation.vercel.app/admin/`
+
+---
+
+## Caso especial — Cava (modelo de comissão)
+
+Cava é diferente dos restantes prospects: não é um pequeno negócio local sem site, é um fornecedor B2B (dispensadores de água, garrafas personalizadas, tecnologia de ozono EcofrogPro, máquinas de troco automático) para restauração, hotelaria e indústria.
+
+- **Modelo de negócio**: comissão sobre vendas fechadas através do site — não retainer mensal, não Foundation Pack pago. Zero custo fixo para o dono da Cava.
+- **Sem checkout/e-commerce fixo**: os clientes da Cava pedem orçamento à medida (preços variam por instalação) — o site funciona como catálogo + lead-gen, com botão "Pedir Orçamento" por produto que abre WhatsApp com mensagem pré-preenchida.
+- **Assets**: fotos reais extraídas do Instagram `@cava_group` via screenshot do Safari (JavaScript-from-Apple-Events e WebFetch bloqueados pelo Instagram para não autenticados) — não via TripAdvisor/WebSearch como os outros sites.
+- **Três versões em paralelo** (ver `DESIGN_TIERS.md`): `/demos/cava/` (v1, antes do template dos 3 níveis), `/demos/cava-premium/` (Nível 2 — Sora/Inter, ícones SVG, blocos alternados), `/demos/cava-dynamic/` (Nível 3 — loading bar, parallax, Ken Burns, secções numeradas, sectores em hover-cards). Ainda por decidir com o cliente qual avança como site final.
+- **Contactos no site são temporários** — telefone/email são os do agente (Davi), não ainda os da Cava; substituir assim que o dono confirmar os próprios.
 
 ---
 
@@ -157,6 +170,22 @@ O admin central em `/admin/` ainda existe mas foi substituído pelos painéis is
 | `quality-report.html` | Checklist de qualidade com **selector** para escolher entre os 5 sites |
 | `assessments/[site].json` | Assessment preenchido por pilar |
 | `quality/[site].json` | Checklist de qualidade preenchida para todos os 5 sites |
+
+---
+
+## Metodologia — 3 Níveis de Site (`DESIGN_TIERS.md`)
+
+Template para apresentar a um cliente 3 versões do mesmo site em paralelo, cada uma com mais produção visual que a anterior. Ficheiro completo na raiz do repo: `DESIGN_TIERS.md`.
+
+| Nível | Estilo | Características |
+|-------|--------|-----------------|
+| **Standard** | Clássico, rápido | Layout limpo, sem animações, foco em clareza/velocidade |
+| **Premium** | Editorial | Imagens full-width edge-to-edge, tipografia de autor, ícones premium (Lucide/Phosphor, nunca emoji nativo) |
+| **Dynamic** | Storytelling | Parallax, loading com barra de progresso, secções numeradas, micro-interações — inspirado em belgradearbor.rs/en |
+
+**Fluxo:** perguntar ao cliente se quer os 3 gerados já com os defaults (marcados `[default]` em cada pergunta do ficheiro) ou se prefere responder às perguntas de estilo por nível primeiro → gerar as 3 pastas (`/standard`, `/premium`, `/dynamic`) → iterar por nível a partir do feedback do cliente.
+
+**Nota:** isto é uma ferramenta de apresentação/pitch (mostrar opções antes de decidir) — não substitui a regra de "sites são produção desde o início" para o site final escolhido.
 
 ---
 
@@ -333,6 +362,7 @@ O GITHUB_PAT expira. Quando o admin de um cliente deixar de guardar (erro 401), 
 ```
 digital_activation/
 ├── context.md
+├── DESIGN_TIERS.md              ← template de geração de 3 níveis (Standard/Premium/Dynamic)
 ├── admin/
 │   ├── index.html              ← Decap CMS (todos os sites)
 │   └── config.yml              ← schema de conteúdo
@@ -345,7 +375,10 @@ digital_activation/
 │   ├── o-batareo/              ← dark teal, restaurante peixe (admin/ activo)
 │   ├── barber-studio/          ← dark vermelho, barbearia (admin/ activo)
 │   ├── tradicoes/              ← claro terracotta, padaria (admin/ activo)
-│   └── marias-maneis/          ← rosa blush, e-commerce infantil (admin/ activo)
+│   ├── marias-maneis/          ← rosa blush, e-commerce infantil (admin/ activo)
+│   ├── cava/                   ← v1, água/ozono B2B, modelo comissão (sem admin/)
+│   ├── cava-premium/           ← Nível 2 (DESIGN_TIERS.md) — Sora/Inter, edge-to-edge
+│   └── cava-dynamic/           ← Nível 3 (DESIGN_TIERS.md) — parallax, loading bar
 ├── prospects/
 │   └── prospects.json
 └── tools/
